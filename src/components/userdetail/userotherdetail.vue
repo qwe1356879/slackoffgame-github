@@ -1,0 +1,108 @@
+<template>
+  <div class="main">
+
+        <el-tooltip effect="dark" placement="bottom">
+          <template #content>
+            <div class="tip-img"><img src='../../assets/icons/tips.png' /></div>
+             <p> * 角色攻击力</p>
+             <p>  * 角色攻击力将直接影响角色DPS</p>
+          </template>
+          <div class="sx">
+          <img src='../../assets/icons/ATK.png'/>
+           <p>1998</p>
+          </div>
+        </el-tooltip>
+         
+       <el-tooltip effect="dark" placement="bottom">
+          <template #content>
+            <div class="tip-img"><img src='../../assets/icons/tips.png' /></div>
+             <p> * 角色暴击率</p>
+             <p>  * 角色暴击率将直接影响角色DPS</p>
+          </template>
+          <div class="sx">
+          <img src='../../assets/icons/CRIT.png'/>
+           <p>1%</p>
+          </div>
+        </el-tooltip>
+
+          <el-tooltip effect="dark" placement="bottom">
+          <template #content>
+            <div class="tip-img"><img src='../../assets/icons/tips.png' /></div>
+             <p> * 角色暴击伤害</p>
+             <p>  * 角色暴击伤害将直接影响角色DPS</p>
+          </template>
+          <div class="sx">
+          <img src='../../assets/icons/CRITDMG.png'/>
+           <p>10%</p>
+          </div>
+        </el-tooltip>
+
+          <el-tooltip effect="dark" placement="bottom">
+          <template #content>
+            <div class="tip-img"><img src='../../assets/icons/tips.png' /></div>
+             <p> * 角色防御力</p>
+             <p>  * 减伤比例采用非线性计算，防御力越高收益越低</p>
+          </template>
+          <div class="sx">
+          <img src='../../assets/icons/icon_11.png'/>
+           <p>1998</p>
+          </div>
+        </el-tooltip>
+
+          <el-tooltip effect="dark" placement="bottom">
+          <template #content>
+            <div class="tip-img"><img src='../../assets/icons/tips.png' /></div>
+             <p>  * 角色格挡值</p>
+             <p>  * 计算护甲后在计算格挡伤害就是最终受到的伤害</p>
+          </template>
+          <div class="sx">
+          <img src='../../assets/icons/S_BLOC.png'/>
+           <p>1998</p>
+          </div>
+        </el-tooltip>
+
+       
+
+      
+     
+  </div>
+</template>
+
+<script>
+import { reactive, toRefs } from "vue";
+
+export default {
+  setup() {
+    const state = reactive({
+      count: 0,
+    });
+
+    return {
+      ...toRefs(state),
+    };
+  },
+};
+</script>
+
+<style lang="scss" scoped>
+.tip-img{
+  text-align: center;
+ 
+}
+.tip-img img{
+ width: 38px;
+  height: 38px;
+}
+.main {
+  display: grid !important;
+  grid-template-columns: 33.3% 33.3% 33.3%;
+  grid-template-rows: 90px 90px;
+}
+.sx img{
+     margin-top:1rem;
+}
+.sx p{
+    font-size:19px;
+    margin-top:0.4rem
+}
+</style>

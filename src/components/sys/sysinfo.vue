@@ -1,6 +1,6 @@
 <template>
-    <div>
-
+    <div class="sys">
+        123
     </div>
 </template>
 
@@ -21,5 +21,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
+.sys{
+    border: 2px solid #ccc;
+    margin: 0.8rem;
+     height: 535px;
+}
 </style>

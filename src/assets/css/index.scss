@@ -1,0 +1,21 @@
+.main{
+    background: #111;
+    display: flex;
+    height: 100vh;
+}
+.back{
+    width: 50%;
+    border: 2px solid #ccc;
+    background-image: url(../weapon/map/map.jpg);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    margin: 1rem;
+}
+.left-detail{
+    
+    width: 50%;
+    margin: 1rem;
+}
+.info-area{
+   display: flex;
+}
