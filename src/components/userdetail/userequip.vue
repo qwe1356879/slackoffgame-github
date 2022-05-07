@@ -1,12 +1,20 @@
 <template>
     <div class="main">
-        <div class="equipment">
+        <el-tooltip placement="bottom">
+            <template #content>
+                <div class="equip-area">
+                    123
+                </div>
+            </template>
+            <div class="equipment">
             <div class="border">
                 <img src='../../assets/weapon/S_Sword01.png'/>
             </div>
             <p>新手剑</p>
         </div>
 
+            </el-tooltip>
+      
         <div class="equipment">
             <div class="border">
                 <img src='../../assets/weapon/S_Sword01.png'/>
@@ -54,5 +62,9 @@
     font-size: 18px;
     line-height: 53px;
     text-indent: 15px;
+}
+
+.equip-area{
+    
 }
 </style>
