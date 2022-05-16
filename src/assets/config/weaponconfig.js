@@ -19,29 +19,31 @@ var fomatFloat = function(value, n) {
     }
 
 function randomquality() {
-        let quality = Math.random()
-        let final =fomatFloat(quality,1)
+        // let quality = 
+        let final =fomatFloat(Math.random(),1)
         if(final==0.0){
             final+=0.1
         }
         return  final;
     }
+
+    
 //随机词条
 var extra=[
-    '暴击率','攻击','暴击伤害','生命','护甲','每秒恢复HP'
+    '暴击率','攻击','暴击伤害','生命','防御力','每秒恢复HP'
 ]
 var basicextra=[
     '暴击率','攻击','暴击伤害'
 ]
-//DPS = dmg/quality
-var weaponlist = [
-    {
+
+var crateWeapon= function(level){
+    let weapon =  {
         name:"新手剑",
-        type:'',
+        type:'武器',
         intro:"新手村赛利亚打造，5G一件，质量堪忧",
         dmg:random(1,3),
         quality:randomquality(),
-        extraNum:random(1,5),
+        extraNum:0,
         imgurl:"S_Sword01",
         extraList:[],
         dmglist:[],
@@ -49,198 +51,195 @@ var weaponlist = [
         qualityname:"",
         color:'',
         fontcolor:'',
-        lv:random(1,60)
+        lv:level
+    }
 
-    },
-]
-
-for (let i=0;i<weaponlist.length;i++){
-    
-
-    weaponlist[i].type='武器'
-   let x = {
-    "攻击":"+"+random(weaponlist[0].lv*0.7,weaponlist[0].lv*0.8).toFixed(0)
-   }
-   weaponlist[i].dmglist.push(x)
-    if(weaponlist[i].quality<=0.2){
-        weaponlist[i].qualityname='SP'
-        weaponlist[i].color='rgb(255 0 0) 0px 0px 7px 2px inset'
-        weaponlist[i].fontcolor='rgb(255 0 0)'
-        
-        for(let j=0;j<weaponlist[i].dmg;j++){
+        let x = {
+        "攻击":"+"+random(weapon.lv*0.7,weapon.lv*0.8).toFixed(0)
+       }
+       weapon.dmglist.push(x)
+       if(weapon.quality<=0.1){
+        weapon.qualityname='SP'
+        weapon.color='rgb(255 0 0) 0px 0px 7px 2px inset'
+        weapon.fontcolor='rgb(255 0 0)'
+        weapon.extraNum = random(4,5)
+        for(let j=0;j<weapon.dmg;j++){
             let code = basicextra[random(0,basicextra.length-1)]
             let obj = {}
             if(code=='暴击率'){
-                obj[code]="+"+random(weaponlist[0].lv*0.8,weaponlist[0].lv*0.9).toFixed(0)+"%"
-                weaponlist[i].dmglist.push(obj)
+                obj[code]="+"+random(4,10).toFixed(0)+"%"
+                weapon.dmglist.push(obj)
             }else if(code=='暴击伤害'){
-                obj[code]="+"+random(weaponlist[0].lv*1.1,weaponlist[0].lv*1.2).toFixed(0)+"%"
-                weaponlist[i].dmglist.push(obj)
+                obj[code]="+"+random(weapon.lv*1.1,weapon.lv*1.2).toFixed(0)+"%"
+                weapon.dmglist.push(obj)
             }else{
-                obj[code]="+"+random(weaponlist[0].lv*1.6,weaponlist[0].lv*1.8).toFixed(0)
-                weaponlist[i].dmglist.push(obj)
+                obj[code]="+"+random(weapon.lv*2.2,weapon.lv*2.5).toFixed(0)
+                weapon.dmglist.push(obj)
             }
         }
-        for(let j=0;j<weaponlist[i].extraNum;j++){
+        for(let j=0;j<weapon.extraNum;j++){
             let code = extra[random(0,extra.length-1)]
             let obj = {}
             if(code=='暴击率'){
-                obj[code]="+"+random(weaponlist[0].lv*0.6,weaponlist[0].lv*0.7).toFixed(0)+"%"
-                weaponlist[i].extraList.push(obj)
+                obj[code]="+"+random(4,10).toFixed(0)+"%"
+                weapon.extraList.push(obj)
             }else if(code=='暴击伤害'){
-                obj[code]="+"+random(weaponlist[0].lv*0.8,weaponlist[0].lv*0.9).toFixed(0)+"%"
-                weaponlist[i].extraList.push(obj)
+                obj[code]="+"+random(weapon.lv*0.8,weapon.lv*0.9).toFixed(0)+"%"
+                weapon.extraList.push(obj)
             }else{
-                obj[code]="+"+random(weaponlist[0].lv*1.3,weaponlist[0].lv*1.5).toFixed(0)
-                weaponlist[i].extraList.push(obj)
+                obj[code]="+"+random(weapon.lv*2.2,weapon.lv*2.5).toFixed(0)
+                weapon.extraList.push(obj)
             }
         }
     }
-    else if(weaponlist[i].quality<=0.3){
-        weaponlist[i].qualityname='SSR'
-        weaponlist[i].color='rgb(247 137 24) 0px 0px 7px 2px inset'
-        weaponlist[i].fontcolor='rgb(247 137 24)'
-        for(let j=0;j<weaponlist[i].dmg;j++){
+    else if(weapon.quality<=0.3){
+        weapon.qualityname='SSR'
+        weapon.color='rgb(247 137 24) 0px 0px 7px 2px inset'
+        weapon.fontcolor='rgb(247 137 24)'
+        weapon.extraNum = random(3,4)
+        for(let j=0;j<weapon.dmg;j++){
             let code = basicextra[random(0,basicextra.length-1)]
             let obj = {}
             
             if(code=='暴击率'){
-                obj[code]="+"+random(weaponlist[0].lv*0.7,weaponlist[0].lv*0.8).toFixed(0)+"%"
-                weaponlist[i].dmglist.push(obj)
+                obj[code]="+"+random(4,10).toFixed(0)+"%"
+                weapon.dmglist.push(obj)
             }else if(code=='暴击伤害'){
-                obj[code]="+"+random(weaponlist[0].lv*0.8,weaponlist[0].lv*0.9).toFixed(0)+"%"
-                weaponlist[i].dmglist.push(obj)
+                obj[code]="+"+random(weapon.lv*0.8,weapon.lv*0.9).toFixed(0)+"%"
+                weapon.dmglist.push(obj)
             }else{
-                obj[code]="+"+random(weaponlist[0].lv*1.1,weaponlist[0].lv*1.2).toFixed(0)
-                weaponlist[i].dmglist.push(obj)
+                obj[code]="+"+random(weapon.lv*1.9,weapon.lv*2.1).toFixed(0)
+                weapon.dmglist.push(obj)
             }
         }
 
-        for(let j=0;j<weaponlist[i].extraNum;j++){
+        for(let j=0;j<weapon.extraNum;j++){
             let code = extra[random(0,extra.length-1)]
             let obj = {}
             if(code=='暴击率'){
-                obj[code]="+"+random(weaponlist[0].lv*0.5,weaponlist[0].lv*0.6).toFixed(0)+"%"
-                weaponlist[i].extraList.push(obj)
+                obj[code]="+"+random(4,10).toFixed(0)+"%"
+                weapon.extraList.push(obj)
             }else if(code=='暴击伤害'){
-                obj[code]="+"+random(weaponlist[0].lv*0.7,weaponlist[0].lv*0.8).toFixed(0)+"%"
-                weaponlist[i].extraList.push(obj)
+                obj[code]="+"+random(weapon.lv*0.7,weapon.lv*0.8).toFixed(0)+"%"
+                weapon.extraList.push(obj)
             }else{
-                obj[code]="+"+random(weaponlist[0].lv*1.1,weaponlist[0].lv*1.2).toFixed(0)
-                weaponlist[i].extraList.push(obj)
+                obj[code]="+"+random(weapon.lv*1.9,weapon.lv*2.1).toFixed(0)
+                weapon.extraList.push(obj)
             }
         }
     }
-    else if(weaponlist[i].quality<=0.7){
-        weaponlist[i].qualityname='SR'
-        weaponlist[i].color='rgb(255 0 255) 0px 0px 7px 2px inset'
-        weaponlist[i].fontcolor='rgb(255 0 255)'
-        for(let j=0;j<weaponlist[i].dmg;j++){
+    else if(weapon.quality<=0.7){
+        weapon.qualityname='SR'
+        weapon.color='rgb(255 0 255) 0px 0px 7px 2px inset'
+        weapon.fontcolor='rgb(255 0 255)'
+        weapon.extraNum = random(2,3)
+        for(let j=0;j<weapon.dmg;j++){
             let code = basicextra[random(0,basicextra.length-1)]
             let obj = {}
             
             if(code=='暴击率'){
-                obj[code]="+"+random(weaponlist[0].lv*0.6,weaponlist[0].lv*0.7).toFixed(0)+"%"
-                weaponlist[i].dmglist.push(obj)
+                obj[code]="+"+random(4,10).toFixed(0)+"%"
+                weapon.dmglist.push(obj)
             }else if(code=='暴击伤害'){
-                obj[code]="+"+random(weaponlist[0].lv*0.5,weaponlist[0].lv*0.6).toFixed(0)+"%"
-                weaponlist[i].dmglist.push(obj)
+                obj[code]="+"+random(weapon.lv*0.5,weapon.lv*0.6).toFixed(0)+"%"
+                weapon.dmglist.push(obj)
             }else{
-                obj[code]="+"+random(weaponlist[0].lv*1.1,weaponlist[0].lv*1.2).toFixed(0)
-                weaponlist[i].dmglist.push(obj)
+                obj[code]="+"+random(weapon.lv*1.7,weapon.lv*1.8).toFixed(0)
+                weapon.dmglist.push(obj)
             }
         }
 
-        for(let j=0;j<weaponlist[i].extraNum;j++){
+        for(let j=0;j<weapon.extraNum;j++){
             let code = extra[random(0,extra.length-1)]
             let obj = {}
             if(code=='暴击率'){
-                obj[code]="+"+random(weaponlist[0].lv*0.4,weaponlist[0].lv*0.5).toFixed(0)+"%"
-                weaponlist[i].extraList.push(obj)
+                obj[code]="+"+random(4,10).toFixed(0)+"%"
+                weapon.extraList.push(obj)
             }else if(code=='暴击伤害'){
-                obj[code]="+"+random(weaponlist[0].lv*0.6,weaponlist[0].lv*0.7).toFixed(0)+"%"
-                weaponlist[i].extraList.push(obj)
+                obj[code]="+"+random(weapon.lv*0.6,weapon.lv*0.7).toFixed(0)+"%"
+                weapon.extraList.push(obj)
             }else{
-                obj[code]="+"+random(weaponlist[0].lv*0.9,weaponlist[0].lv*1).toFixed(0)
-                weaponlist[i].extraList.push(obj)
+                obj[code]="+"+random(weapon.lv*1.7,weapon.lv*1.8).toFixed(0)
+                weapon.extraList.push(obj)
             }
            
         }
     }
-    else if(weaponlist[i].quality<=0.8){
-        weaponlist[i].qualityname='R'
-        weaponlist[i].color='rgb(16, 158, 240) 0px 0px 7px 2px inset'
-        weaponlist[i].fontcolor='rgb(16, 158, 240)'
-        for(let j=0;j<weaponlist[i].dmg;j++){
+    else if(weapon.quality<=0.8){
+        weapon.qualityname='R'
+        weapon.color='rgb(16, 158, 240) 0px 0px 7px 2px inset'
+        weapon.fontcolor='rgb(16, 158, 240)'
+        weapon.extraNum = random(1,2)
+        for(let j=0;j<weapon.dmg;j++){
             let code = basicextra[random(0,basicextra.length-1)]
             let obj = {}
             if(code=='暴击率'){
-                obj[code]="+"+random(weaponlist[0].lv*0.5,weaponlist[0].lv*0.6).toFixed(0)+"%"
-                weaponlist[i].dmglist.push(obj)
+                obj[code]="+"+random(4,10).toFixed(0)+"%"
+                weapon.dmglist.push(obj)
             }else if(code=='暴击伤害'){
-                obj[code]="+"+random(weaponlist[0].lv*0.6,weaponlist[0].lv*0.7).toFixed(0)+"%"
-                weaponlist[i].dmglist.push(obj)
+                obj[code]="+"+random(weapon.lv*0.6,weapon.lv*0.7).toFixed(0)+"%"
+                weapon.dmglist.push(obj)
             }else{
-                obj[code]="+"+random(weaponlist[0].lv*0.7,weaponlist[0].lv*0.8).toFixed(0)
-                weaponlist[i].dmglist.push(obj)
+                obj[code]="+"+random(weapon.lv*1.4,weapon.lv*1.5).toFixed(0)
+                weapon.dmglist.push(obj)
             }
          
         }
 
-        for(let j=0;j<weaponlist[i].extraNum;j++){
+        for(let j=0;j<weapon.extraNum;j++){
             let code = extra[random(0,extra.length-1)]
             let obj = {}
             if(code=='暴击率'){
-                obj[code]="+"+random(weaponlist[0].lv*0.4,weaponlist[0].lv*0.5).toFixed(0)+"%"
-                weaponlist[i].extraList.push(obj)
+                obj[code]="+"+random(4,10).toFixed(0)+"%"
+                weapon.extraList.push(obj)
             }else if(code=='暴击伤害'){
-                obj[code]="+"+random(weaponlist[0].lv*0.5,weaponlist[0].lv*0.6).toFixed(0)+"%"
-                weaponlist[i].extraList.push(obj)
+                obj[code]="+"+random(weapon.lv*0.5,weapon.lv*0.6).toFixed(0)+"%"
+                weapon.extraList.push(obj)
             }else{
-                obj[code]="+"+random(weaponlist[0].lv*0.7,weaponlist[0].lv*0.8).toFixed(0)
-                weaponlist[i].extraList.push(obj)
+                obj[code]="+"+random(weapon.lv*1.4,weapon.lv*1.5).toFixed(0)
+                weapon.extraList.push(obj)
             }
         }
     }else{
-        weaponlist[i].qualityname='N'
-        weaponlist[i].color='rgb(161 161 161) 0px 0px 7px 2px inset'
-        weaponlist[i].fontcolor='rgb(161 161 161)'
-        for(let j=0;j<weaponlist[i].dmg;j++){
+        weapon.qualityname='N'
+        weapon.color='rgb(161 161 161) 0px 0px 7px 2px inset'
+        weapon.fontcolor='rgb(161 161 161)'
+        weapon.extraNum = random(1,2)
+        for(let j=0;j<weapon.dmg;j++){
             let code = basicextra[random(0,basicextra.length-1)]
             let obj = {}
             if(code=='暴击率'){
-                obj[code]="+"+random(weaponlist[0].lv*0.4,weaponlist[0].lv*0.5).toFixed(0)+"%"
-                weaponlist[i].dmglist.push(obj)
+                obj[code]="+"+random(4,10).toFixed(0)+"%"
+                weapon.dmglist.push(obj)
             }else if(code=='暴击伤害'){
-                obj[code]="+"+random(weaponlist[0].lv*0.5,weaponlist[0].lv*0.6).toFixed(0)+"%"
-                weaponlist[i].dmglist.push(obj)
+                obj[code]="+"+random(weapon.lv*0.5,weapon.lv*0.6).toFixed(0)+"%"
+                weapon.dmglist.push(obj)
             }else{
-                obj[code]="+"+random(weaponlist[0].lv*0.5,weaponlist[0].lv*0.6).toFixed(0)
-                weaponlist[i].dmglist.push(obj)
+                obj[code]="+"+random(weapon.lv*1.3,weapon.lv*1.4).toFixed(0)
+                weapon.dmglist.push(obj)
             }
-         
         }
 
-        for(let j=0;j<weaponlist[i].extraNum;j++){
+        for(let j=0;j<weapon.extraNum;j++){
             let code = extra[random(0,extra.length-1)]
             let obj = {}
             if(code=='暴击率'){
-                obj[code]="+"+random(weaponlist[0].lv*0.3,weaponlist[0].lv*0.4).toFixed(0)+"%"
-                weaponlist[i].extraList.push(obj)
+                obj[code]="+"+random(4,10).toFixed(0)+"%"
+                weapon.extraList.push(obj)
             }else if(code=='暴击伤害'){
-                obj[code]="+"+random(weaponlist[0].lv*0.4,weaponlist[0].lv*0.5).toFixed(0)+"%"
-                weaponlist[i].extraList.push(obj)
+                obj[code]="+"+random(weapon.lv*0.4,weapon.lv*0.5).toFixed(0)+"%"
+                weapon.extraList.push(obj)
             }else{
-                obj[code]="+"+random(weaponlist[0].lv*0.5,weaponlist[0].lv*0.6).toFixed(0)
-                weaponlist[i].extraList.push(obj)
+                obj[code]="+"+random(weapon.lv*1.3,weapon.lv*1.4).toFixed(0)
+                weapon.extraList.push(obj)
             }
-          
-          
         }
     }
+    return weapon
 }
 
-
-
-
-export default weaponlist
+// let test = crateWeapon(60)
+// console.log('test',test)
+//DPS = dmg/quality
+export default crateWeapon
+export {random,randomquality,fomatFloat}

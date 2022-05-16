@@ -1,32 +1,36 @@
 <template>
 <div class="bg">
-<div class="weapon-tab" :style="{'box-shadow':weaponlist[0].color}">
+    <div class="btn">
+         <el-button type="primary" @click="create">随机生成武器</el-button>
+    </div>
+    
+<div class="weapon-tab" :style="{'box-shadow':weaponitem.weapon.color}" v-if="weaponitem.weapon.name">
         <div class="first">
             <div class="img">
-                <div class="out-box" :style="{'box-shadow':weaponlist[0].color}">
-                    <img :src="`src/assets/weapon/${weaponlist[0].imgurl}.png`" alt="">
+                <div class="out-box" :style="{'box-shadow':weaponitem.weapon.color}">
+                    <img :src="`src/assets/weapon/${weaponitem.weapon.imgurl}.png`" alt="">
                 </div>
             </div>
             <div class="name-arae">
-                <p :style="{'color':weaponlist[0].fontcolor}">{{weaponlist[0].name}}</p>
+                <p :style="{'color':weaponitem.weapon.fontcolor}">{{weaponitem.weapon.name}}</p>
             </div>
         </div>
-        <div class="divider">
+        <div class="c">
             <el-divider />
         </div>
         
         <div class="second">
             <div class="type">
-                <p :style="{'color':weaponlist[0].fontcolor}">{{weaponlist[0].qualityname}}</p>
-                <p :style="{'color':weaponlist[0].fontcolor}">{{weaponlist[0].type}}</p>
+                <p :style="{'color':weaponitem.weapon.fontcolor}">{{weaponitem.weapon.qualityname}}</p>
+                <p :style="{'color':weaponitem.weapon.fontcolor}">{{weaponitem.weapon.type}}</p>
             </div>
             
              <div class="dps">
-                 <p :style="{'color':weaponlist[0].fontcolor}">lv{{weaponlist[0].lv}}</p>
-                <!-- <p :style="{'color':weaponlist[0].fontcolor}">DPS:123</p> -->
+                 <p :style="{'color':weaponitem.weapon.fontcolor}">lv{{weaponitem.weapon.lv}}</p>
+                <!-- <p :style="{'color':weapon.fontcolor}">DPS:123</p> -->
             </div>
             <div class="jichu">
-                 <p v-for="(itemdmg,index) in weaponlist[0].dmglist">
+                 <p v-for="(itemdmg,index) in weaponitem.weapon.dmglist">
                     <span v-for="(key,val) in itemdmg">{{val}}：{{key}}</span>
                 </p>
             </div>
@@ -34,7 +38,7 @@
             <el-divider />
         </div>
             <div class="citiao">
-                <p v-for="(item,index) in weaponlist[0].extraList">
+                <p v-for="(item,index) in weaponitem.weapon.extraList">
                     <span v-for="(key,val) in item">{{val}}：{{key}}</span>
                 </p>
             </div>
@@ -43,26 +47,37 @@
             <el-divider />
         </div>
         <div class="intro">
-            <p style="color:#ccc">{{weaponlist[0].intro}}</p>
+            <p style="color:#ccc">{{weaponitem.weapon.intro}}</p>
         </div>
     </div>
 </div>
     
-     <!-- <img :src="`src/assets/weapon/${weaponlist[0].imgurl}.png`" alt="">
+     <!-- <img :src="`src/assets/weapon/${weapon.imgurl}.png`" alt="">
          -->
 </template>
 
 <script>
-import { reactive, toRefs } from 'vue'
-import weaponlist from '../../assets/config/weaponconfig'
+import { reactive, toRefs,onMounted } from 'vue'
+import crateWeapon from '../../assets/config/weaponconfig'
 export default {
+   
     setup () {
         const state = reactive({
             count: 0,
         })
-    
+        const weaponitem = reactive({
+            weapon:{
+
+            }
+        })
+         function create(){
+             weaponitem.weapon = crateWeapon(60)
+             console.log(' weaponitem.weapon', weaponitem.weapon)
+        }
         return {
-            weaponlist,
+            weaponitem,
+            create,
+            // ...toRefs(weaponitem),
             ...toRefs(state),
         }
     }
@@ -77,7 +92,7 @@ export default {
 .weapon-tab{
     position: absolute;
     top: 30%;
-    left: 40%;
+    left: 42%;
     // margin: 0 auto;
     width: 300px;
     border-radius: 8px;
@@ -156,5 +171,9 @@ export default {
 }
 .citiao {
     padding-bottom: 8px;
+}
+.btn{
+    text-align: center;
+    padding-top: 40%;
 }
 </style>

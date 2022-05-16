@@ -13,6 +13,15 @@ const router = createRouter({
       path: '/test',
       component: () => import('../testview/AutoWeapon/TestRadomWeapon.vue')
     },
+    {
+      path: '/map',
+      component: () => import('../testview/AutoWeapon/TestRadomJob.vue')
+    },
+    {
+      path: '/testaxios',
+      component: () => import('../testview/AutoWeapon/Test.vue')
+    },
+    
     
   ]
 })
