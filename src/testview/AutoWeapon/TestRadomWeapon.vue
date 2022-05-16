@@ -30,16 +30,16 @@
                 <!-- <p :style="{'color':weapon.fontcolor}">DPS:123</p> -->
             </div>
             <div class="jichu">
-                 <p v-for="(itemdmg,index) in weaponitem.weapon.dmglist">
-                    <span v-for="(key,val) in itemdmg">{{val}}：{{key}}</span>
+                 <p v-for="(itemdmg,index) in weaponitem.weapon.dmglist" :key="index">
+                    <span v-for="(key,val) in itemdmg" :key="key">{{val}}：{{key}}</span>
                 </p>
             </div>
              <div class="divider">
             <el-divider />
         </div>
             <div class="citiao">
-                <p v-for="(item,index) in weaponitem.weapon.extraList">
-                    <span v-for="(key,val) in item">{{val}}：{{key}}</span>
+                <p v-for="(item,index) in weaponitem.weapon.extraList" :key="index">
+                    <span v-for="(key,val) in item" :key="key">{{val}}：{{key}}</span>
                 </p>
             </div>
         </div>
@@ -71,7 +71,7 @@ export default {
             }
         })
          function create(){
-             weaponitem.weapon = crateWeapon(60)
+             weaponitem.weapon = crateWeapon(1)
              console.log(' weaponitem.weapon', weaponitem.weapon)
         }
         return {
