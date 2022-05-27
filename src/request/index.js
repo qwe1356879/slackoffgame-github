@@ -2,12 +2,8 @@
 import axios from 'axios'
 import qs from 'qs'
 import { ElMessage } from 'element-plus'
-let api_base_url = 'https://mobile-music-red.vercel.app/'
-// if (import.meta.env.MODE === 'development') {
-//   api_base_url = 'https://mobile-music-red.vercel.app/'
-// } else if (import.meta.env.MODE === 'production') {
-//   api_base_url = 'https://mobile-music-red.vercel.app/'
-// }n
+let api_base_url = ''
+
 let instance = axios.create({
   timeout: 1000 * 80,
   baseURL: api_base_url
