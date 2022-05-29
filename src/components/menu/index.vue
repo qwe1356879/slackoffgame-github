@@ -9,13 +9,19 @@
               <img  :src="`src/assets/icons/menu/${i.icon}.png`">
             <p>{{i.name}}</p>
             </el-tooltip>
-          
         </div>
     </div>
+
+     <el-dialog v-model="datadialog" title="导出存档数据" width="30%" center draggable>
+    <span
+      >{{datacode}}</span
+    >
+  </el-dialog>
 </template>
 
 <script>
-import { reactive, toRefs } from 'vue'
+import { reactive, toRefs,ref } from 'vue'
+import {userjmdata} from '../../assets/config/userinfo'
 export default {
     emits:['refreshjob'],
     setup (_,{emit}) {
@@ -36,9 +42,18 @@ export default {
                 toollip:[
                     '* 角色背包'
                 ]
+            },
+            {
+                icon:'quest_icon_07',
+                name:'生成存档',
+                key:"data",
+                toollip:[
+                    '* 生成游戏存档','* 后期可使用存档导入功能'
+                ]
             }
         ])
-
+        let datacode = ref('')
+        let datadialog = ref(false)
         function menuop(key){
             switch(key){
                 case 'refreshjob':
@@ -47,12 +62,18 @@ export default {
                 case 'bage':
                     console.log('openbage')
                     break;
+                case 'data':
+                    datacode.value=userjmdata
+                    datadialog.value=true
+                    break;
             }
         }
     
         return {
           itemlist,
-          menuop
+          menuop,
+          datacode,
+          datadialog
         }
     }
 }
@@ -64,7 +85,7 @@ export default {
       background: rgba(0,0,0,.4);
 }
 .item{
-    padding:15px
+    padding:5px 15px
 }
 .item:hover{
     cursor: pointer;

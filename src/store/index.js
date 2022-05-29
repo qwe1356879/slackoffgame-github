@@ -1,8 +1,8 @@
 import { createStore } from "vuex";
-
+import userinfo from "../assets/config/userinfo";
 //创建状态
 const state = {
-  userinfo:{}
+  userinfo:userinfo
 }
 //创建actions
 const actions = {

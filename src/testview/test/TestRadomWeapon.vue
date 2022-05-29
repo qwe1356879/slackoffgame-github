@@ -147,7 +147,8 @@ export default {
     padding: 10px 0;
 }
 .intro p{
-    text-indent: 20px;
+    // text-indent: 20px;
+    padding:3px 12px;
 }
 .dps p{
     padding-top: 2px;
@@ -174,6 +175,6 @@ export default {
 }
 .btn{
     text-align: center;
-    padding-top: 40%;
+    padding-top: 60%;
 }
 </style>

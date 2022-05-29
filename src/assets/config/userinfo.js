@@ -7,7 +7,9 @@ let userinfo={
     Armo:1,
     Gold:0,
     Atk:2,
+    NowHp:120,
     MaxHp:120,
+    DPS:1,
     Cridt:20,
     CridtDmg:20,
     equipments:[
@@ -15,13 +17,13 @@ let userinfo={
     ]
 }
 
-// var base = new Base64();  
-// var jm = base.encode(JSON.stringify(userinfo))
+var base = new Base64();  
+var userjmdata = base.encode(JSON.stringify(userinfo))
 
 // console.log('jm',jm)
 
 // var jm2 = base.decode(jm)
 // console.log('jm2',JSON.parse(jm2))
-
+export {userjmdata}
 export default userinfo
 

@@ -10,7 +10,7 @@
         <div class="icon-area">
             <img src='../../assets/icons/S_Holy01.png'/>
         </div>
-        <p>999/999</p>
+        <p>{{store.state.userinfo.NowHp}}/{{store.state.userinfo.MaxHp}}</p>
       </div>
         </el-tooltip>
       
@@ -19,14 +19,12 @@
 
 <script>
 import { reactive, toRefs } from 'vue'
+import { useStore } from 'vuex'
 export default {
     setup () {
-        const state = reactive({
-            count: 0,
-        })
-    
+        const store = useStore()
         return {
-            ...toRefs(state),
+          store
         }
     }
 }

@@ -8,7 +8,7 @@
              <p> * 角色当前等级</p>
           </template>
          <div class="level">
-            lv 99
+            lv {{store.state.userinfo.Lv}}
         </div>
         </el-tooltip>
          <el-tooltip effect="dark" placement="bottom">
@@ -17,7 +17,7 @@
              <p> * 角色转身次数</p>
           </template>
          <div class="zs">
-            转身次数:9
+            转身次数:{{store.state.userinfo.NextLife}}
         </div>
         </el-tooltip>
         
@@ -37,6 +37,7 @@
 import { reactive, toRefs } from 'vue'
 import userHp from './userHp.vue'
 import userotherdetail from './userotherdetail.vue'
+import { useStore } from 'vuex'
 export default {
       components:{
       
@@ -44,12 +45,10 @@ export default {
        userotherdetail
       },
     setup () {
-        const state = reactive({
-            count: 0,
-        })
+        const store = useStore()
     
         return {
-            ...toRefs(state),
+          store
         }
     }
 }

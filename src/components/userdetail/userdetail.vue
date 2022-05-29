@@ -6,7 +6,7 @@
             <div class="tip-img"><img src='../../assets/icons/tips.png' /></div>
              <p> * 角色DPS</p>
           </template>
-          <p class="info">DPS:123</p>
+          <p class="info">DPS:{{store.state.userinfo.DPS}}</p>
         </el-tooltip>
           
           <el-tooltip effect="dark" placement="bottom">
@@ -14,7 +14,7 @@
             <div class="tip-img"><img src='../../assets/icons/tips.png' /></div>
              <p> * 角色当前拥有的金币数量</p>
           </template>
-          <p class="info">金币:123</p>
+          <p class="info">金币:{{store.state.userinfo.Gold}}</p>
         </el-tooltip>
             
         </div>
@@ -27,17 +27,16 @@
 <script>
 import { reactive, toRefs } from 'vue'
 import userequip from './userequip.vue'
+import { useStore } from 'vuex'
 export default {
    components:{
        userequip
    },
     setup () {
-        const state = reactive({
-            count: 0,
-        })
+         const store = useStore()
     
         return {
-            ...toRefs(state),
+            store
         }
     }
 }

@@ -9,7 +9,7 @@
           </template>
           <div class="sx">
           <img src='../../assets/icons/ATK.png'/>
-           <p>1998</p>
+           <p>{{store.state.userinfo.Atk}}</p>
           </div>
         </el-tooltip>
          
@@ -21,7 +21,7 @@
           </template>
           <div class="sx">
           <img src='../../assets/icons/CRIT.png'/>
-           <p>1%</p>
+           <p>{{store.state.userinfo.Cridt}}%</p>
           </div>
         </el-tooltip>
 
@@ -33,7 +33,7 @@
           </template>
           <div class="sx">
           <img src='../../assets/icons/CRITDMG.png'/>
-           <p>10%</p>
+           <p>{{store.state.userinfo.CridtDmg}}%</p>
           </div>
         </el-tooltip>
 
@@ -45,7 +45,7 @@
           </template>
           <div class="sx">
           <img src='../../assets/icons/icon_11.png'/>
-           <p>1998</p>
+           <p>{{store.state.userinfo.Armo}}</p>
           </div>
         </el-tooltip>
 
@@ -57,7 +57,7 @@
           </template>
           <div class="sx">
           <img src='../../assets/icons/S_BLOC.png'/>
-           <p>1998</p>
+           <p>{{store.state.userinfo.Armo}}</p>
           </div>
         </el-tooltip>
 
@@ -70,15 +70,12 @@
 
 <script>
 import { reactive, toRefs } from "vue";
-
+import { useStore } from 'vuex'
 export default {
   setup() {
-    const state = reactive({
-      count: 0,
-    });
-
+      const store = useStore()
     return {
-      ...toRefs(state),
+      store
     };
   },
 };
