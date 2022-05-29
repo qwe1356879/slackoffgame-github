@@ -1,4 +1,12 @@
 
+import {weaponintro} from './intro'
+//随机词条
+var extra=[
+    '暴击率','攻击','暴击伤害','生命','防御力','每秒恢复HP'
+]
+var basicextra=[
+    '暴击率','攻击','暴击伤害'
+]
 
 //随机生成词条
 function random(lower, upper) {
@@ -27,20 +35,11 @@ function randomquality() {
         return  final;
     }
 
-    
-//随机词条
-var extra=[
-    '暴击率','攻击','暴击伤害','生命','防御力','每秒恢复HP'
-]
-var basicextra=[
-    '暴击率','攻击','暴击伤害'
-]
-
 var crateWeapon= function(level){
     let weapon =  {
         name:"新手剑",
         type:'武器',
-        intro:"新手村赛利亚打造，5G一件，质量堪忧",
+        intro:weaponintro[random(0,weaponintro.length-1)],
         dmg:random(1,3),
         quality:randomquality(),
         extraNum:0,
@@ -58,6 +57,7 @@ var crateWeapon= function(level){
         "攻击":"+"+random(weapon.lv*0.7,weapon.lv*0.8).toFixed(0)
        }
        weapon.dmglist.push(x)
+      
        if(weapon.quality<=0.1){
         weapon.qualityname='SP'
         weapon.color='rgb(255 0 0) 0px 0px 7px 2px inset'
@@ -97,6 +97,7 @@ var crateWeapon= function(level){
         weapon.color='rgb(247 137 24) 0px 0px 7px 2px inset'
         weapon.fontcolor='rgb(247 137 24)'
         weapon.extraNum = random(3,4)
+      
         for(let j=0;j<weapon.dmg;j++){
             let code = basicextra[random(0,basicextra.length-1)]
             let obj = {}
