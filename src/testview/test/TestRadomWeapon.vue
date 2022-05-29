@@ -175,6 +175,6 @@ export default {
 }
 .btn{
     text-align: center;
-    padding-top: 60%;
+    padding-top: 38%;
 }
 </style>

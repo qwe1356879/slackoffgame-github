@@ -1,5 +1,6 @@
 
 import {weaponintro} from './intro'
+import { weaponNameList } from './equipmentname';
 //随机词条
 var extra=[
     '暴击率','攻击','暴击伤害','生命','防御力','每秒恢复HP'
@@ -37,7 +38,7 @@ function randomquality() {
 
 var crateWeapon= function(level){
     let weapon =  {
-        name:"新手剑",
+        name:weaponNameList[random(0,weaponNameList.length-1)],
         type:'武器',
         intro:weaponintro[random(0,weaponintro.length-1)],
         dmg:random(1,3),
