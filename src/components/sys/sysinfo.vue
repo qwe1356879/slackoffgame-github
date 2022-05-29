@@ -23,7 +23,7 @@ export default {
 <style lang="scss" scoped>
 .sys{
     border: 2px solid #ccc;
-    margin: 0.8rem;
-     height: 535px;
+    margin: 0.2rem;
+     height: 505px;
 }
 </style>

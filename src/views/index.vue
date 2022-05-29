@@ -9,7 +9,10 @@
       <div class="sys-area">
         <sysinfo></sysinfo>
       </div>
-    
+
+      <div class="footer">
+     <myfooter></myfooter>
+   </div>
     </div>
    
     <div class="back" ref="backmaap">
@@ -44,24 +47,29 @@ import sysinfo from '../components/sys/sysinfo.vue';
 import mymenu from '../components/menu/index.vue'
 import {createJob,getDIVsize} from '../assets/config/monsterconfig'
 import opendialog from '../components/opendialog/index.vue'
+import myfooter from '../components/footer/index.vue'
 import userinfo from '../assets/config/userinfo'
+import { useStore } from 'vuex'
+
 export default {
     components:{
        userlevel,
        userdetail,
        sysinfo,
        mymenu,
-       opendialog
+       opendialog,
+       myfooter
       },
     setup () {
         const state = reactive({
             joblist:[],
             jobinfo:{}
         })
+         const store = useStore()
         const backmaap=ref(null)
         const mydialog = ref(null)
         onMounted(() => {           
-           state.joblist=createJob(7,2,backmaap.value.offsetHeight,backmaap.value.offsetWidth)
+          state.joblist=createJob(7,store.state.userinfo.Lv,backmaap.value.offsetHeight,backmaap.value.offsetWidth)
           console.log('userinfo',userinfo)
         })
         function refreshjob(){
@@ -84,8 +92,6 @@ export default {
 <style  scoped>
 @import "../assets/css/index.scss";
 .border{
-  
-    /* background-color: aquamarine; */
     width: 100%;
     height: 90%;
     margin: 0 auto;

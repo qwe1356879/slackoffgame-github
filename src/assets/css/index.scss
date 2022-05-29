@@ -1,10 +1,11 @@
 .main{
     background: #111;
     display: flex;
+    height: 100vh;
+
 }
 .back{
     width: 50%;
-    border: 2px solid #ccc;
     background-image: url(../weapon/map/map.jpg);
     background-repeat: no-repeat;
     background-size: 100% 100%;
@@ -12,14 +13,13 @@
 }
 .left-detail{
     width: 50%;
-    margin: 1rem;
 }
 .info-area{
    display: flex;
 }
 .menu{
     position: relative;
-    bottom: -2.5rem;
+    bottom: -3.2rem;
 
     padding: 0.1rem;
     border-top-right-radius: 0.1rem;
