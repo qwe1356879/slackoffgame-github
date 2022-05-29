@@ -29,7 +29,9 @@ body {
   overflow: hidden !important;
   font-size: 14px;
 }
-
+body.el-popup-parent--hidden{
+  padding-right: 0px !important;
+}
 /*声明 WebFont*/
 // @font-face {
 //   font-family: 'MaShanZheng';

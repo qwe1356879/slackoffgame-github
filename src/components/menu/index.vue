@@ -16,12 +16,20 @@
     <span
       >{{datacode}}</span
     >
+    <template #footer>
+      <span class="dialog-footer">
+       <el-button @click="copy" type="primary">一键复制</el-button>
+      </span>
+    </template>
+   
   </el-dialog>
 </template>
 
 <script>
 import { reactive, toRefs,ref } from 'vue'
 import {userjmdata} from '../../assets/config/userinfo'
+import useClipboard from 'vue-clipboard3'
+import { ElMessage } from 'element-plus'
 export default {
     emits:['refreshjob'],
     setup (_,{emit}) {
@@ -68,12 +76,41 @@ export default {
                     break;
             }
         }
+
+    // function copydata(){
+    //   //调用复制操作函数
+    //   copy(datacode)
+    // }	
+
+    const { toClipboard } = useClipboard()
+    const copy = async () => {
+      try {
+      	//复制
+        await toClipboard(datacode.value)
+        console.log(datacode.value)
+        ElMessage({
+            type:'success',
+            duration:3000,
+            message:'复制成功'
+        })
+        datadialog.value=false
+      } catch (e) {
+      	//复制失败
+        console.error(e)
+         ElMessage({
+            type:'error',
+            duration:3000,
+            message:'复制失败，请手动复制'
+        })
+      }
+    }
     
         return {
           itemlist,
           menuop,
           datacode,
-          datadialog
+          datadialog,
+          copy
         }
     }
 }
@@ -89,5 +126,8 @@ export default {
 }
 .item:hover{
     cursor: pointer;
+}
+::v-deep(.el-message){
+    min-width: none !important;
 }
 </style>

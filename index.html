@@ -7,17 +7,8 @@
     <title>BraveMaster</title>
   </head>
   <body>
-    <body>
-      <script>
-        (() => {
-          var htmlRoot = document.getElementById('htmlRoot');
-          var theme = window.localStorage.getItem('__APP__DARK__MODE__');
-          if (htmlRoot && theme) {
-            htmlRoot.setAttribute('data-theme', theme);
-            theme = htmlRoot = null;
-          }
-        })();
-      </script>
+
+    
       <div id="app">
         <style>
           html[data-theme='dark'] .app-loading {
@@ -147,12 +138,10 @@
             <div class="app-loading-dots">
               <span class="dot dot-spin"><i></i><i></i><i></i><i></i></span>
             </div>
-            <div class="app-loading-title">CloudMusci</div>
+            <div class="app-loading-title">BraveGame</div>
           </div>
         </div>
       </div>
-      <script type="module" src="/src/main.ts"></script>
-    </body>
    
     <script type="module" src="/src/main.js"></script>
   </body>
