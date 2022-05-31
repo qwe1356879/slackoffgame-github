@@ -16,6 +16,7 @@
     </div>
    
     <div class="back" ref="backmaap">
+      
       <div class="border">
         <div v-for="di in joblist" :style="di.style" v-if="joblist" @click="showdialog(di)">
             <div class="img" :style="di.imagestyle">
@@ -26,7 +27,8 @@
         </div>
         <p class="job-p">lv{{di.lv}}</p>
         </div>
-
+         <fight></fight>
+       
         <opendialog ref="mydialog"></opendialog>
     </div>
 
@@ -50,7 +52,7 @@ import opendialog from '../components/opendialog/index.vue'
 import myfooter from '../components/footer/index.vue'
 import userinfo from '../assets/config/userinfo'
 import { useStore } from 'vuex'
-
+import fight from '../components/fight/index.vue';
 export default {
     components:{
        userlevel,
@@ -58,7 +60,8 @@ export default {
        sysinfo,
        mymenu,
        opendialog,
-       myfooter
+       myfooter,
+       fight
       },
     setup () {
         const state = reactive({

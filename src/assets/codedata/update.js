@@ -1,5 +1,13 @@
 export let updatelist=[
-    
+    {
+        date:'2022-5-31',
+        detail:[
+            '完成战斗进度条布局',
+            '完成Player移动机制',
+            '待完成具体战斗机制'
+        ],
+        author:'FanR'
+    },
     {
         date:'2022-5-29',
         detail:[
