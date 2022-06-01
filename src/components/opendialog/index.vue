@@ -27,10 +27,11 @@
 
 <script>
 import { reactive, toRefs,defineComponent,ref } from 'vue'
-
+import { useStore } from 'vuex'
 export default defineComponent({
     
     setup () {
+         const store = useStore()
         const infolist = reactive([
             '- 副本难度等级分为:N,R,SR,SSR,SP',
             '- 高难度副本仅能挑战一次',
@@ -50,6 +51,7 @@ export default defineComponent({
              jobinfo.job=job
         }
         function beginfight(){
+             store.commit('changeFightState')
              dialog.value.style.display='none'
         }
         return {

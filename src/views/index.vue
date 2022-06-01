@@ -18,7 +18,8 @@
     <div class="back" ref="backmaap">
       
       <div class="border">
-        <div v-for="di in joblist" :style="di.style" v-if="joblist" @click="showdialog(di)">
+         <fight ref="fight" v-if="show"></fight>
+        <div v-for="di in joblist" :style="di.style" v-else @click="showdialog(di)" >
             <div class="img" :style="di.imagestyle">
                 <img :src="`src/assets/icons/menu/${di.imgurl}.png`"/>
             </div>
@@ -27,7 +28,7 @@
         </div>
         <p class="job-p">lv{{di.lv}}</p>
         </div>
-         <fight></fight>
+        
        
         <opendialog ref="mydialog"></opendialog>
     </div>
@@ -42,7 +43,7 @@
 </template>
 
 <script>
-import { reactive, toRefs,onMounted,ref} from 'vue';
+import { reactive, toRefs,onMounted,ref,computed,watch} from 'vue';
 import userlevel from '../components/userdetail/userlevel.vue';
 import userdetail from '../components/userdetail/userdetail.vue';
 import sysinfo from '../components/sys/sysinfo.vue';
@@ -66,11 +67,24 @@ export default {
     setup () {
         const state = reactive({
             joblist:[],
-            jobinfo:{}
+            jobinfo:{},
+            show:false
         })
          const store = useStore()
         const backmaap=ref(null)
         const mydialog = ref(null)
+         const fight = ref(null)
+           const getShowTask = computed(()=>{
+	//返回的是ref对象
+	return store.state.showfight;
+})
+         watch(getShowTask,(newval,oldval)=>{
+            if(newval){
+                state.show=true
+            }else{
+             state.show=false
+            }
+         }, {immediate:true,deep:true})
         onMounted(() => {           
           state.joblist=createJob(7,store.state.userinfo.Lv,backmaap.value.offsetHeight,backmaap.value.offsetWidth)
           console.log('userinfo',userinfo)

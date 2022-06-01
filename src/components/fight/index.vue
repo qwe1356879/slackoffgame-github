@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div ref="fightref">
         <div class="map-top">
             <div class="danger">
                 <div class="monster" v-for="i in 4">
@@ -21,7 +21,8 @@
 </template>
 
 <script>
-import { reactive, toRefs,ref,computed,onMounted,onUnmounted} from 'vue'
+import { reactive, toRefs,ref,computed,onMounted,onUnmounted,watch} from 'vue'
+import { useStore } from 'vuex'
 function add(){
     var args = arguments,//获取所有的参数
         lens = args.length,//获取参数的长度
@@ -55,7 +56,8 @@ export default {
                     normal:'monster',
                     boss:'boss',
                     player:'player-s'
-                }
+                },
+                show:false
         })
         const player = ref(null)
         let playleft=ref('0%')
@@ -63,54 +65,58 @@ export default {
         let playerposition=ref('0px 96px')
         let one =ref(0)
         let timer = ref(null)
-        onMounted(() => {
-        //    clearInterval(timer);
-        walk()
-        })
+        const fightref = ref(null)
+        const store = useStore()
+          const getShowTask = computed(()=>{
+	//返回的是ref对象
+	return store.state.showfight;
+})
+         watch(getShowTask,(newval,oldval)=>{
+            if(newval){
+                state.show=true
+                walk()
+            }else{
+             state.show=false
+            }
+         }, {immediate:true,deep:true})
         function walk(){
         timer = setInterval(() => {
-     changeleft(0.2);
-     changewalk()
+            changeleft(0.2);
+            changewalk()
         }, 45);
         }
-        //  clearInterval(timer)
-        //             console.log('战斗')
-        //         setTimeout(() => {
-        //                 walk()
-        //             }, 1000);
-        //14.1 14 14.4
         function changeleft(speed){
             // left.value+=0.2
             left.value=add(left.value,speed)
             // console.log('left.value',left.value)
             if(left.value<=100){
                 playleft.value=left.value+'%'
-                if(left.value===14){
+                if(left.value===16){
                     clearInterval(timer)
                     console.log('战斗1')
                 setTimeout(() => {
                         walk()
                     }, 2000);
-                }else if(left.value==34){
+                }else if(left.value==36){
                       clearInterval(timer)
                     console.log('战斗2')
                 setTimeout(() => {
                         walk()
                     }, 2000);
-                }else if(left.value==54){
+                }else if(left.value==56){
                     clearInterval(timer)
                     console.log('战斗3')
                 setTimeout(() => {
                         walk()
                     }, 2000);
-                }else if(left.value==74){
+                }else if(left.value==76){
                       clearInterval(timer)
                     console.log('战斗4')
                 setTimeout(() => {
                         walk()
                     }, 2000);
-                }else if(left.value==94){
-                      clearInterval(timer)
+                }else if(left.value==96){
+                clearInterval(timer)
                     console.log('战斗5')
                 setTimeout(() => {
                         walk()
@@ -132,19 +138,20 @@ export default {
             }
           
         }
-        onUnmounted(() => {
-            clearInterval(timer);
+        onUnmounted(()=>{
+            console.log('fight销毁了')
+            clearInterval(timer)
         })
         function stopfight(){
-            console.log('stop')
-            clearInterval(timer);
+            store.commit('changeFightState')
         }
         return {
             state,
             player,
             stopfight,
             playleft,
-            playerposition
+            playerposition,
+            fightref,
         }
     }
 }
