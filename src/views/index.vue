@@ -65,32 +65,51 @@ export default {
        fight
       },
     setup () {
+       const store = useStore()
         const state = reactive({
             joblist:[],
             jobinfo:{},
             show:false
         })
-         const store = useStore()
         const backmaap=ref(null)
         const mydialog = ref(null)
-         const fight = ref(null)
-           const getShowTask = computed(()=>{
-	//返回的是ref对象
-	return store.state.showfight;
-})
-         watch(getShowTask,(newval,oldval)=>{
+        const getShowTask = computed(()=>{
+        //返回的是ref对象
+        return store.state.showfight;
+      })
+        const getJobTask = computed(()=>{
+        //返回的是ref对象
+        return store.state.joblist;
+      })
+        watch(getShowTask,(newval,oldval)=>{
             if(newval){
                 state.show=true
             }else{
              state.show=false
             }
          }, {immediate:true,deep:true})
-        onMounted(() => {           
-          state.joblist=createJob(7,store.state.userinfo.Lv,backmaap.value.offsetHeight,backmaap.value.offsetWidth)
-          console.log('userinfo',userinfo)
+         watch(getJobTask,(newval,oldval)=>{
+           console.log('出发joblist监听器')
+            if(newval){
+              console.log('newval',newval)
+                state.joblist=newval
+            }
+         })
+        onMounted(() => {          
+          let data = {
+            height:backmaap.value.offsetHeight,
+            width:backmaap.value.offsetWidth
+          }
+           store.commit('createjoblist',data)
+         state.joblist=store.state.joblist
         })
         function refreshjob(){
-           state.joblist=createJob(7,2,backmaap.value.offsetHeight,backmaap.value.offsetWidth)
+          let data = {
+            height:backmaap.value.offsetHeight,
+            width:backmaap.value.offsetWidth
+          }
+         store.commit('createjoblist',data)
+         state.joblist=store.state.joblist
         }
         function showdialog(job){
           mydialog.value.opendialog(job)

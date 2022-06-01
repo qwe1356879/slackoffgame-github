@@ -1,5 +1,6 @@
 import { createStore } from "vuex";
 import userinfo from "../assets/config/userinfo";
+import {createJob,getDIVsize} from '../assets/config/monsterconfig'
 //创建状态
 let myDate = new Date();
 let str = myDate.toTimeString(); //"10:55:24 GMT+0800 (中国标准时间)"
@@ -26,7 +27,8 @@ const state = {
       ifequipment:false,
       equipmentinfo:{}
     }
-  ]
+  ],
+  joblist:[]
 }
 //创建actions
 const actions = {
@@ -39,6 +41,12 @@ const mutations = {
  },
  addsysinfo(state,data){
   state.sysinfolist.push(data)
+ },
+ createjoblist(state,data){
+  state.joblist=createJob(7,store.state.userinfo.Lv,data.height,data.width)
+  // console.log('height2',height)
+  // console.log('width2',width)
+  // console.log('调用了createjoblist',state.joblist[0])
  }
 }
 

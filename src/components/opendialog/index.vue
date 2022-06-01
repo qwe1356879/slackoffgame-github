@@ -31,11 +31,11 @@ import { useStore } from 'vuex'
 export default defineComponent({
     
     setup () {
-         const store = useStore()
+        const store = useStore()
         const infolist = reactive([
             '- 副本难度等级分为:N,R,SR,SSR,SP',
             '- 高难度副本仅能挑战一次',
-            '- 难度越高爆率也应相应提高'
+            '- 难度越高爆率也相应提高'
         ])
         let jobinfo = reactive({
             job:{}

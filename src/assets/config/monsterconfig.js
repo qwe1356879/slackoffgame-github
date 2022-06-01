@@ -9,13 +9,18 @@ export function getDIVsize(itemid){
     console.log('width',w)
     return w;
 }
+function randomString(length, chars) {
+    var result = '';
+    for (var i = length; i > 0; --i) result += chars[Math.floor(Math.random() * chars.length)];
+    return result;
+}
 var joblist=[
 ]
 //jobtypelist[random(0,jobtypelist.length-1)]
 export function createJob(number,lv,width,height){
     joblist=[]
     let level = lv
-    if(level-5<=0){
+    if(level-6<=0){
         level=1
     }else if(level+6>60){
         level=54
@@ -25,6 +30,7 @@ export function createJob(number,lv,width,height){
             type:'',
             lv:random(level,level+6),
             dpsneed:0,
+            jobid:randomString(4, '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'),
             jobquality:random(0,100),
             imgurl:'',
             style:{
