@@ -5,7 +5,7 @@
         </div>
         
         <div class="info-text">
-              <p v-for="i in sysinfo" :style="{'color':i.color}">
+        <p v-for="i in sysinfo" :style="{'color':i.color}">
         {{i.sys}}({{i.time}}):{{i.text}}
         </p>
         </div>
@@ -51,6 +51,7 @@ export default {
     color: #fff;
     --el-button-hover-text-color:#fff;
     --el-button-hover-bg-color:none;
-    --el-button-hover-border-color:none
+    --el-button-hover-border-color:none;
+    --el-button-bg-color:none
 }
 </style>

@@ -68,12 +68,39 @@ export default {
         const weaponitem = reactive({
             weapon:{
 
-            }
+            },
+            list:[]
         })
          function create(){
-             weaponitem.weapon = crateWeapon(1)
-             console.log(' weaponitem.weapon', weaponitem.weapon)
+             weaponitem.list=[]
+            var n=0,r=0,sr=0,ssr=0,sp=0
+             for(let i=0;i<10;i++){
+            weaponitem.weapon = crateWeapon(1,'N',5)
+                   
+             weaponitem.list.push(crateWeapon(1,'N',5))
+         
+             }
+             for(let j=0;j<weaponitem.list.length;j++){
+                 if(weaponitem.list[j].qualityname=='N'){
+                       n+=1
+                 }else if(weaponitem.list[j].qualityname=='R'){
+                        r+=1
+                 }else if(weaponitem.list[j].qualityname=='SR'){
+                        sr+=1
+                 }else if(weaponitem.list[j].qualityname=='SSR'){
+                        ssr+=1
+                 }else if(weaponitem.list[j].qualityname=='SP'){
+                     sp+=1
+                 }
+             }
+             console.log('10次难度1级副本最终BOSS掉落武器样本')
+             console.log('N:',n)
+             console.log('R:',r)
+             console.log('SR:',sr)
+             console.log('SSR:',ssr)
+             console.log('SP:',sp)
         }
+
         return {
             weaponitem,
             create,
@@ -175,6 +202,6 @@ export default {
 }
 .btn{
     text-align: center;
-    padding-top: 38%;
+    // padding-top: 38%;
 }
 </style>

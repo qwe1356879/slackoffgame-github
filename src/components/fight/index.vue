@@ -117,10 +117,7 @@ export default {
                     }, 2000);
                 }else if(left.value==96){
                 clearInterval(timer)
-                    console.log('战斗5')
-                setTimeout(() => {
-                        walk()
-                    }, 2000);
+                console.log('战斗5')
                 }
             }else{
                 left.value=0

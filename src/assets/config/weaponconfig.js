@@ -35,14 +35,42 @@ function randomquality() {
         }
         return  final;
     }
-
-var crateWeapon= function(level){
+/*
+N 10-100       0<=N<40        
+R 20-100       40<=R<55
+SR 30-100      55<=SR<75
+SSR 40-100     75<=SSR<90
+SP  50-100     90<=SP<=100
+*/
+//level:number= 人物等级
+//jobtype:string=任务难度
+//which:number = 第几个怪物(难度越高,挑战越后面,范围越小也就是概率越大)
+//+1 +2 +3 +4 +5
+var crateWeapon= function(level,jobtype,which){
+    var lower=0
+    switch(jobtype){
+        case jobtype=='N':
+            lower=5
+            break;
+        case jobtype=='R':
+            lower=10
+            break;
+        case jobtype=='SR':
+            lower=20
+            break;
+        case jobtype=='SSR':
+            lower=35
+            break;
+        case jobtype=='SP':
+            lower=40
+            break;    
+    }
     let weapon =  {
         name:weaponNameList[random(0,weaponNameList.length-1)],
         type:'武器',
         intro:weaponintro[random(0,weaponintro.length-1)],
         dmg:random(1,3),
-        quality:randomquality(),
+        quality:random(lower+which,100),
         extraNum:0,
         imgurl:"S_Sword01",
         extraList:[],
@@ -59,7 +87,7 @@ var crateWeapon= function(level){
        }
        weapon.dmglist.push(x)
       
-       if(weapon.quality<=0.1){
+       if(weapon.quality>=90&&weapon.quality<=100){
         weapon.qualityname='SP'
         weapon.color='rgb(255 0 0) 0px 0px 7px 2px inset'
         weapon.fontcolor='rgb(255 0 0)'
@@ -93,7 +121,7 @@ var crateWeapon= function(level){
             }
         }
     }
-    else if(weapon.quality<=0.3){
+    else if(weapon.quality>=75&&weapon.quality<90){
         weapon.qualityname='SSR'
         weapon.color='rgb(247 137 24) 0px 0px 7px 2px inset'
         weapon.fontcolor='rgb(247 137 24)'
@@ -130,7 +158,7 @@ var crateWeapon= function(level){
             }
         }
     }
-    else if(weapon.quality<=0.7){
+    else if(weapon.quality>=55&&weapon.quality<75){
         weapon.qualityname='SR'
         weapon.color='rgb(255 0 255) 0px 0px 7px 2px inset'
         weapon.fontcolor='rgb(255 0 255)'
@@ -167,7 +195,7 @@ var crateWeapon= function(level){
            
         }
     }
-    else if(weapon.quality<=0.8){
+    else if(weapon.quality>=40&&weapon.quality<55){
         weapon.qualityname='R'
         weapon.color='rgb(16, 158, 240) 0px 0px 7px 2px inset'
         weapon.fontcolor='rgb(16, 158, 240)'
