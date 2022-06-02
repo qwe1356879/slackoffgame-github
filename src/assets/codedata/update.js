@@ -1,5 +1,12 @@
 export let updatelist=[
     {
+        date:'2022-6-2',
+        detail:[
+            '将代码同步更新到GitHub',
+        ],
+        author:'FanR'
+    },
+    {
         date:'2022-6-1',
         detail:[
             '将战斗进度条组件逻辑完成（开始挑战生成组件，结束挑战销毁组件）',
