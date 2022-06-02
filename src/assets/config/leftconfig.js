@@ -1,13 +1,13 @@
 
 import {weaponintro} from './intro'
 import { weaponNameList } from './equipmentname';
-import { weaponimglist } from './equipmentimg';
+import { leftimglist } from './equipmentimg';
 //随机词条
 var extra=[
-    '暴击率','攻击','暴击伤害','生命','防御力','每秒恢复HP'
+    '生命','每秒恢复HP','暴击','暴击伤害'
 ]
 var basicextra=[
-    '暴击率','攻击','暴击伤害'
+    '防御力','攻击'
 ]
 
 //随机生成词条
@@ -47,7 +47,7 @@ SP  50-100     90<=SP<=100
 //jobtype:string=任务难度
 //which:number = 第几个怪物(难度越高,挑战越后面,范围越小也就是概率越大)
 //+1 +2 +3 +4 +5
-var crateWeapon= function(level,jobtype,which){
+var crateLeft= function(level,jobtype,which){
     var lower=0
     switch(jobtype){
         case jobtype=='N':
@@ -68,12 +68,12 @@ var crateWeapon= function(level,jobtype,which){
     }
     let weapon =  {
         name:weaponNameList[random(0,weaponNameList.length-1)],
-        type:'武器',
+        type:'首饰',
         intro:weaponintro[random(0,weaponintro.length-1)],
         dmg:random(1,3),
         quality:random(lower+which,100),
         extraNum:0,
-        imgurl:weaponimglist[random(0,weaponimglist.length-1)],
+        imgurl:leftimglist[random(0,leftimglist.length-1)],
         extraList:[],
         dmglist:[],
         DPS:0,
@@ -83,10 +83,10 @@ var crateWeapon= function(level,jobtype,which){
         lv:level
     }
 
-        let x = {
-        "攻击":"+"+random(weapon.lv*0.7,weapon.lv*0.8).toFixed(0)
-       }
-       weapon.dmglist.push(x)
+    //     let x = {
+    //     "防御力":"+"+random(weapon.lv*0.7,weapon.lv*0.8).toFixed(0)
+    //    }
+    //    weapon.dmglist.push(x)
       
        if(weapon.quality>=90&&weapon.quality<=100){
         weapon.qualityname='SP'
@@ -96,24 +96,21 @@ var crateWeapon= function(level,jobtype,which){
         for(let j=0;j<weapon.dmg;j++){
             let code = basicextra[random(0,basicextra.length-1)]
             let obj = {}
-            if(code=='暴击率'){
+            if(code=='攻击'){
                 obj[code]="+"+random(4,10).toFixed(0)+"%"
                 weapon.dmglist.push(obj)
-            }else if(code=='暴击伤害'){
+            }else if(code=='生命'){
                 obj[code]="+"+random(weapon.lv*1.1,weapon.lv*1.2).toFixed(0)+"%"
-                weapon.dmglist.push(obj)
-            }else{
-                obj[code]="+"+random(weapon.lv*2.2,weapon.lv*2.5).toFixed(0)
                 weapon.dmglist.push(obj)
             }
         }
         for(let j=0;j<weapon.extraNum;j++){
             let code = extra[random(0,extra.length-1)]
             let obj = {}
-            if(code=='暴击率'){
+            if(code=='攻击'){
                 obj[code]="+"+random(4,10).toFixed(0)+"%"
                 weapon.extraList.push(obj)
-            }else if(code=='暴击伤害'){
+            }else if(code=='生命'){
                 obj[code]="+"+random(weapon.lv*0.8,weapon.lv*0.9).toFixed(0)+"%"
                 weapon.extraList.push(obj)
             }else{
@@ -132,10 +129,10 @@ var crateWeapon= function(level,jobtype,which){
             let code = basicextra[random(0,basicextra.length-1)]
             let obj = {}
             
-            if(code=='暴击率'){
+            if(code=='攻击'){
                 obj[code]="+"+random(4,10).toFixed(0)+"%"
                 weapon.dmglist.push(obj)
-            }else if(code=='暴击伤害'){
+            }else if(code=='生命'){
                 obj[code]="+"+random(weapon.lv*0.8,weapon.lv*0.9).toFixed(0)+"%"
                 weapon.dmglist.push(obj)
             }else{
@@ -147,10 +144,10 @@ var crateWeapon= function(level,jobtype,which){
         for(let j=0;j<weapon.extraNum;j++){
             let code = extra[random(0,extra.length-1)]
             let obj = {}
-            if(code=='暴击率'){
+            if(code=='攻击'){
                 obj[code]="+"+random(4,10).toFixed(0)+"%"
                 weapon.extraList.push(obj)
-            }else if(code=='暴击伤害'){
+            }else if(code=='生命'){
                 obj[code]="+"+random(weapon.lv*0.7,weapon.lv*0.8).toFixed(0)+"%"
                 weapon.extraList.push(obj)
             }else{
@@ -168,10 +165,10 @@ var crateWeapon= function(level,jobtype,which){
             let code = basicextra[random(0,basicextra.length-1)]
             let obj = {}
             
-            if(code=='暴击率'){
+            if(code=='攻击'){
                 obj[code]="+"+random(4,10).toFixed(0)+"%"
                 weapon.dmglist.push(obj)
-            }else if(code=='暴击伤害'){
+            }else if(code=='生命'){
                 obj[code]="+"+random(weapon.lv*0.5,weapon.lv*0.6).toFixed(0)+"%"
                 weapon.dmglist.push(obj)
             }else{
@@ -183,10 +180,10 @@ var crateWeapon= function(level,jobtype,which){
         for(let j=0;j<weapon.extraNum;j++){
             let code = extra[random(0,extra.length-1)]
             let obj = {}
-            if(code=='暴击率'){
+            if(code=='攻击'){
                 obj[code]="+"+random(4,10).toFixed(0)+"%"
                 weapon.extraList.push(obj)
-            }else if(code=='暴击伤害'){
+            }else if(code=='生命'){
                 obj[code]="+"+random(weapon.lv*0.6,weapon.lv*0.7).toFixed(0)+"%"
                 weapon.extraList.push(obj)
             }else{
@@ -204,10 +201,10 @@ var crateWeapon= function(level,jobtype,which){
         for(let j=0;j<weapon.dmg;j++){
             let code = basicextra[random(0,basicextra.length-1)]
             let obj = {}
-            if(code=='暴击率'){
+            if(code=='攻击'){
                 obj[code]="+"+random(4,10).toFixed(0)+"%"
                 weapon.dmglist.push(obj)
-            }else if(code=='暴击伤害'){
+            }else if(code=='生命'){
                 obj[code]="+"+random(weapon.lv*0.6,weapon.lv*0.7).toFixed(0)+"%"
                 weapon.dmglist.push(obj)
             }else{
@@ -220,10 +217,10 @@ var crateWeapon= function(level,jobtype,which){
         for(let j=0;j<weapon.extraNum;j++){
             let code = extra[random(0,extra.length-1)]
             let obj = {}
-            if(code=='暴击率'){
+            if(code=='攻击'){
                 obj[code]="+"+random(4,10).toFixed(0)+"%"
                 weapon.extraList.push(obj)
-            }else if(code=='暴击伤害'){
+            }else if(code=='生命'){
                 obj[code]="+"+random(weapon.lv*0.5,weapon.lv*0.6).toFixed(0)+"%"
                 weapon.extraList.push(obj)
             }else{
@@ -239,10 +236,10 @@ var crateWeapon= function(level,jobtype,which){
         for(let j=0;j<weapon.dmg;j++){
             let code = basicextra[random(0,basicextra.length-1)]
             let obj = {}
-            if(code=='暴击率'){
+            if(code=='攻击'){
                 obj[code]="+"+random(4,10).toFixed(0)+"%"
                 weapon.dmglist.push(obj)
-            }else if(code=='暴击伤害'){
+            }else if(code=='生命'){
                 obj[code]="+"+random(weapon.lv*0.5,weapon.lv*0.6).toFixed(0)+"%"
                 weapon.dmglist.push(obj)
             }else{
@@ -254,10 +251,10 @@ var crateWeapon= function(level,jobtype,which){
         for(let j=0;j<weapon.extraNum;j++){
             let code = extra[random(0,extra.length-1)]
             let obj = {}
-            if(code=='暴击率'){
+            if(code=='攻击'){
                 obj[code]="+"+random(4,10).toFixed(0)+"%"
                 weapon.extraList.push(obj)
-            }else if(code=='暴击伤害'){
+            }else if(code=='生命'){
                 obj[code]="+"+random(weapon.lv*0.4,weapon.lv*0.5).toFixed(0)+"%"
                 weapon.extraList.push(obj)
             }else{
@@ -268,5 +265,5 @@ var crateWeapon= function(level,jobtype,which){
     }
     return weapon
 }
-export default crateWeapon
+export default crateLeft
 export {random,randomquality,fomatFloat}

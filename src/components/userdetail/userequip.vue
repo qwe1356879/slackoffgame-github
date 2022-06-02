@@ -7,38 +7,60 @@
                 </div>
             </template>
             <div class="equipment">
-            <div class="border">
-                <img src='../../assets/weapon/S_Sword01.png'/>
+            <div class="border" :style="{'box-shadow':userdata.weapon.color}">
+                <img :src="`../../src/assets/icons/myequip/weapon/${userdata.weapon.imgurl}.png`"/>
             </div>
-            <p>新手剑</p>
+            <p>{{userdata.weapon.name}}</p>
         </div>
 
             </el-tooltip>
       
         <div class="equipment">
-            <div class="border">
-                <img src='../../assets/weapon/S_Sword01.png'/>
+            <div class="border" :style="{'box-shadow':userdata.armo.color}">
+                <img :src="`../../src/assets/icons/myequip/weapon/${userdata.armo.imgurl}.png`"/>
             </div>
-            <p>新手剑</p>
+            <p>{{userdata.armo.name}}</p>
         </div>
 
         <div class="equipment">
-            <div class="border">
-                <img src='../../assets/weapon/S_Sword01.png'/>
+             <div class="border" :style="{'box-shadow':userdata.left.color}">
+                <img :src="`../../src/assets/icons/myequip/weapon/${userdata.left.imgurl}.png`"/>
             </div>
-            <p>新手剑</p>
+            <p>{{userdata.left.name}}</p>
         </div>
 
         <div class="equipment">
-            <div class="border">
-                <img src='../../assets/weapon/S_Sword01.png'/>
+            <div class="border" :style="{'box-shadow':userdata.right.color}">
+                <img :src="`../../src/assets/icons/myequip/weapon/${userdata.right.imgurl}.png`"/>
             </div>
-            <p>新手剑</p>
+            <p>{{userdata.right.name}}</p>
         </div>
     </div>
 </template>
 
 <script setup>
+import { reactive, toRefs,onMounted,computed,watch} from 'vue'
+import { useStore } from 'vuex'
+const store = useStore()
+let userdata=reactive({
+    weapon:{},
+    armo:{},
+    left:{},
+    right:{}
+})
+// onMounted(() => {
+//     getUserEquipment()
+// })
+  const getShowTask = computed(()=>{
+	//返回的是ref对象
+	return store.state.userinfo;
+})
+         watch(getShowTask,(newval,oldval)=>{
+              userdata.weapon=newval.equipments[0].weapon
+    userdata.armo=newval.equipments[1].armo
+    userdata.left=newval.equipments[2].left
+    userdata.right=newval.equipments[3].right
+         }, {deep:true})
 
 </script>
 
@@ -50,11 +72,13 @@
 .border {
  width: 50px;
  height: 50px;
+ border-radius: 8px;
  
- box-shadow: rgb(255 0 255) 0px 0px 7px 2px inset;
+//  box-shadow: rgb(255 0 255) 0px 0px 7px 2px inset;
 }
 .border img{
-    margin: .5rem auto;
+    margin: .4rem auto;
+    width: 40px;
 }
 .equipment  p{
     width: 70%;

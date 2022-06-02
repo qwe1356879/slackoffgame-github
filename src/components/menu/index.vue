@@ -27,7 +27,6 @@
 
 <script>
 import { reactive, toRefs,ref } from 'vue'
-import {userjmdata} from '../../assets/config/userinfo'
 import useClipboard from 'vue-clipboard3'
 import { ElMessage } from 'element-plus'
 export default {
@@ -71,7 +70,7 @@ export default {
                     console.log('openbage')
                     break;
                 case 'data':
-                    datacode.value=userjmdata
+                    datacode.value=localStorage.getItem('userdata')
                     datadialog.value=true
                     break;
             }

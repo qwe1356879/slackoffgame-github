@@ -2,6 +2,32 @@ import {random,randomquality,fomatFloat} from './weaponconfig'
 //  极难 boxshadow 0 0 4px 4px rgb(245 54 54 / 50%);
 // 普通 boxshadow:'0 0 4px 4px rgb(100 255 36 / 50%)',
 // 困难 boxshadow：0 0 4px 4px rgb(245 241 0 / 50%)
+export function add(){
+    var args = arguments,//获取所有的参数
+        lens = args.length,//获取参数的长度
+        d = 0,//定义小数位的初始长度，默认为整数，即小数位为0
+        sum = 0//定义sum来接收所有数据的和
+    //循环所有的参数
+    for(var key in args){//遍历所有的参数
+        //把数字转为字符串
+        var str = ""+args[key];
+        if(str.indexOf(".")!=-1){//判断数字是否为小数
+            //获取小数位的长度
+            var temp = str.split(".")[1].length;
+            //比较此数的小数位与原小数位的长度，取小数位较长的存储到d中
+            d = d < temp ? temp : d;
+        }
+    }
+    //计算需要乘的数值
+    var m = Math.pow(10,d);
+    //遍历所有参数并相加
+    for(var key in args){
+        sum += args[key]*m;
+    }
+    //返回结果
+    return sum/m;
+
+}
 export function getDIVsize(itemid){
     var o = document.getElementById(itemid);
     console.log('o',o)
@@ -57,28 +83,39 @@ export function createJob(number,lv,width,height){
             jobobj.style['box-shadow'] = 'rgb(255 0 0) 0px 0px 7px 2px inset'
             jobobj.imagestyle['background-color'] = 'rgb(255 0 0) 0px 0px 7px 2px inset'
             jobobj.imgurl='sp'
+            jobobj.dpsneed=jobobj.lv*1.2+level*2
         }
         else if(jobobj.jobquality>=85){
             jobobj.type='SSR'
             jobobj.style['box-shadow']='rgb(247 137 24) 0px 0px 7px 2px inset'
             jobobj.imagestyle['background-color'] = 'rgb(247 137 24) 0px 0px 7px 2px inset'
             jobobj.imgurl='ssr'
+            jobobj.dpsneed=jobobj.lv*1+level*1
         }
         else if(jobobj.jobquality>=70){
             jobobj.type='SR'
             jobobj.style['box-shadow']='rgb(255 0 255) 0px 0px 7px 2px inset'
             jobobj.imagestyle['background-color'] = 'rgb(255 0 255) 0px 0px 7px 2px inset'
             jobobj.imgurl='sr'
+         
+            jobobj.dpsneed=jobobj.lv*0.8
+            
         }else if(jobobj.jobquality>=50){
             jobobj.type='R'
             jobobj.style['box-shadow']='rgb(16, 158, 240) 0px 0px 7px 2px inset'
             jobobj.imagestyle['background-color'] = 'rgb(16, 158, 240) 0px 0px 7px 2px inset)'
             jobobj.imgurl='r'
+           
+            jobobj.dpsneed=jobobj.lv*0.5
+    
         }else{
             jobobj.type='N'
             jobobj.style['box-shadow']='rgb(161 161 161) 0px 0px 7px 2px inset'
             jobobj.imagestyle['background-color'] = 'rgb(161 161 161) 0px 0px 7px 2px inset'
             jobobj.imgurl='n'
+          
+            jobobj.dpsneed=jobobj.lv*0.45
+            // jobobj.dpsneed=
         }
         joblist.push(jobobj)
     }

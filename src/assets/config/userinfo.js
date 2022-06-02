@@ -1,5 +1,8 @@
 import Base64 from '../tool/fakebase64'
 import crateWeapon from './weaponconfig'
+import crateArmo from './armoconifg';
+import crateLeft from './leftconfig';
+import crateRight from './rightconfig';
 function randomString(length, chars) {
     var result = '';
     for (var i = length; i > 0; --i) result += chars[Math.floor(Math.random() * chars.length)];
@@ -18,18 +21,11 @@ let userinfo={
     Cridt:20,
     CridtDmg:20,
     equipments:[
-        crateWeapon(1)
+        {weapon:crateWeapon(1,1,1)},{armo:crateArmo(1,1,1)},
+        {left:crateLeft(1,1,1)},{right:crateRight(1,1,1)}
     ],
     key:randomString(8, '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ')
 }
 
-var base = new Base64();  
-var userjmdata = base.encode(JSON.stringify(userinfo))
-
-// console.log('jm',jm)
-
-// var jm2 = base.decode(userjmdata)
-// console.log('jm2',JSON.parse(jm2))
-export {userjmdata}
 export default userinfo
 

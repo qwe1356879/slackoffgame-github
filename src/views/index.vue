@@ -102,7 +102,9 @@ export default {
             height:backmaap.value.offsetHeight,
             width:backmaap.value.offsetWidth
           }
+             store.commit('loaduserdata')
            store.commit('createjoblist',data)
+         
          state.joblist=store.state.joblist
         })
         function refreshjob(){
