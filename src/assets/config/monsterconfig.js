@@ -56,29 +56,29 @@ export function createJob(number,lv,width,height){
             jobobj.type='SP'
             jobobj.style['box-shadow'] = 'rgb(255 0 0) 0px 0px 7px 2px inset'
             jobobj.imagestyle['background-color'] = 'rgb(255 0 0) 0px 0px 7px 2px inset'
-            jobobj.imgurl='d3'
+            jobobj.imgurl='sp'
         }
         else if(jobobj.jobquality>=85){
             jobobj.type='SSR'
             jobobj.style['box-shadow']='rgb(247 137 24) 0px 0px 7px 2px inset'
             jobobj.imagestyle['background-color'] = 'rgb(247 137 24) 0px 0px 7px 2px inset'
-            jobobj.imgurl='d3'
+            jobobj.imgurl='ssr'
         }
         else if(jobobj.jobquality>=70){
             jobobj.type='SR'
             jobobj.style['box-shadow']='rgb(255 0 255) 0px 0px 7px 2px inset'
             jobobj.imagestyle['background-color'] = 'rgb(255 0 255) 0px 0px 7px 2px inset'
-            jobobj.imgurl='d2'
+            jobobj.imgurl='sr'
         }else if(jobobj.jobquality>=50){
             jobobj.type='R'
             jobobj.style['box-shadow']='rgb(16, 158, 240) 0px 0px 7px 2px inset'
             jobobj.imagestyle['background-color'] = 'rgb(16, 158, 240) 0px 0px 7px 2px inset)'
-            jobobj.imgurl='d2'
+            jobobj.imgurl='r'
         }else{
             jobobj.type='N'
             jobobj.style['box-shadow']='rgb(161 161 161) 0px 0px 7px 2px inset'
             jobobj.imagestyle['background-color'] = 'rgb(161 161 161) 0px 0px 7px 2px inset'
-            jobobj.imgurl='d1'
+            jobobj.imgurl='n'
         }
         joblist.push(jobobj)
     }

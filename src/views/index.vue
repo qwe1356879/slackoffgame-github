@@ -21,8 +21,9 @@
          <fight ref="fight" v-if="show"></fight>
         <div v-for="di in joblist" :style="di.style" v-else @click="showdialog(di)" >
             <div class="img" :style="di.imagestyle">
-                <img :src="`src/assets/icons/menu/${di.imgurl}.png`"/>
+                <img :src="`../src/assets/icons/menu/${di.imgurl}.png`"/>
             </div>
+            <!-- <img src='/assets/icons/S_Holy01.png'/> -->
             <div class="divider">
             <el-divider />
         </div>
@@ -54,6 +55,7 @@ import myfooter from '../components/footer/index.vue'
 import userinfo from '../assets/config/userinfo'
 import { useStore } from 'vuex'
 import fight from '../components/fight/index.vue';
+
 export default {
     components:{
        userlevel,
@@ -141,7 +143,8 @@ export default {
  
 }
 .img img{
-    padding-top: 8px;
+    padding-top: 2px;
+    width: 40px;
 }
 
 .el-divider--horizontal{

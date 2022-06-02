@@ -2,13 +2,16 @@
 <div class="bg">
     <div class="btn">
          <el-button type="primary" @click="create">随机生成武器</el-button>
+         <!-- <img src="../../assets/icons/myequip/weapon/1_(1).png" alt=""> -->
     </div>
     
 <div class="weapon-tab" :style="{'box-shadow':weaponitem.weapon.color}" v-if="weaponitem.weapon.name">
         <div class="first">
             <div class="img">
                 <div class="out-box" :style="{'box-shadow':weaponitem.weapon.color}">
-                    <img :src="`src/assets/weapon/${weaponitem.weapon.imgurl}.png`" alt="">
+                    
+                    <img :src="`../../src/assets/icons/myequip/weapon/${weaponitem.weapon.imgurl}.png`" alt="">
+                    <!-- <img src=" ../src/assets/icons/myequip/weapon/1(1).png" alt=""> -->
                 </div>
             </div>
             <div class="name-arae">
@@ -59,6 +62,7 @@
 <script>
 import { reactive, toRefs,onMounted } from 'vue'
 import crateWeapon from '../../assets/config/weaponconfig'
+
 export default {
    
     setup () {
@@ -72,33 +76,35 @@ export default {
             list:[]
         })
          function create(){
-             weaponitem.list=[]
-            var n=0,r=0,sr=0,ssr=0,sp=0
-             for(let i=0;i<10;i++){
-            weaponitem.weapon = crateWeapon(1,'N',5)
+             weaponitem.weapon = crateWeapon(1,'N',5)
+             console.log('x',weaponitem.weapon)
+            //  weaponitem.list=[]
+            // var n=0,r=0,sr=0,ssr=0,sp=0
+            //  for(let i=0;i<10;i++){
+            // weaponitem.weapon = crateWeapon(1,'N',5)
                    
-             weaponitem.list.push(crateWeapon(1,'N',5))
+            //  weaponitem.list.push(crateWeapon(1,'N',5))
          
-             }
-             for(let j=0;j<weaponitem.list.length;j++){
-                 if(weaponitem.list[j].qualityname=='N'){
-                       n+=1
-                 }else if(weaponitem.list[j].qualityname=='R'){
-                        r+=1
-                 }else if(weaponitem.list[j].qualityname=='SR'){
-                        sr+=1
-                 }else if(weaponitem.list[j].qualityname=='SSR'){
-                        ssr+=1
-                 }else if(weaponitem.list[j].qualityname=='SP'){
-                     sp+=1
-                 }
-             }
-             console.log('10次难度1级副本最终BOSS掉落武器样本')
-             console.log('N:',n)
-             console.log('R:',r)
-             console.log('SR:',sr)
-             console.log('SSR:',ssr)
-             console.log('SP:',sp)
+            //  }
+            //  for(let j=0;j<weaponitem.list.length;j++){
+            //      if(weaponitem.list[j].qualityname=='N'){
+            //            n+=1
+            //      }else if(weaponitem.list[j].qualityname=='R'){
+            //             r+=1
+            //      }else if(weaponitem.list[j].qualityname=='SR'){
+            //             sr+=1
+            //      }else if(weaponitem.list[j].qualityname=='SSR'){
+            //             ssr+=1
+            //      }else if(weaponitem.list[j].qualityname=='SP'){
+            //          sp+=1
+            //      }
+            //  }
+            //  console.log('10次难度1级副本最终BOSS掉落武器样本')
+            //  console.log('N:',n)
+            //  console.log('R:',r)
+            //  console.log('SR:',sr)
+            //  console.log('SSR:',ssr)
+            //  console.log('SP:',sp)
         }
 
         return {
@@ -147,7 +153,9 @@ export default {
     text-align: center;
 }
 .out-box img{
-   margin-top: 5px;
+//    margin-top: 5px;
+padding:2px;
+width: 45px;
 }
 
 .el-divider--horizontal{

@@ -2,8 +2,8 @@ export let updatelist=[
     {
         date:'2022-6-2',
         detail:[
-            '将代码同步更新到GitHub',
-            '测试数据22233'
+            '修复任务图标404问题',
+            '完成随机装备图片逻辑'
         ],
         author:'FanR'
     },

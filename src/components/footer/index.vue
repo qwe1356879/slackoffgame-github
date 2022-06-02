@@ -1,7 +1,7 @@
 <template>
     <div class="footer">
         <div class="footer-item" v-for="i in itemlist" @click="menuop(i.key)">
-            <img  :src="`src/assets/icons/othericons/${i.icon}.svg`">
+            <img  :src="`../src/assets/icons/othericons/${i.icon}.svg`">
             <p>{{i.name}}</p>
         </div>
     </div>

@@ -1,6 +1,7 @@
 
 import {weaponintro} from './intro'
 import { weaponNameList } from './equipmentname';
+import { weaponimglist } from './equipmentimg';
 //随机词条
 var extra=[
     '暴击率','攻击','暴击伤害','生命','防御力','每秒恢复HP'
@@ -72,7 +73,7 @@ var crateWeapon= function(level,jobtype,which){
         dmg:random(1,3),
         quality:random(lower+which,100),
         extraNum:0,
-        imgurl:"S_Sword01",
+        imgurl:weaponimglist[random(0,weaponimglist.length-1)],
         extraList:[],
         dmglist:[],
         DPS:0,
