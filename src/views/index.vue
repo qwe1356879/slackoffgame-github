@@ -44,7 +44,7 @@
 </template>
 
 <script>
-import { reactive, toRefs,onMounted,ref,computed,watch} from 'vue';
+import { reactive, toRefs,onMounted,ref,computed,watch,onBeforeMount} from 'vue';
 import userlevel from '../components/userdetail/userlevel.vue';
 import userdetail from '../components/userdetail/userdetail.vue';
 import sysinfo from '../components/sys/sysinfo.vue';
@@ -67,6 +67,7 @@ export default {
        fight
       },
     setup () {
+      
        const store = useStore()
         const state = reactive({
             joblist:[],
@@ -97,12 +98,13 @@ export default {
                 state.joblist=newval
             }
          })
-        onMounted(() => {          
+        onMounted(() => {     
+          store.commit('loaduserdata')     
           let data = {
             height:backmaap.value.offsetHeight,
             width:backmaap.value.offsetWidth
           }
-             store.commit('loaduserdata')
+             
            store.commit('createjoblist',data)
          
          state.joblist=store.state.joblist
