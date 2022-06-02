@@ -3,6 +3,7 @@ export let updatelist=[
         date:'2022-6-2',
         detail:[
             '将代码同步更新到GitHub',
+            '测试数据'
         ],
         author:'FanR'
     },
