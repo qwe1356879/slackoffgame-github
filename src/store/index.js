@@ -49,6 +49,9 @@ const actions = {
 const mutations = {
  loaduserdata(state){
    let data = localStorage.getItem('userdata')
+   let myDate = new Date();
+let str = myDate.toTimeString(); //"10:55:24 GMT+0800 (中国标准时间)"
+let timeStr = str.substring(0,8); 
    if(data==null||data==undefined){
      let data= base.encode(JSON.stringify(userinfo))
      localStorage.setItem('userdata',data)
@@ -84,9 +87,12 @@ const mutations = {
   }
  },
  addrefeshtime(state){
+  
    let timer = setInterval(()=>{
     state.refreshjobtime-=1;
-    console.log('开始计时1',state.refreshjobtime)
+    let myDate = new Date();
+  let str = myDate.toTimeString(); //"10:55:24 GMT+0800 (中国标准时间)"
+  let timeStr = str.substring(0,8); 
     let obj =  {
       sys:'系统',
       time:'',
@@ -105,6 +111,9 @@ const mutations = {
  },
  clearallsysinfo(state){
    state.sysinfolist=[]
+   let myDate = new Date();
+  let str = myDate.toTimeString(); //"10:55:24 GMT+0800 (中国标准时间)"
+  let timeStr = str.substring(0,8); 
    let obj =  {
     sys:'系统',
     time:'',

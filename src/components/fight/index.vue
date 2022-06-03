@@ -49,9 +49,7 @@ function add(){
     return sum/m;
 
 }
-let myDate = new Date();
-let str = myDate.toTimeString(); //"10:55:24 GMT+0800 (中国标准时间)"
-let timeStr = str.substring(0,8);
+
 export default {
     setup () {
         const state = reactive({
@@ -89,6 +87,9 @@ export default {
         }, 45);
         }
         function changeleft(speed){
+            let myDate = new Date();
+let str = myDate.toTimeString(); //"10:55:24 GMT+0800 (中国标准时间)"
+let timeStr = str.substring(0,8);
             // left.value+=0.2
             left.value=add(left.value,speed)
             // console.log('left.value',left.value)
