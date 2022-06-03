@@ -55,7 +55,7 @@ import myfooter from '../components/footer/index.vue'
 import userinfo from '../assets/config/userinfo'
 import { useStore } from 'vuex'
 import fight from '../components/fight/index.vue';
-
+import { ElNotification  } from 'element-plus'
 export default {
     components:{
        userlevel,
@@ -92,9 +92,7 @@ export default {
             }
          }, {immediate:true,deep:true})
          watch(getJobTask,(newval,oldval)=>{
-           console.log('出发joblist监听器')
             if(newval){
-              console.log('newval',newval)
                 state.joblist=newval
             }
          })
@@ -104,18 +102,34 @@ export default {
             height:backmaap.value.offsetHeight,
             width:backmaap.value.offsetWidth
           }
-             
            store.commit('createjoblist',data)
-         
          state.joblist=store.state.joblist
         })
         function refreshjob(){
-          let data = {
+          let time = store.state.refreshjobtime
+          if(time>=1&&time<5){
+            console.log('JOBCD')
+        //       ElNotification ({
+        //     title:'系统提示',
+        //     type:'warning',
+        //     duration:3000,
+        //     message:`刷新任务处于CD中,剩余${store.state.refreshjobtime}秒`
+        // })
+          }else{
+            let data = {
             height:backmaap.value.offsetHeight,
             width:backmaap.value.offsetWidth
-          }
+            }
          store.commit('createjoblist',data)
          state.joblist=store.state.joblist
+            ElNotification ({
+            title:'系统提示',
+            type:'success',
+            duration:3000,
+            message:'刷新任务成功'
+        })
+            store.commit('addrefeshtime')
+          }
         }
         function showdialog(job){
           mydialog.value.opendialog(job)

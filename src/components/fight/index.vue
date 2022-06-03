@@ -301,4 +301,11 @@ export default {
     .final-fight{
         margin-top: 1rem;
     }
+    .final-fight:deep(.el-button){
+        color:#fff !important;
+        --el-button-hover-text-color:none;
+        --el-button-hover-bg-color:none;
+        --el-button-hover-border-color:none;
+        background-color: #000;
+    }
 </style>

@@ -35,9 +35,11 @@ const state = {
       color:'#f90202',
       ifequipment:false,
       equipmentinfo:{}
-    }
+    },
   ],
-  joblist:[]
+  joblist:[],
+  refreshjobtime:5,
+  // isinfight:false
 }
 //创建actions
 const actions = {
@@ -46,10 +48,8 @@ const actions = {
 //创建mutataions
 const mutations = {
  loaduserdata(state){
-   console.log('1')
    let data = localStorage.getItem('userdata')
    if(data==null||data==undefined){
-     console.log('无存档')
      let data= base.encode(JSON.stringify(userinfo))
      localStorage.setItem('userdata',data)
     state.userinfo=JSON.parse(base.decode(localStorage.getItem('userdata')))
@@ -75,9 +75,46 @@ const mutations = {
  },
  createjoblist(state,data){
   state.joblist=createJob(7,store.state.userinfo.Lv,data.height,data.width)
-  // console.log('height2',height)
-  // console.log('width2',width)
-  // console.log('调用了createjoblist',state.joblist[0])
+ },
+ deleteupjob(state,data){
+  for(let i=0;i<state.joblist.length;i++){
+    if(state.joblist[i].jobid==data.jobid){
+      state.joblist.splice(i,1)
+    }
+  }
+ },
+ addrefeshtime(state){
+   let timer = setInterval(()=>{
+    state.refreshjobtime-=1;
+    console.log('开始计时1',state.refreshjobtime)
+    let obj =  {
+      sys:'系统',
+      time:'',
+      time:timeStr,
+      text:`任务刷新CD中,剩余${state.refreshjobtime}秒`,
+      color:'#f90202',
+      ifequipment:false,
+      equipmentinfo:{}
+    }
+    state.sysinfolist.push(obj)
+    if(state.refreshjobtime<=1){
+      state.refreshjobtime=5
+      clearInterval(timer)
+    }
+   },1000)
+ },
+ clearallsysinfo(state){
+   state.sysinfolist=[]
+   let obj =  {
+    sys:'系统',
+    time:'',
+    time:timeStr,
+    text:`系统消息已清空`,
+    color:'#67C23A',
+    ifequipment:false,
+    equipmentinfo:{}
+  }
+  state.sysinfolist.push(obj)
  }
 }
 

@@ -15,7 +15,7 @@
 
         <div class="btn-area">
             <div>
-                  <el-checkbox v-model="isrepat" label="重复挑战" size="large" />
+                  <el-checkbox v-model="isrepat" label="重复挑战" size="large" v-show="jobinfo.job.type==='N'||jobinfo.job.type==='R'||jobinfo.job.type==='SR'"/>
             </div>
             <div>
                  <el-button @click="beginfight">开始挑战</el-button>
@@ -37,7 +37,7 @@ export default defineComponent({
         const store = useStore()
         const infolist = reactive([
             '- 副本难度等级分为:N,R,SR,SSR,SP',
-            '- 高难度副本仅能挑战一次',
+            '- 高难度副本仅能挑战一次(SSR,SP)',
             '- 难度越高爆率也相应提高'
         ])
         let jobinfo = reactive({
@@ -64,7 +64,8 @@ export default defineComponent({
                          ifequipment:false,
                         equipmentinfo:{}
                     }
-                    store.commit('addsysinfo',sysinfo)
+             store.commit('addsysinfo',sysinfo)
+             store.commit('deleteupjob',jobinfo.job)
              dialog.value.style.display='none'
         }
         return {

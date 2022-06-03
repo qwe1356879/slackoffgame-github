@@ -40,6 +40,7 @@ export default {
                 toollip:[
                     '* 刷新当前世界任务',
                     '* 刷新的任务等级：人物当前等级->人物当前等级+6',
+                    '* 刷新任务有5秒的CD'
                 ]
             },
             {
@@ -75,12 +76,6 @@ export default {
                     break;
             }
         }
-
-    // function copydata(){
-    //   //调用复制操作函数
-    //   copy(datacode)
-    // }	
-
     const { toClipboard } = useClipboard()
     const copy = async () => {
       try {
