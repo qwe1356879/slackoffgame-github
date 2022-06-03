@@ -28,6 +28,9 @@
 <script>
 import { reactive, toRefs,defineComponent,ref } from 'vue'
 import { useStore } from 'vuex'
+let myDate = new Date();
+let str = myDate.toTimeString(); //"10:55:24 GMT+0800 (中国标准时间)"
+let timeStr = str.substring(0,8);
 export default defineComponent({
     
     setup () {
@@ -40,6 +43,7 @@ export default defineComponent({
         let jobinfo = reactive({
             job:{}
         })
+      
         let visibility = ref(true)
         let isrepat = ref(false)
         const dialog = ref(null)
@@ -52,6 +56,15 @@ export default defineComponent({
         }
         function beginfight(){
              store.commit('changeFightState')
+               let sysinfo={
+                         sys:'系统',
+                         time:timeStr,
+                         text:`开始挑战,副本难度:${jobinfo.job.lv},推荐DPS:${jobinfo.job.dpsneed}`,
+                         color:'#E63F00',
+                         ifequipment:false,
+                        equipmentinfo:{}
+                    }
+                    store.commit('addsysinfo',sysinfo)
              dialog.value.style.display='none'
         }
         return {

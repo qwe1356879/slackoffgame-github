@@ -5,7 +5,7 @@
         </div>
         
         <div class="info-text">
-        <p v-for="i in sysinfo" :style="{'color':i.color}">
+        <p v-for="i in state.sysinfo" :style="{'color':i.color}" :key="i.text">
         {{i.sys}}({{i.time}}):{{i.text}}
         </p>
         </div>
@@ -14,18 +14,33 @@
 </template>
 
 <script>
-import { reactive, toRefs } from 'vue'
+import { reactive, toRefs,watch,computed,ref,onBeforeUpdate,onUpdated,getCurrentInstance} from 'vue'
 import { useStore } from 'vuex'
 export default {
     setup () {
          const store = useStore()
-        const state = reactive({
+         let item = getCurrentInstance()
+        let state = reactive({
             sysinfo:store.state.sysinfolist
         })
-       
-
+      
+        const getShowTask = computed(()=>{
+	//返回的是ref对象
+	return store.state.sysinfolist;
+})
+         watch(getShowTask,(newval,oldval)=>{
+             if(newval){
+                 let arr = newval
+                   state.sysinfo=newval
+                console.log('state',state.sysinfo)
+            //       console.log('item',item)
+            // item.ctx.$forceUpdate()
+             }
+          
+         }, {deep:true})
         return {
-            ...toRefs(state),
+            state,
+            item
         }
     }
 }

@@ -21,7 +21,6 @@ const state = {
   sysinfolist:[
     {
       sys:'系统',
-      
       time:timeStr,
       text:'欢迎来到BraveGame,点击地图上的任务列表就可挑战副本,副本难度越高掉落的装备越稀有',
       color:'#f90202',
@@ -53,10 +52,10 @@ const mutations = {
      console.log('无存档')
      let data= base.encode(JSON.stringify(userinfo))
      localStorage.setItem('userdata',data)
-    state.userinfo=base.decode(localStorage.getItem('userdata'))
+    state.userinfo=JSON.parse(base.decode(localStorage.getItem('userdata')))
+    // console.log('无存档userinfo',state.userinfo)
    }else{
     state.userinfo=JSON.parse(base.decode(localStorage.getItem('userdata'))),
-    console.log('x',state.userinfo)
     state.sysinfolist.push({
       sys:'系统',
       time:'',

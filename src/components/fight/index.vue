@@ -49,6 +49,9 @@ function add(){
     return sum/m;
 
 }
+let myDate = new Date();
+let str = myDate.toTimeString(); //"10:55:24 GMT+0800 (中国标准时间)"
+let timeStr = str.substring(0,8);
 export default {
     setup () {
         const state = reactive({
@@ -93,31 +96,130 @@ export default {
                 playleft.value=left.value+'%'
                 if(left.value===16){
                     clearInterval(timer)
-                    console.log('战斗1')
+                    let sysinfo={
+                         sys:'系统',
+                         time:timeStr,
+                         text:'遭遇怪物1,开始战斗!',
+                         color:'#67C23A',
+                         ifequipment:false,
+                        equipmentinfo:{}
+                    }
+                    store.commit('addsysinfo',sysinfo)
+                    setTimeout(() => {
+                    let fightinfo={
+                         sys:'系统',
+                         time:timeStr,
+                         text:'遭遇怪物袭击,受到12点伤害',
+                         color:'#FF5511',
+                         ifequipment:false,
+                        equipmentinfo:{}
+                    }
+                    store.commit('addsysinfo',fightinfo)
+                    }, 1000);
+                    
                 setTimeout(() => {
                         walk()
-                    }, 2000);
+                    }, 4000);
+                     
                 }else if(left.value==36){
                       clearInterval(timer)
-                    console.log('战斗2')
+                    let sysinfo={
+                         sys:'系统',
+                         time:timeStr,
+                         text:'遭遇怪物2,开始战斗!',
+                         color:'#67C23A',
+                         ifequipment:false,
+                        equipmentinfo:{}
+                    }
+                    store.commit('addsysinfo',sysinfo)
+                     setTimeout(() => {
+                    let fightinfo={
+                         sys:'系统',
+                         time:timeStr,
+                         text:'遭遇怪物袭击,受到12点伤害',
+                         color:'#FF5511',
+                         ifequipment:false,
+                        equipmentinfo:{}
+                    }
+                    store.commit('addsysinfo',fightinfo)
+                    }, 1000);
                 setTimeout(() => {
                         walk()
                     }, 2000);
                 }else if(left.value==56){
                     clearInterval(timer)
-                    console.log('战斗3')
+                    let sysinfo={
+                         sys:'系统',
+                         time:timeStr,
+                         text:'遭遇怪物3,开始战斗!',
+                         color:'#67C23A',
+                         ifequipment:false,
+                        equipmentinfo:{}
+                    }
+                    store.commit('addsysinfo',sysinfo)
+                     
+                      setTimeout(() => {
+                    let fightinfo={
+                         sys:'系统',
+                         time:timeStr,
+                         text:'遭遇怪物袭击,受到12点伤害',
+                         color:'#FF5511',
+                         ifequipment:false,
+                        equipmentinfo:{}
+                    }
+                    store.commit('addsysinfo',fightinfo)
+                    }, 1000);
+
                 setTimeout(() => {
                         walk()
                     }, 2000);
                 }else if(left.value==76){
                       clearInterval(timer)
-                    console.log('战斗4')
+                   let sysinfo={
+                         sys:'系统',
+                         time:timeStr,
+                         text:'遭遇怪物4,开始战斗!',
+                         color:'#67C23A',
+                         ifequipment:false,
+                        equipmentinfo:{}
+                    }
+                    store.commit('addsysinfo',sysinfo)
+                     setTimeout(() => {
+                    let fightinfo={
+                         sys:'系统',
+                         time:timeStr,
+                         text:'遭遇怪物袭击,受到12点伤害',
+                         color:'#FF5511',
+                         ifequipment:false,
+                        equipmentinfo:{}
+                    }
+                    store.commit('addsysinfo',fightinfo)
+                    }, 1000);
                 setTimeout(() => {
                         walk()
                     }, 2000);
                 }else if(left.value==96){
                 clearInterval(timer)
-                console.log('战斗5')
+                let sysinfo={
+                         sys:'系统',
+                         time:timeStr,
+                         text:'遭遇最终Boss,开始战斗!',
+                         color:'#67C23A',
+                         ifequipment:false,
+                        equipmentinfo:{}
+                    }
+                    store.commit('addsysinfo',sysinfo)
+                   setTimeout(() => {
+                    let fightinfo={
+                         sys:'系统',
+                         time:timeStr,
+                         text:'遭遇怪物袭击,受到12点伤害',
+                         color:'#FF5511',
+                         ifequipment:false,
+                        equipmentinfo:{}
+                    }
+                    store.commit('addsysinfo',fightinfo)
+                    }, 1000);
                 }
             }else{
                 left.value=0

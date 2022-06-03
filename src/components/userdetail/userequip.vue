@@ -17,21 +17,21 @@
       
         <div class="equipment">
             <div class="border" :style="{'box-shadow':userdata.armo.color}">
-                <img :src="`../../src/assets/icons/myequip/weapon/${userdata.armo.imgurl}.png`"/>
+                <img :src="`../../src/assets/icons/myequip/armo/${userdata.armo.imgurl}.png`"/>
             </div>
             <p>{{userdata.armo.name}}</p>
         </div>
 
         <div class="equipment">
              <div class="border" :style="{'box-shadow':userdata.left.color}">
-                <img :src="`../../src/assets/icons/myequip/weapon/${userdata.left.imgurl}.png`"/>
+                <img :src="`../../src/assets/icons/myequip/left/${userdata.left.imgurl}.png`"/>
             </div>
             <p>{{userdata.left.name}}</p>
         </div>
 
         <div class="equipment">
             <div class="border" :style="{'box-shadow':userdata.right.color}">
-                <img :src="`../../src/assets/icons/myequip/weapon/${userdata.right.imgurl}.png`"/>
+                <img :src="`../../src/assets/icons/myequip/right/${userdata.right.imgurl}.png`"/>
             </div>
             <p>{{userdata.right.name}}</p>
         </div>
