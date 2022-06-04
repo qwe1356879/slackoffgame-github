@@ -29,8 +29,6 @@
         </div>
         <p class="job-p">lv{{di.lv}}</p>
         </div>
-        
-       
         <opendialog ref="mydialog"></opendialog>
     </div>
 

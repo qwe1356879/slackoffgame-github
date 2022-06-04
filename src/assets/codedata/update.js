@@ -1,5 +1,12 @@
 export let updatelist=[
     {
+        date:'2022-6-4',
+        detail:[
+            '完成装备鼠标悬停展示功能',
+        ],
+        author:'FanR'
+    },
+    {
         date:'2022-6-3',
         detail:[
             '修复装备图标都是武器图标的错误',

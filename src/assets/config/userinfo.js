@@ -21,8 +21,10 @@ let userinfo={
     Cridt:20,
     CridtDmg:20,
     equipments:[
-        {weapon:crateWeapon(1,1,1)},{armo:crateArmo(1,1,1)},
-        {left:crateLeft(1,1,1)},{right:crateRight(1,1,1)}
+        {weapon:crateWeapon(1,1,1)},
+        {armo:crateArmo(1,1,1)},
+        {left:crateLeft(1,1,1)},
+        {right:crateRight(1,1,1)}
     ],
     key:randomString(8, '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ')
 }

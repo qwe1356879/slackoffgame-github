@@ -68,7 +68,7 @@ var crateRight= function(level,jobtype,which){
     }
     let weapon =  {
         name:weaponNameList[random(0,weaponNameList.length-1)],
-        type:'首饰',
+        type:'耳环',
         intro:weaponintro[random(0,weaponintro.length-1)],
         dmg:random(1,3),
         quality:random(lower+which,100),
