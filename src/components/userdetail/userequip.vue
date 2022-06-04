@@ -30,7 +30,6 @@
         </div>
 
         <showequipe :userdata="equipdata" v-if="userdata.enterstate"></showequipe>
-        <!-- v-show="userdata.enterstate" -->
     </div>
 </template>
 
@@ -47,10 +46,6 @@ export default ({
 
         const store = useStore()
         const { x, y } = MonitorFocus();
-        // let  mouseposi=ref({
-        //     x:MonitorFocus(),
-        //     y:MonitorFocus()
-        // })
         let userdata = reactive({
             weapon: {},
             armo: {},
@@ -79,9 +74,6 @@ export default ({
             }
             console.log('datd', data)
             equipdata.value = data
-
-            // console.log('data',data)
-            // console.log('x,y',x.value,y.value)
         }
         watch(getShowTask, (newval, oldval) => {
             userdata.weapon = newval.equipments[0].weapon

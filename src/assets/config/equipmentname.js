@@ -1,4 +1,4 @@
-export const weaponNameList=[
+export const weaponNameList = [
     '太极天帝剑',
     '前瞻守卫者',
     '信念徽章:自由',

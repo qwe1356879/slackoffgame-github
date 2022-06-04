@@ -1,4 +1,4 @@
-export const weaponintro=[
+export const weaponintro = [
     '潘多拉的盒子',
     '普罗米修斯盗天火给人间后，主神宙斯为惩罚人类',
     '-命令神用黏土塑成一个年轻美貌、虚伪狡诈的姑娘，取名“潘多拉”，意为“具有一切天赋的女人',
@@ -7,7 +7,7 @@ export const weaponintro=[
     '于是各种恶习、灾难和疾病立即从里面飞出来',
     '盒子里只剩下唯一美好的东西——希望',
     '但希望还没来得及飞出来，潘多拉就将盒子永远地关上了',
-    
+
     '达摩克利斯剑',
     '达摩克利斯是希腊神话中暴君迪奥尼修斯的宠臣，他常说帝王多福，以取悦帝王',
     '有一次，迪奥尼修斯让他坐在帝王的宝座上，头顶上挂着一把仅用一根马鬃系着的利剑',
@@ -23,7 +23,7 @@ export const weaponintro=[
     '后来，人们就常用“缪斯”来比喻文学、写作和灵感等',
 ]
 
-export const armointro=[
+export const armointro = [
 
     '斯芬克斯之谜',
     '斯芬克斯是希腊神话中以隐谜害人的怪物，埃及最大的胡夫金字塔前的狮身人面怪兽就是他',
@@ -45,7 +45,7 @@ export const armointro=[
     '比喻教师对学生的期待不同，对他们施加的方法不同，学生受到的影响也不一样',
 ]
 
-export const leftequipment=[
+export const leftequipment = [
     '犹大的亲吻',
     '犹大是《圣经》中耶稣基督的亲信子弟12门徒之一',
     '耶稣传布新道虽然受到了百姓的拥护，却引起犹太教长老司祭们的仇恨',
@@ -67,7 +67,7 @@ export const leftequipment=[
     '禁果比喻被禁止得到而又渴望得到的东西。',
 ]
 
-export const rightequipment =[
+export const rightequipment = [
     '多米诺骨牌',
     '一种西洋游戏，将许多长方形的骨牌竖立排列成行',
     '轻轻推倒第1张牌时，其余骨牌将依次纷纷倒下',
