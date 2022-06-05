@@ -72,6 +72,10 @@ export default {
             //返回的是ref对象
             return store.state.showfight;
         })
+        const getShowHp = computed(() => {
+            //返回的是ref对象
+            return store.state.userinfo.NowHp;
+        })
         watch(getShowTask, (newval, oldval) => {
             if (newval) {
                 state.show = true
@@ -80,13 +84,48 @@ export default {
                 state.show = false
             }
         }, { immediate: true, deep: true })
+        watch(getShowHp, (newval, oldval) => {
+            if(newval<=0){
+                onUnmounted(()=>{
+                    clearInterval(timer)
+                })
+                // clearInterval(timer)
+                // console.log('timer',timer)
+                // store.commit('changeFightState')
+                // let myDate = new Date();
+                // let str = myDate.toTimeString(); //"10:55:24 GMT+0800 (中国标准时间)"
+                // let timeStr = str.substring(0, 8);
+                // store.state.userinfo.NowHp=0
+
+                //  let sysinfo = {
+                //         sys: '系统',
+                //         time: timeStr,
+                //         text: '挑战失败,',
+                //         color: '#67C23A',
+                //         ifequipment: false,
+                //         equipmentinfo: {}
+                //     }
+                //     store.commit('addsysinfo', sysinfo)
+                //     //  stopfight()
+                //       store.commit('userrecoverhp',0.02)
+            }else{
+                if (newval<store.state.userinfo.MaxHp) {
+                store.commit('userrecoverhp',0.02)
+                } else {
+                console.log('回满血了')
+                }
+            }
+          
+        }, { deep: true })
         function walk() {
+            // clearInterval(timer)
             timer = setInterval(() => {
                 changeleft(0.2);
                 changewalk()
             }, 45);
         }
         function changeleft(speed) {
+            
             let myDate = new Date();
             let str = myDate.toTimeString(); //"10:55:24 GMT+0800 (中国标准时间)"
             let timeStr = str.substring(0, 8);
@@ -115,12 +154,14 @@ export default {
                             ifequipment: false,
                             equipmentinfo: {}
                         }
+                        store.state.userinfo.NowHp-=120
                         store.commit('addsysinfo', fightinfo)
                     }, 1000);
+                   
 
                     setTimeout(() => {
                         walk()
-                    }, 4000);
+                    }, 2000);
 
                 } else if (left.value == 36) {
                     clearInterval(timer)
@@ -142,6 +183,7 @@ export default {
                             ifequipment: false,
                             equipmentinfo: {}
                         }
+                        store.state.userinfo.NowHp-=24
                         store.commit('addsysinfo', fightinfo)
                     }, 1000);
                     setTimeout(() => {
@@ -168,6 +210,7 @@ export default {
                             ifequipment: false,
                             equipmentinfo: {}
                         }
+                        store.state.userinfo.NowHp-=36
                         store.commit('addsysinfo', fightinfo)
                     }, 1000);
 
@@ -196,6 +239,7 @@ export default {
                         }
                         store.commit('addsysinfo', fightinfo)
                     }, 1000);
+
                     setTimeout(() => {
                         walk()
                     }, 2000);
@@ -219,10 +263,12 @@ export default {
                             ifequipment: false,
                             equipmentinfo: {}
                         }
+                         store.state.userinfo.NowHp-=120
                         store.commit('addsysinfo', fightinfo)
                     }, 1000);
                 }
             } else {
+                clearInterval(timer)
                 left.value = 0
                 playleft.value = '0%'
             }
@@ -239,7 +285,7 @@ export default {
 
         }
         onUnmounted(() => {
-            console.log('fight销毁了')
+            console.log('销毁了')
             clearInterval(timer)
         })
         function stopfight() {
