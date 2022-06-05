@@ -1,6 +1,6 @@
 <template>
+  <Bag class="bag"></Bag>
   <div class="main">
-
     <div class="left-detail">
       <div class="info-area">
         <userlevel></userlevel>
@@ -14,9 +14,7 @@
         <myfooter></myfooter>
       </div>
     </div>
-
     <div class="back" ref="backmaap">
-
       <div class="border">
         <fight ref="fight" v-if="show"></fight>
         <div v-for="di in joblist" :style="di.style" v-else @click="showdialog(di)">
@@ -36,8 +34,6 @@
         <mymenu @refreshjob="refreshjob"></mymenu>
       </div>
     </div>
-
-
   </div>
 </template>
 
@@ -54,6 +50,7 @@ import userinfo from '../assets/config/userinfo'
 import { useStore } from 'vuex'
 import fight from '../components/fight/index.vue';
 import { ElNotification } from 'element-plus'
+import Bag from '../components/bag/index.vue';
 export default {
   components: {
     userlevel,
@@ -62,7 +59,8 @@ export default {
     mymenu,
     opendialog,
     myfooter,
-    fight
+    fight,
+    Bag,
   },
   setup() {
 
@@ -158,7 +156,6 @@ export default {
   text-align: center;
   width: 43px;
   height: 43px;
-
 }
 
 .img img {
@@ -169,7 +166,6 @@ export default {
 .el-divider--horizontal {
   margin: 0 auto;
   width: 90%;
-
 }
 
 .job-p {
@@ -180,5 +176,10 @@ export default {
 
 .border div:hover {
   cursor: pointer;
+}
+
+.bag{
+  position: fixed;
+  display: flex;
 }
 </style>
