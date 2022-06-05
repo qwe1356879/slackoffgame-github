@@ -1,14 +1,14 @@
 <template>
   <div class="bag-bg" v-if=store.state.showBag>
-    <img class="bg-img" src="/src/assets/icons/images/1_爱给网_aigei_com(1).png">
     <div class="item-bg">
-      <el-space wrap :size="22">
-        <div  v-for="i in 36" :key="i">
-          <div class="item">
-            <img class="item-img" src="/src/assets/icons/myequip/weapon/1_(26).png" >
-          </div>
+      <div class="grid-single" v-for="i in 64" :style="{'box-shadow':store.state.userinfo.equipments[0].weapon.color}" @mousedown="mousedown">
+         <img :src="`../../src/assets/icons/myequip/armo/1_(1).png`" alt="">
+      </div>
+      <div>
+        <div class="close-btn">
+          <img src='../../assets/icons/close.png' @click="closebag"/>
         </div>
-      </el-space>
+      </div>
     </div>
   </div>
 </template>
@@ -21,14 +21,21 @@ export default {
   name: "Package",
   setup(){
     const capacity = ref(10);
-    const equipList = reactive([
-      {
-
-      }
-    ])
+    const equipList = reactive({
+      list:[]
+    })
     const store = useStore();
+
+    function closebag(){
+      store.commit('changeShowBag')
+    }
+    function mousedown(){
+      console.log('123')
+    }
     return({
       store,
+      closebag,
+      mousedown
     })
   }
 }
@@ -36,11 +43,11 @@ export default {
 
 <style scoped>
   .bag-bg{
-    width: 40%;
-    height: 60%;
-    margin-top: 10%;
-    margin-left: 25%;
-    /*background-color: white;*/
+    width: 60%;
+    height: 45%;
+    background-image: url("/src/assets/icons/images/1_爱给网_aigei_com(1).png");
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
     z-index: 2;
   }
   .bg-img{
@@ -49,28 +56,42 @@ export default {
     z-index: 3;
   }
   .item-bg{
-    position: absolute;
-    width: 90%;
-    height: 76%;
-    margin-top: 100px;
-    margin-left: 7%;
-    z-index: 4;
+    margin: 70px auto;
+    width: 85%;
+    height: 70%;
+    display: flex;
+    background-color: rgba(0, 0, 0, 0.212);
+    overflow-y: scroll;
+    overflow-x: hidden;
+    border-radius: 8px;
+    /* background-color: aqua; */
+    justify-content: flex-start;
+    align-content: flex-start;
+    flex-wrap:wrap;
+    /* display: grid; */
     /*background-color: white;*/
     /*opacity: 50%;*/
   }
-  .item{
-    width: 51px;
-    height: 51px;
-    border: 1px black;
-    z-index: 5;
-    background-color: black;
+  .grid-single{
+    width: calc(100% / 12);
+    height: calc(100% / 6);
+    margin:4px;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.774);
   }
-  .item-img{
-    width: 100%;
-    height: 100%;
-    z-index: 6;
+  .grid-single img{
+    width: 90%;
+    height: 90%;
+    border-radius: 8px;
+    margin: 2px 2px;
   }
-  /*.myHeader{*/
-  /*  background-color: #d4d7de;*/
-  /*}*/
+  .close-btn{
+    position: absolute;
+    top: 12px;
+    right: 5px;
+  }
+  .close-btn img{
+    width: 24px;
+    height: 24px;
+  }
 </style>

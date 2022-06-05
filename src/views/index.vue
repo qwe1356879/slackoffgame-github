@@ -1,5 +1,5 @@
 <template>
-  <Bag class="bag"></Bag>
+
   <div class="main">
     <div class="left-detail">
       <div class="info-area">
@@ -16,12 +16,12 @@
     </div>
     <div class="back" ref="backmaap">
       <div class="border">
+        <Bag class="bag"></Bag>
         <fight ref="fight" v-if="show"></fight>
         <div v-for="di in joblist" :style="di.style" v-else @click="showdialog(di)">
           <div class="img" :style="di.imagestyle">
             <img :src="`../src/assets/icons/menu/${di.imgurl}.png`" />
           </div>
-          <!-- <img src='/assets/icons/S_Holy01.png'/> -->
           <div class="divider">
             <el-divider />
           </div>
@@ -34,6 +34,8 @@
         <mymenu @refreshjob="refreshjob"></mymenu>
       </div>
     </div>
+
+
   </div>
 </template>
 
@@ -72,6 +74,10 @@ export default {
     })
     const backmaap = ref(null)
     const mydialog = ref(null)
+    const getShowHp = computed(() => {
+            //返回的是ref对象
+      return store.state.userinfo.NowHp;
+    })
     const getShowTask = computed(() => {
       //返回的是ref对象
       return store.state.showfight;
@@ -80,13 +86,15 @@ export default {
       //返回的是ref对象
       return store.state.joblist;
     })
+     watch(getShowHp, (newval, oldval) => {
+            if (newval <= store.state.userinfo.MaxHp) {
+                store.commit('userrecoverhp', 0.02)
+            }
+        },{ immediate: true, deep: true })
     watch(getShowTask, (newval, oldval) => {
-      if (newval) {
-        state.show = true
-      } else {
-        state.show = false
-      }
-    }, { immediate: true, deep: true })
+      console.log('new',newval)
+       state.show = newval
+    }, {  deep: true })
     watch(getJobTask, (newval, oldval) => {
       if (newval) {
         state.joblist = newval
@@ -105,12 +113,6 @@ export default {
       let time = store.state.refreshjobtime
       if (time >= 1 && time < 5) {
         console.log('JOBCD')
-        //       ElNotification ({
-        //     title:'系统提示',
-        //     type:'warning',
-        //     duration:3000,
-        //     message:`刷新任务处于CD中,剩余${store.state.refreshjobtime}秒`
-        // })
       } else {
         let data = {
           height: backmaap.value.offsetHeight,
@@ -178,8 +180,9 @@ export default {
   cursor: pointer;
 }
 
-.bag{
-  position: fixed;
-  display: flex;
+.bag {
+  position: absolute;
+  top: 35%;
+  left: 22%;
 }
 </style>

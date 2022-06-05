@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import { reactive, toRefs, ref, computed, onMounted, onUnmounted, watch } from 'vue'
+import { reactive, toRefs, ref, computed, onMounted, onUnmounted, watch, getCurrentInstance } from 'vue'
 import { useStore } from 'vuex'
 function add() {
     var args = arguments,//获取所有的参数
@@ -85,53 +85,38 @@ export default {
             }
         }, { immediate: true, deep: true })
         watch(getShowHp, (newval, oldval) => {
-            if(newval<=0){
-                onUnmounted(()=>{
-                    clearInterval(timer)
-                })
-                // clearInterval(timer)
-                // console.log('timer',timer)
-                // store.commit('changeFightState')
-                // let myDate = new Date();
-                // let str = myDate.toTimeString(); //"10:55:24 GMT+0800 (中国标准时间)"
-                // let timeStr = str.substring(0, 8);
-                // store.state.userinfo.NowHp=0
-
-                //  let sysinfo = {
-                //         sys: '系统',
-                //         time: timeStr,
-                //         text: '挑战失败,',
-                //         color: '#67C23A',
-                //         ifequipment: false,
-                //         equipmentinfo: {}
-                //     }
-                //     store.commit('addsysinfo', sysinfo)
-                //     //  stopfight()
-                //       store.commit('userrecoverhp',0.02)
-            }else{
-                if (newval<store.state.userinfo.MaxHp) {
-                store.commit('userrecoverhp',0.02)
-                } else {
-                console.log('回满血了')
+            if (newval < 0) {
+                stopfight()
+                let myDate = new Date();
+                let str = myDate.toTimeString(); //"10:55:24 GMT+0800 (中国标准时间)"
+                let timeStr = str.substring(0, 8);
+                store.state.userinfo.NowHp = 0
+                let sysinfo = {
+                    sys: '系统',
+                    time: timeStr,
+                    text: '挑战失败,退出副本',
+                    color: '#FF5511',
+                    ifequipment: false,
+                    equipmentinfo: {}
                 }
+                store.commit('addsysinfo', sysinfo)
             }
-          
-        }, { deep: true })
+        },{immediate:true})
         function walk() {
-            // clearInterval(timer)
             timer = setInterval(() => {
-                changeleft(0.2);
+                changeleft(0.5);
                 changewalk()
+                if (store.state.userinfo.NowHp <= 0) {
+                    clearInterval(timer)
+                }
             }, 45);
         }
         function changeleft(speed) {
-            
+
             let myDate = new Date();
             let str = myDate.toTimeString(); //"10:55:24 GMT+0800 (中国标准时间)"
             let timeStr = str.substring(0, 8);
-            // left.value+=0.2
             left.value = add(left.value, speed)
-            // console.log('left.value',left.value)
             if (left.value <= 100) {
                 playleft.value = left.value + '%'
                 if (left.value === 16) {
@@ -140,7 +125,7 @@ export default {
                         sys: '系统',
                         time: timeStr,
                         text: '遭遇怪物1,开始战斗!',
-                        color: '#67C23A',
+                        color: '#FF5511',
                         ifequipment: false,
                         equipmentinfo: {}
                     }
@@ -149,20 +134,29 @@ export default {
                         let fightinfo = {
                             sys: '系统',
                             time: timeStr,
-                            text: '遭遇怪物袭击,受到12点伤害',
+                            text: '遭遇怪物1袭击,受到12点伤害',
                             color: '#FF5511',
                             ifequipment: false,
                             equipmentinfo: {}
                         }
-                        store.state.userinfo.NowHp-=120
+                        store.state.userinfo.NowHp -= 80
                         store.commit('addsysinfo', fightinfo)
+                        if(store.state.userinfo.NowHp>0){
+                             walk()
+                             let myDate = new Date();
+                             let str = myDate.toTimeString(); //"10:55:24 GMT+0800 (中国标准时间)"
+                             let timeStr = str.substring(0, 8);
+                             let sysinfo = {
+                                sys: '系统',
+                                time: timeStr,
+                                text: '挑战怪物1成功,掉落装备',
+                                color: '#67C23A',
+                                ifequipment: false,
+                                equipmentinfo: {}
+                            }
+                            store.commit('addsysinfo', sysinfo)
+                        }
                     }, 1000);
-                   
-
-                    setTimeout(() => {
-                        walk()
-                    }, 2000);
-
                 } else if (left.value == 36) {
                     clearInterval(timer)
                     let sysinfo = {
@@ -178,17 +172,29 @@ export default {
                         let fightinfo = {
                             sys: '系统',
                             time: timeStr,
-                            text: '遭遇怪物袭击,受到12点伤害',
+                            text: '遭遇怪物2袭击,受到12点伤害',
                             color: '#FF5511',
                             ifequipment: false,
                             equipmentinfo: {}
                         }
-                        store.state.userinfo.NowHp-=24
+                        store.state.userinfo.NowHp -= 24
                         store.commit('addsysinfo', fightinfo)
+                         if(store.state.userinfo.NowHp>0){
+                             walk()
+                             let myDate = new Date();
+                             let str = myDate.toTimeString(); //"10:55:24 GMT+0800 (中国标准时间)"
+                             let timeStr = str.substring(0, 8);
+                             let sysinfo = {
+                                sys: '系统',
+                                time: timeStr,
+                                text: '挑战怪物2成功,掉落装备',
+                                color: '#67C23A',
+                                ifequipment: false,
+                                equipmentinfo: {}
+                            }
+                            store.commit('addsysinfo', sysinfo)}
                     }, 1000);
-                    setTimeout(() => {
-                        walk()
-                    }, 2000);
+                  
                 } else if (left.value == 56) {
                     clearInterval(timer)
                     let sysinfo = {
@@ -200,23 +206,32 @@ export default {
                         equipmentinfo: {}
                     }
                     store.commit('addsysinfo', sysinfo)
-
                     setTimeout(() => {
                         let fightinfo = {
                             sys: '系统',
                             time: timeStr,
-                            text: '遭遇怪物袭击,受到12点伤害',
+                            text: '遭遇怪物3袭击,受到12点伤害',
                             color: '#FF5511',
                             ifequipment: false,
                             equipmentinfo: {}
                         }
-                        store.state.userinfo.NowHp-=36
+                        store.state.userinfo.NowHp -= 36
                         store.commit('addsysinfo', fightinfo)
+                         if(store.state.userinfo.NowHp>0){
+                             walk()
+                             let myDate = new Date();
+                             let str = myDate.toTimeString(); //"10:55:24 GMT+0800 (中国标准时间)"
+                             let timeStr = str.substring(0, 8);
+                             let sysinfo = {
+                                sys: '系统',
+                                time: timeStr,
+                                text: '挑战怪物3成功,掉落装备',
+                                color: '#67C23A',
+                                ifequipment: false,
+                                equipmentinfo: {}
+                            }
+                            store.commit('addsysinfo', sysinfo)}
                     }, 1000);
-
-                    setTimeout(() => {
-                        walk()
-                    }, 2000);
                 } else if (left.value == 76) {
                     clearInterval(timer)
                     let sysinfo = {
@@ -232,17 +247,30 @@ export default {
                         let fightinfo = {
                             sys: '系统',
                             time: timeStr,
-                            text: '遭遇怪物袭击,受到12点伤害',
+                            text: '遭遇怪物4袭击,受到12点伤害',
                             color: '#FF5511',
                             ifequipment: false,
                             equipmentinfo: {}
                         }
+                          store.state.userinfo.NowHp -= 40
                         store.commit('addsysinfo', fightinfo)
+                         if(store.state.userinfo.NowHp>0){
+                             walk()
+                             let myDate = new Date();
+                             let str = myDate.toTimeString(); //"10:55:24 GMT+0800 (中国标准时间)"
+                             let timeStr = str.substring(0, 8);
+                             let sysinfo = {
+                                sys: '系统',
+                                time: timeStr,
+                                text: '挑战怪物4成功,掉落装备',
+                                color: '#67C23A',
+                                ifequipment: false,
+                                equipmentinfo: {}
+                            }
+                            store.commit('addsysinfo', sysinfo)}
                     }, 1000);
 
-                    setTimeout(() => {
-                        walk()
-                    }, 2000);
+                  
                 } else if (left.value == 96) {
                     clearInterval(timer)
                     let sysinfo = {
@@ -258,13 +286,27 @@ export default {
                         let fightinfo = {
                             sys: '系统',
                             time: timeStr,
-                            text: '遭遇怪物袭击,受到12点伤害',
+                            text: '遭遇Boss袭击,受到12点伤害',
                             color: '#FF5511',
                             ifequipment: false,
                             equipmentinfo: {}
                         }
-                         store.state.userinfo.NowHp-=120
+                        store.state.userinfo.NowHp -= 120
                         store.commit('addsysinfo', fightinfo)
+                         if(store.state.userinfo.NowHp>0){
+                             walk()
+                             let myDate = new Date();
+                             let str = myDate.toTimeString(); //"10:55:24 GMT+0800 (中国标准时间)"
+                             let timeStr = str.substring(0, 8);
+                             let sysinfo = {
+                                sys: '系统',
+                                time: timeStr,
+                                text: '挑战Boss成功,掉落装备',
+                                color: '#67C23A',
+                                ifequipment: false,
+                                equipmentinfo: {}
+                            }
+                            store.commit('addsysinfo', sysinfo)}
                     }, 1000);
                 }
             } else {
@@ -285,7 +327,6 @@ export default {
 
         }
         onUnmounted(() => {
-            console.log('销毁了')
             clearInterval(timer)
         })
         function stopfight() {

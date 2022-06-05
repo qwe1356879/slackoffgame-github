@@ -1,4 +1,14 @@
-export let updatelist = [{
+export let updatelist = [
+    {
+        date: '2022-6-5',
+        detail: [
+            '完成战斗掉血机制',
+            '完成人物自动恢复血量机制',
+            '完成挑战失败自动退出副本机制'
+        ],
+        author: 'FanR'
+    },
+    {
         date: '2022-6-4',
         detail: [
             '完成装备鼠标悬停展示功能',
