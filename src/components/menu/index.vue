@@ -27,9 +27,13 @@
 import { reactive, toRefs, ref } from 'vue'
 import useClipboard from 'vue-clipboard3'
 import { ElMessage } from 'element-plus'
+import {useStore} from "vuex";
+
 export default {
     emits: ['refreshjob'],
+
     setup(_, { emit }) {
+        const store = useStore();
         const itemlist = reactive([
             {
                 icon: 'refresh_de',
@@ -44,7 +48,7 @@ export default {
             {
                 icon: 'quest_icon_02',
                 name: '背包',
-                key: "bage",
+                key: "bag",
                 toollip: [
                     '* 角色背包'
                 ]
@@ -65,9 +69,10 @@ export default {
                 case 'refreshjob':
                     emit('refreshjob')
                     break;
-                case 'bage':
-                    console.log('openbage')
+                case 'bag':
+                    store.commit('changeShowBag',);
                     break;
+
                 case 'data':
                     datacode.value = localStorage.getItem('userdata')
                     datadialog.value = true
