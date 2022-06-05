@@ -27,7 +27,7 @@ function MonitorFocus() {
     //返回响应式变量  x y
     return {
         y,
-        x
+        x,
     }
 }
 //导出MonitorFocus方法  给其他地方调用

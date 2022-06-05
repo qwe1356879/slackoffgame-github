@@ -1,8 +1,9 @@
 <template>
   <div class="bag-bg" v-if=store.state.showBag>
     <div class="item-bg">
-      <div class="grid-single" v-for="i in 64" :style="{'box-shadow':store.state.userinfo.equipments[0].weapon.color}" @mousedown="mousedown">
+      <div class="grid-single" v-for="i in 64" :style="{'box-shadow':store.state.userinfo.equipments[0].weapon.color}" @mousedown="mousedown(i)">
          <img :src="`../../src/assets/icons/myequip/armo/1_(1).png`" alt="">
+        
       </div>
       <div>
         <div class="close-btn">
@@ -10,30 +11,67 @@
         </div>
       </div>
     </div>
+     <rightselect :menulist="equipList.menulist" v-if="equipList.rightstate" :bagitem="equipList.bagitem"></rightselect>
+    
   </div>
 </template>
 
 <script>
 import {reactive,ref} from "vue";
 import {useStore} from "vuex";
-
+import rightselect from "./rightselect.vue";
+import MonitorFocus from '../../assets/tool/mouseutil'
 export default {
   name: "Package",
+  components:{
+    rightselect
+  },
   setup(){
     const capacity = ref(10);
+    const x = ref(0)
+    const y=ref(0)
     const equipList = reactive({
-      list:[]
+      list:[],
+      rightstate:false,
+      menulist:[
+        {
+          title:'强化',
+          value:'intensify'
+        },
+        {
+          title:'出售',
+          value:'sell'
+        },
+        {
+          title:'more……',
+          value:'more'
+        },
+      ],
+      bagitem:{
+        
+      }
     })
     const store = useStore();
 
     function closebag(){
       store.commit('changeShowBag')
     }
-    function mousedown(){
-      console.log('123')
+    function MovementTrigger(e) {
+        //事件触发时给x y 赋值
+        x.value = e.pageX;
+        y.value = e.pageY;
+    }
+    function mousedown(item){
+       window.addEventListener("mousedown", MovementTrigger)
+       console.log('x',x.value)
+      equipList.bagitem.y =y
+      equipList.bagitem.x =x
+      equipList.bagitem.item=item
+      equipList.rightstate=!equipList.rightstate
     }
     return({
       store,
+      equipList,
       closebag,
       mousedown
     })
@@ -64,13 +102,9 @@ export default {
     overflow-y: scroll;
     overflow-x: hidden;
     border-radius: 8px;
-    /* background-color: aqua; */
     justify-content: flex-start;
     align-content: flex-start;
     flex-wrap:wrap;
-    /* display: grid; */
-    /*background-color: white;*/
-    /*opacity: 50%;*/
   }
   .grid-single{
     width: calc(100% / 12);
