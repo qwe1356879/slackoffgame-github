@@ -1,5 +1,12 @@
 export let updatelist = [
     {
+        date: '2022-6-7',
+        detail: [
+            '商店生成物品机制',
+        ],
+        author: 'FanR'
+    },
+    {
         date: '2022-6-5',
         detail: [
             '完成战斗掉血机制',

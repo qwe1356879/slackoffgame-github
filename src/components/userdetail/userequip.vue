@@ -72,7 +72,6 @@ export default ({
             } else {
                 data.imgurladd = '/right/' + data.imgurl
             }
-            console.log('datd', data)
             equipdata.value = data
         }
         watch(getShowTask, (newval, oldval) => {

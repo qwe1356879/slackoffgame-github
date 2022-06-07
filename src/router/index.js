@@ -9,14 +9,14 @@ const router = createRouter({
       path: '/',
       component: () => import('../views/index.vue')
     },
-    {
-      path: '/test',
-      component: () => import('../testview/test/TestRadomWeapon.vue')
-    },
     // {
-    //   path: '/map',
-    //   component: () => import('../testview/AutoWeapon/TestRadomJob.vue')
+    //   path: '/test',
+    //   component: () => import('../testview/test/TestRadomWeapon.vue')
     // },
+    {
+      path: '/shop',
+      component: () => import('../testview/test/Shop.vue')
+    },
     
     
   ]

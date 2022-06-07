@@ -1,5 +1,5 @@
 <template>
-    <div class="border-euqip" :style="{ 'top': userdata.mouseposi.y + 40 + 'px', 'box-shadow': userdata.color }">
+    <div class="border-euqip" :style="{ 'top': userdata.mouseposi.y + 40 + 'px', 'left': userdata.mouseposi.x + 40 + 'px','box-shadow': userdata.color }">
         <div class="first">
             <div class="img">
                 <div class="out-box" :style="{ 'box-shadow': userdata.color }">
@@ -56,17 +56,11 @@ import { reactive, toRefs, defineComponent } from 'vue'
 export default defineComponent(
     {
         props: {
-            userdata: Object
+            userdata:Object
         },
         emits: [],
         setup(props) {
-            // console.log('x',props.userdata)
-            const state = reactive({
-                // posi:{
-                //     x:props.mouseposi.x,
-                //     y:props.
-                // }
-            })
+         
 
             return {
 
