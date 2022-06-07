@@ -17,6 +17,7 @@
     <div class="back" ref="backmaap">
       <div class="border">
         <Bag class="bag"></Bag>
+        <Shop></Shop>
         <fight ref="fight" v-if="show"></fight>
         <div v-for="di in joblist" :style="di.style" v-else @click="showdialog(di)">
           <div class="img" :style="di.imagestyle">
@@ -53,6 +54,7 @@ import { useStore } from 'vuex'
 import fight from '../components/fight/index.vue';
 import { ElNotification } from 'element-plus'
 import Bag from '../components/bag/index.vue';
+import Shop from '../components/shop/index.vue';
 export default {
   components: {
     userlevel,
@@ -63,6 +65,7 @@ export default {
     myfooter,
     fight,
     Bag,
+    Shop
   },
   setup() {
 
@@ -185,4 +188,9 @@ export default {
   top: 35%;
   left: 22%;
 }
+/* .shop{
+  position: absolute !important;
+  top: 35%;
+  left: 22%;
+} */
 </style>

@@ -28,7 +28,7 @@ const state = {
   sysinfolist: [{
       sys: '系统',
       time: timeStr,
-      text: '欢迎来到BraveGame,点击地图上的任务列表就可挑战副本,副本难度越高掉落的装备越稀有',
+      text: '欢迎来到SlackOffGame,点击地图上的任务列表就可挑战副本,副本难度越高掉落的装备越稀有',
       color: '#f90202',
       ifequipment: false,
       equipmentinfo: {}
@@ -47,7 +47,7 @@ const state = {
   refreshjobtime: 5,
   timerHp:null,
   showBag: false,
-
+  showShop:false
 }
 //创建actions
 const actions = {}
@@ -66,6 +66,7 @@ const mutations = {
       // console.log('无存档userinfo',state.userinfo)
     } else {
       state.userinfo = JSON.parse(base.decode(localStorage.getItem('userdata'))),
+      console.log('userinfo',state.userinfo)
         state.sysinfolist.push({
           sys: '系统',
           time: '',
@@ -79,6 +80,9 @@ const mutations = {
   },
   changeFightState(state) {
     state.showfight = !state.showfight
+  },
+  changeShowShop(state) {
+    state.showShop = !state.showShop
   },
   addsysinfo(state, data) {
     state.sysinfolist.push(data)

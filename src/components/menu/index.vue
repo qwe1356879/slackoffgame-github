@@ -58,7 +58,15 @@ export default {
                 name: '生成存档',
                 key: "data",
                 toollip: [
-                    '* 生成游戏存档', '* 后期可使用存档导入功能'
+                   '* 生成存档', '* 生成游戏存档', '* 后期可使用存档导入功能'
+                ]
+            },
+             {
+                icon: 'icon_80',
+                name: '商店',
+                key: "shop",
+                toollip: [
+                   '* 商店', '* 贩卖装备和治疗药水', '* 刷新商店需要一定量的金币'
                 ]
             }
         ])
@@ -70,12 +78,14 @@ export default {
                     emit('refreshjob')
                     break;
                 case 'bag':
-                    store.commit('changeShowBag',);
+                    store.commit('changeShowBag');
                     break;
-
                 case 'data':
                     datacode.value = localStorage.getItem('userdata')
                     datadialog.value = true
+                    break;
+                 case 'shop':
+                    store.commit('changeShowShop')
                     break;
             }
         }

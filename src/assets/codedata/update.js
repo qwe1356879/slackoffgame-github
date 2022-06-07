@@ -3,6 +3,8 @@ export let updatelist = [
         date: '2022-6-7',
         detail: [
             '商店生成物品机制',
+            '更换favicon',
+            '完成商店部分功能'
         ],
         author: 'FanR'
     },
