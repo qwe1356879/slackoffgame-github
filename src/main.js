@@ -8,7 +8,7 @@ import store from "./store/index"
 const app = createApp(App)
 import './assets/css/base.scss'
 
-app.config.globalProperties.$axios = Axios
+// app.config.globalProperties.$axios = Axios
 app.use(ElementPlus)
 app.use(router)
 app.use(store)

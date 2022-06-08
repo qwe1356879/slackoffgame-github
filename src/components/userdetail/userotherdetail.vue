@@ -3,60 +3,60 @@
 
     <el-tooltip effect="dark" placement="bottom">
       <template #content>
-        <div class="tip-img"><img src='/src/assets/icons/tips.png' /></div>
+        <div class="tip-img"><img src='/icons/tips.png' /></div>
         <p> * 角色攻击力</p>
         <p> * 角色攻击力将直接影响角色DPS</p>
       </template>
       <div class="sx">
-        <img src='/src/assets/icons/ATK.png' />
+        <img src='/icons/ATK.png' />
         <p>{{ store.state.userinfo.Atk }}</p>
       </div>
     </el-tooltip>
 
     <el-tooltip effect="dark" placement="bottom">
       <template #content>
-        <div class="tip-img"><img src='/src/assets/icons/tips.png' /></div>
+        <div class="tip-img"><img src='/icons/tips.png' /></div>
         <p> * 角色暴击率</p>
         <p> * 角色暴击率将直接影响角色DPS</p>
       </template>
       <div class="sx">
-        <img src='/src/assets/icons/CRIT.png' />
+        <img src='/icons/CRIT.png' />
         <p>{{ store.state.userinfo.Cridt }}%</p>
       </div>
     </el-tooltip>
 
     <el-tooltip effect="dark" placement="bottom">
       <template #content>
-        <div class="tip-img"><img src='/src/assets/icons/tips.png' /></div>
+        <div class="tip-img"><img src='/icons/tips.png' /></div>
         <p> * 角色暴击伤害</p>
         <p> * 角色暴击伤害将直接影响角色DPS</p>
       </template>
       <div class="sx">
-        <img src='/src/assets/icons/CRITDMG.png' />
+        <img src='/icons/CRITDMG.png' />
         <p>{{ store.state.userinfo.CridtDmg }}%</p>
       </div>
     </el-tooltip>
 
     <el-tooltip effect="dark" placement="bottom">
       <template #content>
-        <div class="tip-img"><img src='/src/assets/icons/tips.png' /></div>
+        <div class="tip-img"><img src='/icons/tips.png' /></div>
         <p> * 角色防御力</p>
         <p> * 减伤比例采用非线性计算，防御力越高收益越低</p>
       </template>
       <div class="sx">
-        <img src='/src/assets/icons/icon_11.png' />
+        <img src='/icons/icon_11.png' />
         <p>{{ store.state.userinfo.Armo }}</p>
       </div>
     </el-tooltip>
 
     <el-tooltip effect="dark" placement="bottom">
       <template #content>
-        <div class="tip-img"><img src='/src/assets/icons/tips.png' /></div>
+        <div class="tip-img"><img src='/icons/tips.png' /></div>
         <p> * 角色格挡值</p>
         <p> * 计算护甲后在计算格挡伤害就是最终受到的伤害</p>
       </template>
       <div class="sx">
-        <img src='/src/assets/icons/S_BLOC.png' />
+        <img src='/icons/S_BLOC.png' />
         <p>{{ store.state.userinfo.Armo }}</p>
       </div>
     </el-tooltip>

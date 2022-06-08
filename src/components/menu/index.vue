@@ -6,7 +6,7 @@
                     <p v-for="t in i.toollip" :key="t">{{ t }}</p>
                     <!-- <br/> -->
                 </template>
-                <img :src="`/src/assets/icons/menu/${i.icon}.png`">
+                <img :src="`/icons/menu/${i.icon}.png`">
                 <p>{{ i.name }}</p>
             </el-tooltip>
         </div>

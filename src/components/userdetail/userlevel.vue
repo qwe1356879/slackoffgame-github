@@ -4,7 +4,7 @@
     <div class="main">
       <el-tooltip effect="dark" placement="bottom">
         <template #content>
-          <div class="tip-img"><img src='/src/assets/icons/tips.png' /></div>
+          <div class="tip-img"><img src='/icons/tips.png' /></div>
           <p> * 角色当前等级</p>
         </template>
         <div class="level">
@@ -13,7 +13,7 @@
       </el-tooltip>
       <el-tooltip effect="dark" placement="bottom">
         <template #content>
-          <div class="tip-img"><img src='/src/assets/icons/tips.png' /></div>
+          <div class="tip-img"><img src='/icons/tips.png' /></div>
           <p> * 角色转身次数</p>
         </template>
         <div class="zs">

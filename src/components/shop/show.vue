@@ -6,7 +6,7 @@
             <div class="img">
                 <div class="out-box" :style="{ 'box-shadow': shopdata.color }">
 
-                    <img :src="`/src/assets/icons/myequip${shopdata.imgurladd}.png`" alt="">
+                    <img :src="`/icons/myequip${shopdata.imgurladd}.png`" alt="">
 
                 </div>
             </div>

@@ -3,10 +3,10 @@
         <div class="map-top">
             <div class="danger">
                 <div class="monster" v-for="i in 4">
-                    <img :src="`/src/assets/icons/map/${state.icons.normal}.png`" />
+                    <img :src="`/icons/map/${state.icons.normal}.png`" />
                 </div>
                 <div class="monster">
-                    <img :src="`/src/assets/icons/map/${state.icons.boss}.png`" />
+                    <img :src="`/icons/map/${state.icons.boss}.png`" />
                 </div>
             </div>
             <div class="player" :style="{ 'left': playleft, 'background-position': playerposition }">

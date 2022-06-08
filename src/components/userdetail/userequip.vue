@@ -3,20 +3,20 @@
         <div class="equipment" v-on:mouseenter="mounseonter(userdata.weapon)"
             v-on:mouseleave="userdata.enterstate = false">
             <div class="border" :style="{ 'box-shadow': userdata.weapon.color }">
-                <img :src="`/src/assets/icons/myequip/weapon/${userdata.weapon.imgurl}.png`" />
+                <img :src="`/icons/myequip/weapon/${userdata.weapon.imgurl}.png`" />
             </div>
             <p>{{ userdata.weapon.name }}</p>
         </div>
         <div class="equipment" v-on:mouseenter="mounseonter(userdata.armo)" v-on:mouseleave="userdata.enterstate = false">
             <div class="border" :style="{ 'box-shadow': userdata.armo.color }">
-                <img :src="`/src/assets/icons/myequip/armo/${userdata.armo.imgurl}.png`" />
+                <img :src="`/icons/myequip/armo/${userdata.armo.imgurl}.png`" />
             </div>
             <p>{{ userdata.armo.name }}</p>
         </div>
 
         <div class="equipment" v-on:mouseenter="mounseonter(userdata.left)" v-on:mouseleave="userdata.enterstate = false">
             <div class="border" :style="{ 'box-shadow': userdata.left.color }">
-                <img :src="`/src/assets/icons/myequip/left/${userdata.left.imgurl}.png`" />
+                <img :src="`/icons/myequip/left/${userdata.left.imgurl}.png`" />
             </div>
             <p>{{ userdata.left.name }}</p>
         </div>
@@ -24,7 +24,7 @@
         <div class="equipment" v-on:mouseenter="mounseonter(userdata.right)"
             v-on:mouseleave="userdata.enterstate = false">
             <div class="border" :style="{ 'box-shadow': userdata.right.color }">
-                <img :src="`/src/assets/icons/myequip/right/${userdata.right.imgurl}.png`" />
+                <img :src="`/icons/myequip/right/${userdata.right.imgurl}.png`" />
             </div>
             <p>{{ userdata.right.name }}</p>
         </div>

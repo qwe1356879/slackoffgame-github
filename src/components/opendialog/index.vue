@@ -11,7 +11,7 @@
         <p v-for="info in infolist" class="info-list">
             {{ info }}
         </p>
-        <img src='/src/assets/icons/close.png' @click="closedialog" />
+        <img src='/icons/close.png' @click="closedialog" />
 
         <div class="btn-area">
             <div>

@@ -8,7 +8,7 @@
             <div class="sp-item" v-for="i in state.items">
                 <div class="item" :style="{ 'box-shadow': i.color }" v-on:mouseenter="mounseonter(i)"
                     v-on:mouseleave="state.enterstate = false">
-                    <img :src="`/src/assets/icons/myequip/${i.imgurl}.png`" />
+                    <img :src="`/icons/myequip/${i.imgurl}.png`" />
                 </div>
 
                 <!-- <p>{{ i + 200 }}</p> -->
@@ -21,7 +21,7 @@
             <div class="sp-refresh">
                 <el-tooltip class="box-item" effect="dark" :content="`使用金币刷新商店，每次刷新费用增加500,当前费用:${state.count}`"
                     placement="bottom">
-                    <img src="/src/assets/icons/othericons/goldrefresh.svg" @click="addcount" />
+                    <img src="/icons/othericons/goldrefresh.svg" @click="addcount" />
                 </el-tooltip>
             </div>
             <div class="sp-refresh"></div>
