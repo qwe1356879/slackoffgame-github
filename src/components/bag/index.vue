@@ -2,12 +2,12 @@
   <div class="bag-bg" v-if=store.state.showBag>
     <div class="item-bg">
       <div class="grid-single" v-for="i in 64" :style="{'box-shadow':store.state.userinfo.equipments[0].weapon.color}" @mousedown="mousedown(i)">
-         <img :src="`../../src/assets/icons/myequip/armo/1_(1).png`" alt="">
+         <img :src="`/src/assets/icons/myequip/armo/1_(1).png`" alt="">
         
       </div>
       <div>
         <div class="close-btn">
-          <img src='../../assets/icons/close.png' @click="closebag"/>
+          <img src='/src/assets/icons/close.png' @click="closebag"/>
         </div>
       </div>
     </div>

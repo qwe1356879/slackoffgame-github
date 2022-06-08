@@ -3,7 +3,7 @@
     <div class="dps">
       <el-tooltip effect="dark" placement="bottom">
         <template #content>
-          <div class="tip-img"><img src='../../assets/icons/tips.png' /></div>
+          <div class="tip-img"><img src='/src/assets/icons/tips.png' /></div>
           <p> * 角色DPS</p>
         </template>
         <p class="info">DPS:{{ store.state.userinfo.DPS }}</p>
@@ -11,7 +11,7 @@
 
       <el-tooltip effect="dark" placement="bottom">
         <template #content>
-          <div class="tip-img"><img src='../../assets/icons/tips.png' /></div>
+          <div class="tip-img"><img src='/src/assets/icons/tips.png' /></div>
           <p> * 角色当前拥有的金币数量</p>
         </template>
         <p class="info">金币:{{ store.state.userinfo.Gold }}</p>

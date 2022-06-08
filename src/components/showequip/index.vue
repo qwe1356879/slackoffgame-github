@@ -4,7 +4,7 @@
             <div class="img">
                 <div class="out-box" :style="{ 'box-shadow': userdata.color }">
 
-                    <img :src="`../../src/assets/icons/myequip${userdata.imgurladd}.png`" alt="">
+                    <img :src="`/src/assets/icons/myequip${userdata.imgurladd}.png`" alt="">
                     <!-- <img src=" ../src/assets/icons/myequip/weapon/1(1).png" alt=""> -->
                 </div>
             </div>

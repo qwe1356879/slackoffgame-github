@@ -3,10 +3,10 @@
         <div class="map-top">
             <div class="danger">
                 <div class="monster" v-for="i in 4">
-                    <img :src="`src/assets/icons/map/${state.icons.normal}.png`" />
+                    <img :src="`/src/assets/icons/map/${state.icons.normal}.png`" />
                 </div>
                 <div class="monster">
-                    <img :src="`src/assets/icons/map/${state.icons.boss}.png`" />
+                    <img :src="`/src/assets/icons/map/${state.icons.boss}.png`" />
                 </div>
             </div>
             <div class="player" :style="{ 'left': playleft, 'background-position': playerposition }">
@@ -134,7 +134,7 @@ export default {
                         let fightinfo = {
                             sys: '系统',
                             time: timeStr,
-                            text: '遭遇怪物1袭击,受到12点伤害',
+                            text: '遭遇怪物1袭击,受到80点伤害',
                             color: '#FF5511',
                             ifequipment: false,
                             equipmentinfo: {}
@@ -172,7 +172,7 @@ export default {
                         let fightinfo = {
                             sys: '系统',
                             time: timeStr,
-                            text: '遭遇怪物2袭击,受到12点伤害',
+                            text: '遭遇怪物2袭击,受到24点伤害',
                             color: '#FF5511',
                             ifequipment: false,
                             equipmentinfo: {}
@@ -210,7 +210,7 @@ export default {
                         let fightinfo = {
                             sys: '系统',
                             time: timeStr,
-                            text: '遭遇怪物3袭击,受到12点伤害',
+                            text: '遭遇怪物3袭击,受到36点伤害',
                             color: '#FF5511',
                             ifequipment: false,
                             equipmentinfo: {}
@@ -247,7 +247,7 @@ export default {
                         let fightinfo = {
                             sys: '系统',
                             time: timeStr,
-                            text: '遭遇怪物4袭击,受到12点伤害',
+                            text: '遭遇怪物4袭击,受到40点伤害',
                             color: '#FF5511',
                             ifequipment: false,
                             equipmentinfo: {}
@@ -286,7 +286,7 @@ export default {
                         let fightinfo = {
                             sys: '系统',
                             time: timeStr,
-                            text: '遭遇Boss袭击,受到12点伤害',
+                            text: '遭遇Boss袭击,受到120点伤害',
                             color: '#FF5511',
                             ifequipment: false,
                             equipmentinfo: {}

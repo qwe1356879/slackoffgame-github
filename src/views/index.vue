@@ -21,7 +21,7 @@
         <fight ref="fight" v-if="show"></fight>
         <div v-for="di in joblist" :style="di.style" v-else @click="showdialog(di)">
           <div class="img" :style="di.imagestyle">
-            <img :src="`../src/assets/icons/menu/${di.imgurl}.png`" />
+            <img :src="`/src/assets/icons/menu/${di.imgurl}.png`" />
           </div>
           <div class="divider">
             <el-divider />
