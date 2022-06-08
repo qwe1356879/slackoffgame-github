@@ -12,6 +12,7 @@
     "axios": "^0.26.1",
     "element-plus": "^2.1.10",
     "qs": "^6.10.3",
+    "rollup-plugin-copy": "^3.4.0",
     "vue": "^3.2.25",
     "vue-clipboard3": "^2.0.0",
     "vue-router": "^4.0.14",
