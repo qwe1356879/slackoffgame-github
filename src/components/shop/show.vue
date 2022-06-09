@@ -5,9 +5,7 @@
         <div class="first">
             <div class="img">
                 <div class="out-box" :style="{ 'box-shadow': shopdata.color }">
-
                     <img :src="`/icons/myequip${shopdata.imgurladd}.png`" alt="">
-
                 </div>
             </div>
             <div class="name-arae">
@@ -51,6 +49,12 @@
         <div class="intro" v-if="shopdata.type!='药水'">
             <p style="color:#ccc">{{ shopdata.intro }}</p>
         </div>
+         <div class="divider">
+            <el-divider />
+        </div>
+         <div class="price">
+            <p>售价:{{shopdata.price}}金</p>
+        </div>
         </div>
         <div>
 
@@ -83,7 +87,7 @@ export default defineComponent(
     width: 250px;
     background: rgba(0, 0, 0, 0.808);
     border-radius: 12px;
-    z-index: 999;
+    z-index: 3;
 }
 
 .first {
@@ -187,5 +191,15 @@ export default defineComponent(
      text-indent: 24px;
       padding-top: 8px;
     padding-bottom: 8px;
+}
+.price{
+     
+}
+.price p{
+    text-align: center;
+    color: #fff;
+    padding-top: 8px;
+    padding-bottom: 8px;
+   
 }
 </style>

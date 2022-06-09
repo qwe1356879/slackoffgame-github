@@ -54,22 +54,16 @@ SP  50-100     90<=SP<=100
 //+1 +2 +3 +4 +5
 var crateRight = function (level, jobtype, which) {
     var lower = 0
-    switch (jobtype) {
-        case jobtype == 'N':
-            lower = 5
-            break;
-        case jobtype == 'R':
-            lower = 10
-            break;
-        case jobtype == 'SR':
-            lower = 20
-            break;
-        case jobtype == 'SSR':
-            lower = 35
-            break;
-        case jobtype == 'SP':
-            lower = 40
-            break;
+    if(jobtype=='N'){
+        lower = 5
+    }else if(jobtype=='R'){
+        lower = 10
+    }else if(jobtype=='SR'){
+        lower = 20
+    }else if(jobtype=='SSR'){
+        lower = 35
+    }else{
+        lower = 40
     }
     let weapon = {
         name: weaponNameList[random(0, weaponNameList.length - 1)],
@@ -85,7 +79,8 @@ var crateRight = function (level, jobtype, which) {
         qualityname: "",
         color: '',
         fontcolor: '',
-        lv: level
+        lv: level,
+        price:0
     }
 
     //     let x = {
@@ -98,6 +93,7 @@ var crateRight = function (level, jobtype, which) {
         weapon.color = 'rgb(255 0 0) 0px 0px 7px 2px inset'
         weapon.fontcolor = 'rgb(255 0 0)'
         weapon.extraNum = random(4, 5)
+        weapon.price=level*lower*which*2.5
         for (let j = 0; j < weapon.dmg; j++) {
             let code = basicextra[random(0, basicextra.length - 1)]
             let obj = {}
@@ -128,7 +124,7 @@ var crateRight = function (level, jobtype, which) {
         weapon.color = 'rgb(247 137 24) 0px 0px 7px 2px inset'
         weapon.fontcolor = 'rgb(247 137 24)'
         weapon.extraNum = random(3, 4)
-
+        weapon.price=level*lower*which*1.5
         for (let j = 0; j < weapon.dmg; j++) {
             let code = basicextra[random(0, basicextra.length - 1)]
             let obj = {}
@@ -164,6 +160,7 @@ var crateRight = function (level, jobtype, which) {
         weapon.color = 'rgb(255 0 255) 0px 0px 7px 2px inset'
         weapon.fontcolor = 'rgb(255 0 255)'
         weapon.extraNum = random(2, 3)
+        weapon.price=level*lower*which*1.2
         for (let j = 0; j < weapon.dmg; j++) {
             let code = basicextra[random(0, basicextra.length - 1)]
             let obj = {}
@@ -199,6 +196,7 @@ var crateRight = function (level, jobtype, which) {
         weapon.qualityname = 'R'
         weapon.color = 'rgb(16, 158, 240) 0px 0px 7px 2px inset'
         weapon.fontcolor = 'rgb(16, 158, 240)'
+        weapon.price=level*lower*which*0.8
         weapon.extraNum = random(1, 2)
         for (let j = 0; j < weapon.dmg; j++) {
             let code = basicextra[random(0, basicextra.length - 1)]
@@ -235,6 +233,7 @@ var crateRight = function (level, jobtype, which) {
         weapon.color = 'rgb(161 161 161) 0px 0px 7px 2px inset'
         weapon.fontcolor = 'rgb(161 161 161)'
         weapon.extraNum = random(1, 2)
+        weapon.price=level*lower*which*0.4
         for (let j = 0; j < weapon.dmg; j++) {
             let code = basicextra[random(0, basicextra.length - 1)]
             let obj = {}

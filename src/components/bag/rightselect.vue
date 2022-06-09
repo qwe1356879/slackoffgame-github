@@ -36,7 +36,7 @@ export default defineComponent({
     width: 100px;
     // left: 0;
     // top: 0;
-    z-index: 9999;
+    z-index: 4;
     box-sizing: border-box;
     background: linear-gradient(0deg, #343438, #343438), #ffffff;
     border: 1px solid #505050;

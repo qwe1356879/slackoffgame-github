@@ -75,7 +75,7 @@ export default defineComponent(
     width: 250px;
     background: rgba(0, 0, 0, 0.808);
     border-radius: 12px;
-    z-index: 999;
+    z-index: 7;
     top: 200px;
     left: 400px;
 }

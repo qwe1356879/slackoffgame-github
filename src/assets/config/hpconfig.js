@@ -23,14 +23,19 @@ var fomatFloat = function (value, n) {
   return s;
 };
 
-var crateHP = function (level, type) {
+var crateHP = function (level, type, which) {
+  
   var img = "";
+  var lower=0
   if (type == "小") {
     img = "1";
+    lower=40
   } else if (type == "中") {
     img = "2";
+    lower=35
   } else {
     img = "3";
+    lower=20
   }
   let hp = {
     name: "治疗药水" + "(" + type + ")",
@@ -41,20 +46,25 @@ var crateHP = function (level, type) {
     color: "",
     fontcolor: "",
     lv: level,
+    price:0
   };
 
   if (type == "大") {
     hp.color = "rgb(255 0 0) 0px 0px 7px 2px inset";
     hp.fontcolor = "rgb(255 0 0)";
     hp.recoverhp = level * 1.5;
+    let x =level * lower * which
+    hp.price=x;
   } else if (type == "中") {
     hp.color = "rgb(247 137 24) 0px 0px 7px 2px inset";
     hp.fontcolor = "rgb(247 137 24)";
     hp.recoverhp = level * 1;
+    hp.price=level*(lower/5)*which
   } else {
     hp.color = "rgb(161 161 161) 0px 0px 7px 2px inset";
     hp.fontcolor = "rgb(161 161 161)";
     hp.recoverhp = level * 0.8;
+    hp.price=level*(lower/10)*which
   }
   return hp;
 };

@@ -22,7 +22,7 @@ let createShopItem = function (number, level) {
     }else if(x == "weapon"){
       item = crateWeapon(level, "R", 1);
     }else{
-      item = crateHP(level, hplist[random(0, hplist.length - 1)]);
+      item = crateHP(level, hplist[random(0, hplist.length - 1)],5);
     }
  
     items.push(item)

@@ -34,6 +34,7 @@ let userinfo = {
             right: crateRight(1, 1, 1)
         }
     ],
+    bag:[],
     key: randomString(8, '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ')
 }
 

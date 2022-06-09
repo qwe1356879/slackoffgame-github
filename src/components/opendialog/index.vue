@@ -32,6 +32,7 @@ import { useStore } from 'vuex'
 let myDate = new Date();
 let str = myDate.toTimeString(); //"10:55:24 GMT+0800 (中国标准时间)"
 let timeStr = str.substring(0, 8);
+import { ElNotification } from "element-plus";
 export default defineComponent({
 
     setup() {
@@ -56,7 +57,15 @@ export default defineComponent({
             jobinfo.job = job
         }
         function beginfight() {
-            store.commit('changeFightState')
+           
+            if(store.state.userinfo.NowHp<=0){
+                ElNotification({
+                    title: '系统',
+                    message: '当前血量过低，无法挑战',
+                    type: 'warning',
+                })
+            }else{
+                 store.commit('changeFightState')
             let sysinfo = {
                 sys: '系统',
                 time: timeStr,
@@ -66,8 +75,19 @@ export default defineComponent({
                 equipmentinfo: {}
             }
             store.commit('addsysinfo', sysinfo)
-            store.commit('deleteupjob', jobinfo.job)
+            if(jobinfo.job.type=='SSR'||jobinfo.job.type=='SP'){
+                 store.commit('deleteupjob', jobinfo.job)
+                 ElNotification({
+                    title: '系统',
+                    message: `当前副本为${jobinfo.job.type}级副本，只可挑战1次，开始挑战后主动退出或挑战失败，此任务都将消失`,
+                    type: 'warning',
+                    offset: 150,
+                })
+            }
+           
             dialog.value.style.display = 'none'
+            }
+           
         }
         return {
             infolist,

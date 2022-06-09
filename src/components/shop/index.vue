@@ -44,9 +44,10 @@ export default {
     },
     setup() {
         const store = useStore();
+       
         const state = reactive({
             count: 0,
-            items:createShopItem(16,store.state.userinfo.Lv),
+            items:createShopItem(16,store.state.userinfo.Lv ),
             mouseposi: MonitorFocus(),
             enterstate: false,
         });
@@ -55,18 +56,27 @@ export default {
                 obj: {}
             }
         );
-        // onMounted(() => {
-        //     console.log('store.state.userinfo.Lv', store.state.userinfo.Lv)
-        //     state.items = createShopItem(16, store.state.userinfo.Lv);
-        // });
+        console.log("item",state.items)
         function addcount() {
-            if (state.count <= 5000) {
+            if (state.count < 5000) {
                 state.count += 500;
+                state.items=createShopItem(16,store.state.userinfo.Lv)
             } else {
-                console.log("超过5000不能刷新了");
+                let myDate = new Date();
+                let str = myDate.toTimeString();
+                let timeStr = str.substring(0, 8);
+                let sysinfo = {
+                        sys: '系统',
+                        time: timeStr,
+                        text: '刷新商店费用已经超过5000，15秒后可刷新商店',
+                        color: '#FF5511',
+                        ifequipment: false,
+                        equipmentinfo: {}
+                    }
+                store.commit('addsysinfo', sysinfo)
                 setTimeout(() => {
                     state.count = 0;
-                }, 1500);
+                }, 15000);
             }
         }
         function mounseonter(data) {
@@ -108,7 +118,7 @@ export default {
     position: absolute;
     top: 35%;
     left: 20%;
-    z-index: 99;
+    z-index: 3;
 }
 
 .sp-item {
@@ -137,8 +147,11 @@ export default {
     width: 48px;
     height: 48px;
     margin: 2px 3px;
-}
 
+}
+.item img:hover{
+    cursor: pointer;
+}
 .item-area p {
     text-align: center;
     color: #fff;
