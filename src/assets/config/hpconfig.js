@@ -23,6 +23,11 @@ var fomatFloat = function (value, n) {
   return s;
 };
 
+function randomString(length, chars) {
+  var result = '';
+  for (var i = length; i > 0; --i) result += chars[Math.floor(Math.random() * chars.length)];
+  return result;
+}
 var crateHP = function (level, type, which) {
   
   var img = "";
@@ -46,7 +51,8 @@ var crateHP = function (level, type, which) {
     color: "",
     fontcolor: "",
     lv: level,
-    price:0
+    price:0,
+    id: randomString(6, '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'),
   };
 
   if (type == "大") {

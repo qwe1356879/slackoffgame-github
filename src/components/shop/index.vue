@@ -47,7 +47,7 @@ export default {
        
         const state = reactive({
             count: 0,
-            items:createShopItem(16,store.state.userinfo.Lv ),
+            items:createShopItem(16,store.state.userinfo.Lv),
             mouseposi: MonitorFocus(),
             enterstate: false,
         });
@@ -56,7 +56,7 @@ export default {
                 obj: {}
             }
         );
-        console.log("item",state.items)
+       
         function addcount() {
             if (state.count < 5000) {
                 state.count += 500;
@@ -94,7 +94,6 @@ export default {
                 data.imgurladd = "/" + data.imgurl;
             }
             equipdata.obj = data;
-           
         }
         return {
             state,

@@ -16,12 +16,13 @@ let userinfo = {
     Armo: 1,
     Gold: 0,
     Atk: 2,
-    NowHp: 120,
-    MaxHp: 120,
+    NowHp: 9999,
+    MaxHp: 9999,
     DPS: 1,
     Cridt: 20,
     CridtDmg: 20,
-    equipments: [{
+    equipments: [
+        {
             weapon: crateWeapon(1, 1, 1)
         },
         {
@@ -35,6 +36,7 @@ let userinfo = {
         }
     ],
     bag:[],
+    baglength:20,
     key: randomString(8, '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ')
 }
 

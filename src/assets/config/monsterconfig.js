@@ -34,9 +34,9 @@ export function add() {
 }
 export function getDIVsize(itemid) {
     var o = document.getElementById(itemid);
-    console.log('o', o)
+  
     var w = o.clientWidth || o.offsetWidth;
-    console.log('width', w)
+   
     return w;
 }
 

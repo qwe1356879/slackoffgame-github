@@ -12,7 +12,7 @@ var extra = [
     '防御力', '每秒恢复HP', '暴击', '暴击伤害'
 ]
 var basicextra = [
-    '生命', '攻击'
+    '生命值', '攻击'
 ]
 
 //随机生成词条
@@ -40,6 +40,11 @@ function randomquality() {
         final += 0.1
     }
     return final;
+}
+function randomString(length, chars) {
+    var result = '';
+    for (var i = length; i > 0; --i) result += chars[Math.floor(Math.random() * chars.length)];
+    return result;
 }
 /*
 N 10-100       0<=N<40        
@@ -80,7 +85,8 @@ var crateRight = function (level, jobtype, which) {
         color: '',
         fontcolor: '',
         lv: level,
-        price:0
+        price:0,
+        id: randomString(6, '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'),
     }
 
     //     let x = {
@@ -98,10 +104,10 @@ var crateRight = function (level, jobtype, which) {
             let code = basicextra[random(0, basicextra.length - 1)]
             let obj = {}
             if (code == '攻击') {
-                obj[code] = "+" + random(4, 10).toFixed(0) + "%"
+                obj[code] = "+" + random(4, 10).toFixed(0) 
                 weapon.dmglist.push(obj)
             } else if (code == '防御力') {
-                obj[code] = "+" + random(weapon.lv * 1.1, weapon.lv * 1.2).toFixed(0) + "%"
+                obj[code] = "+" + random(weapon.lv * 1.1, weapon.lv * 1.2).toFixed(0) 
                 weapon.dmglist.push(obj)
             }
         }
@@ -109,10 +115,10 @@ var crateRight = function (level, jobtype, which) {
             let code = extra[random(0, extra.length - 1)]
             let obj = {}
             if (code == '攻击') {
-                obj[code] = "+" + random(4, 10).toFixed(0) + "%"
+                obj[code] = "+" + random(4, 10).toFixed(0) 
                 weapon.extraList.push(obj)
             } else if (code == '防御力') {
-                obj[code] = "+" + random(weapon.lv * 0.8, weapon.lv * 0.9).toFixed(0) + "%"
+                obj[code] = "+" + random(weapon.lv * 0.8, weapon.lv * 0.9).toFixed(0) 
                 weapon.extraList.push(obj)
             } else {
                 obj[code] = "+" + random(weapon.lv * 2.2, weapon.lv * 2.5).toFixed(0)
@@ -130,10 +136,10 @@ var crateRight = function (level, jobtype, which) {
             let obj = {}
 
             if (code == '攻击') {
-                obj[code] = "+" + random(4, 10).toFixed(0) + "%"
+                obj[code] = "+" + random(4, 10).toFixed(0) 
                 weapon.dmglist.push(obj)
             } else if (code == '防御力') {
-                obj[code] = "+" + random(weapon.lv * 0.8, weapon.lv * 0.9).toFixed(0) + "%"
+                obj[code] = "+" + random(weapon.lv * 0.8, weapon.lv * 0.9).toFixed(0) 
                 weapon.dmglist.push(obj)
             } else {
                 obj[code] = "+" + random(weapon.lv * 1.9, weapon.lv * 2.1).toFixed(0)
@@ -145,10 +151,10 @@ var crateRight = function (level, jobtype, which) {
             let code = extra[random(0, extra.length - 1)]
             let obj = {}
             if (code == '攻击') {
-                obj[code] = "+" + random(4, 10).toFixed(0) + "%"
+                obj[code] = "+" + random(4, 10).toFixed(0) 
                 weapon.extraList.push(obj)
             } else if (code == '防御力') {
-                obj[code] = "+" + random(weapon.lv * 0.7, weapon.lv * 0.8).toFixed(0) + "%"
+                obj[code] = "+" + random(weapon.lv * 0.7, weapon.lv * 0.8).toFixed(0) 
                 weapon.extraList.push(obj)
             } else {
                 obj[code] = "+" + random(weapon.lv * 1.9, weapon.lv * 2.1).toFixed(0)
@@ -166,10 +172,10 @@ var crateRight = function (level, jobtype, which) {
             let obj = {}
 
             if (code == '攻击') {
-                obj[code] = "+" + random(4, 10).toFixed(0) + "%"
+                obj[code] = "+" + random(4, 10).toFixed(0) 
                 weapon.dmglist.push(obj)
             } else if (code == '防御力') {
-                obj[code] = "+" + random(weapon.lv * 0.5, weapon.lv * 0.6).toFixed(0) + "%"
+                obj[code] = "+" + random(weapon.lv * 0.5, weapon.lv * 0.6).toFixed(0) 
                 weapon.dmglist.push(obj)
             } else {
                 obj[code] = "+" + random(weapon.lv * 1.7, weapon.lv * 1.8).toFixed(0)
@@ -181,10 +187,10 @@ var crateRight = function (level, jobtype, which) {
             let code = extra[random(0, extra.length - 1)]
             let obj = {}
             if (code == '攻击') {
-                obj[code] = "+" + random(4, 10).toFixed(0) + "%"
+                obj[code] = "+" + random(4, 10).toFixed(0) 
                 weapon.extraList.push(obj)
             } else if (code == '防御力') {
-                obj[code] = "+" + random(weapon.lv * 0.6, weapon.lv * 0.7).toFixed(0) + "%"
+                obj[code] = "+" + random(weapon.lv * 0.6, weapon.lv * 0.7).toFixed(0) 
                 weapon.extraList.push(obj)
             } else {
                 obj[code] = "+" + random(weapon.lv * 1.7, weapon.lv * 1.8).toFixed(0)
@@ -202,10 +208,10 @@ var crateRight = function (level, jobtype, which) {
             let code = basicextra[random(0, basicextra.length - 1)]
             let obj = {}
             if (code == '攻击') {
-                obj[code] = "+" + random(4, 10).toFixed(0) + "%"
+                obj[code] = "+" + random(4, 10).toFixed(0) 
                 weapon.dmglist.push(obj)
             } else if (code == '防御力') {
-                obj[code] = "+" + random(weapon.lv * 0.6, weapon.lv * 0.7).toFixed(0) + "%"
+                obj[code] = "+" + random(weapon.lv * 0.6, weapon.lv * 0.7).toFixed(0) 
                 weapon.dmglist.push(obj)
             } else {
                 obj[code] = "+" + random(weapon.lv * 1.4, weapon.lv * 1.5).toFixed(0)
@@ -218,10 +224,10 @@ var crateRight = function (level, jobtype, which) {
             let code = extra[random(0, extra.length - 1)]
             let obj = {}
             if (code == '攻击') {
-                obj[code] = "+" + random(4, 10).toFixed(0) + "%"
+                obj[code] = "+" + random(4, 10).toFixed(0) 
                 weapon.extraList.push(obj)
             } else if (code == '防御力') {
-                obj[code] = "+" + random(weapon.lv * 0.5, weapon.lv * 0.6).toFixed(0) + "%"
+                obj[code] = "+" + random(weapon.lv * 0.5, weapon.lv * 0.6).toFixed(0) 
                 weapon.extraList.push(obj)
             } else {
                 obj[code] = "+" + random(weapon.lv * 1.4, weapon.lv * 1.5).toFixed(0)
@@ -238,10 +244,10 @@ var crateRight = function (level, jobtype, which) {
             let code = basicextra[random(0, basicextra.length - 1)]
             let obj = {}
             if (code == '攻击') {
-                obj[code] = "+" + random(4, 10).toFixed(0) + "%"
+                obj[code] = "+" + random(4, 10).toFixed(0) 
                 weapon.dmglist.push(obj)
             } else if (code == '防御力') {
-                obj[code] = "+" + random(weapon.lv * 0.5, weapon.lv * 0.6).toFixed(0) + "%"
+                obj[code] = "+" + random(weapon.lv * 0.5, weapon.lv * 0.6).toFixed(0) 
                 weapon.dmglist.push(obj)
             } else {
                 obj[code] = "+" + random(weapon.lv * 1.3, weapon.lv * 1.4).toFixed(0)
@@ -253,10 +259,10 @@ var crateRight = function (level, jobtype, which) {
             let code = extra[random(0, extra.length - 1)]
             let obj = {}
             if (code == '攻击') {
-                obj[code] = "+" + random(4, 10).toFixed(0) + "%"
+                obj[code] = "+" + random(4, 10).toFixed(0) 
                 weapon.extraList.push(obj)
             } else if (code == '防御力') {
-                obj[code] = "+" + random(weapon.lv * 0.4, weapon.lv * 0.5).toFixed(0) + "%"
+                obj[code] = "+" + random(weapon.lv * 0.4, weapon.lv * 0.5).toFixed(0) 
                 weapon.extraList.push(obj)
             } else {
                 obj[code] = "+" + random(weapon.lv * 1.3, weapon.lv * 1.4).toFixed(0)

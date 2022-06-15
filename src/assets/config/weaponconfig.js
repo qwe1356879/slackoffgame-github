@@ -9,7 +9,7 @@ import {
 } from './equipmentimg';
 //随机词条
 var extra = [
-    '暴击率', '攻击', '暴击伤害', '生命', '防御力', '每秒恢复HP'
+    '暴击率', '攻击', '暴击伤害', '生命值', '防御力', '每秒恢复HP'
 ]
 var basicextra = [
     '暴击率', '攻击', '暴击伤害'
@@ -41,6 +41,11 @@ function randomquality() {
     }
     return final;
 }
+function randomString(length, chars) {
+    var result = '';
+    for (var i = length; i > 0; --i) result += chars[Math.floor(Math.random() * chars.length)];
+    return result;
+}
 /*
 N 10-100       0<=N<40        
 R 20-100       40<=R<55
@@ -69,13 +74,14 @@ var crateWeapon = function (level, jobtype, which) {
         name: weaponNameList[random(0, weaponNameList.length - 1)],
         type: '武器',
         intro: weaponintro[random(0, weaponintro.length - 1)],
-        dmg: random(1, 3),
+        dmg: random(1, 3),//基础词条个数
         quality: random(lower + which, 100),
         extraNum: 0,
         imgurl: weaponimglist[random(0, weaponimglist.length - 1)],
-        extraList: [],
-        dmglist: [],
+        extraList: [],//额外词条list
+        dmglist: [],//基础词条list
         DPS: 0,
+        id: randomString(6, '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'),
         qualityname: "",
         color: '',
         fontcolor: '',
@@ -87,8 +93,7 @@ var crateWeapon = function (level, jobtype, which) {
     }
     weapon.dmglist.push(x)
 
-    if (weapon.quality >= 90 && weapon.quality <= 100) {
-        console.log(level,lower,which)
+    if (weapon.quality >= 91 ) {
         weapon.qualityname = 'SP'
         weapon.color = 'rgb(255 0 0) 0px 0px 7px 2px inset'
         weapon.fontcolor = 'rgb(255 0 0)'
@@ -99,10 +104,12 @@ var crateWeapon = function (level, jobtype, which) {
             let code = basicextra[random(0, basicextra.length - 1)]
             let obj = {}
             if (code == '暴击率') {
-                obj[code] = "+" + random(4, 10).toFixed(0) + "%"
+                obj[code] = "+" + random(4, 10).toFixed(0)  
+                
+                console.log(typeof(random(4, 10).toFixed(0)))
                 weapon.dmglist.push(obj)
             } else if (code == '暴击伤害') {
-                obj[code] = "+" + random(weapon.lv * 1.1, weapon.lv * 1.2).toFixed(0) + "%"
+                obj[code] = "+" + random(weapon.lv * 1.1, weapon.lv * 1.2).toFixed(0) 
                 weapon.dmglist.push(obj)
             } else {
                 obj[code] = "+" + random(weapon.lv * 2.2, weapon.lv * 2.5).toFixed(0)
@@ -113,17 +120,17 @@ var crateWeapon = function (level, jobtype, which) {
             let code = extra[random(0, extra.length - 1)]
             let obj = {}
             if (code == '暴击率') {
-                obj[code] = "+" + random(4, 10).toFixed(0) + "%"
+                obj[code] = "+" + random(4, 10).toFixed(0) 
                 weapon.extraList.push(obj)
             } else if (code == '暴击伤害') {
-                obj[code] = "+" + random(weapon.lv * 0.8, weapon.lv * 0.9).toFixed(0) + "%"
+                obj[code] = "+" + random(weapon.lv * 0.8, weapon.lv * 0.9).toFixed(0)  
                 weapon.extraList.push(obj)
             } else {
                 obj[code] = "+" + random(weapon.lv * 2.2, weapon.lv * 2.5).toFixed(0)
                 weapon.extraList.push(obj)
             }
         }
-    } else if (weapon.quality >= 75 && weapon.quality < 90) {
+    } else if (weapon.quality >= 80) {
         weapon.qualityname = 'SSR'
         weapon.color = 'rgb(247 137 24) 0px 0px 7px 2px inset'
         weapon.fontcolor = 'rgb(247 137 24)'
@@ -134,10 +141,10 @@ var crateWeapon = function (level, jobtype, which) {
             let obj = {}
 
             if (code == '暴击率') {
-                obj[code] = "+" + random(4, 10).toFixed(0) + "%"
+                obj[code] = "+" + random(4, 10).toFixed(0) 
                 weapon.dmglist.push(obj)
             } else if (code == '暴击伤害') {
-                obj[code] = "+" + random(weapon.lv * 0.8, weapon.lv * 0.9).toFixed(0) + "%"
+                obj[code] = "+" + random(weapon.lv * 0.8, weapon.lv * 0.9).toFixed(0) 
                 weapon.dmglist.push(obj)
             } else {
                 obj[code] = "+" + random(weapon.lv * 1.9, weapon.lv * 2.1).toFixed(0)
@@ -149,17 +156,17 @@ var crateWeapon = function (level, jobtype, which) {
             let code = extra[random(0, extra.length - 1)]
             let obj = {}
             if (code == '暴击率') {
-                obj[code] = "+" + random(4, 10).toFixed(0) + "%"
+                obj[code] = "+" + random(4, 10).toFixed(0) 
                 weapon.extraList.push(obj)
             } else if (code == '暴击伤害') {
-                obj[code] = "+" + random(weapon.lv * 0.7, weapon.lv * 0.8).toFixed(0) + "%"
+                obj[code] = "+" + random(weapon.lv * 0.7, weapon.lv * 0.8).toFixed(0) 
                 weapon.extraList.push(obj)
             } else {
                 obj[code] = "+" + random(weapon.lv * 1.9, weapon.lv * 2.1).toFixed(0)
                 weapon.extraList.push(obj)
             }
         }
-    } else if (weapon.quality >= 55 && weapon.quality < 75) {
+    } else if (weapon.quality >= 70 ) {
         weapon.qualityname = 'SR'
         weapon.color = 'rgb(255 0 255) 0px 0px 7px 2px inset'
         weapon.fontcolor = 'rgb(255 0 255)'
@@ -170,10 +177,10 @@ var crateWeapon = function (level, jobtype, which) {
             let obj = {}
 
             if (code == '暴击率') {
-                obj[code] = "+" + random(4, 10).toFixed(0) + "%"
+                obj[code] = "+" + random(4, 10).toFixed(0) 
                 weapon.dmglist.push(obj)
             } else if (code == '暴击伤害') {
-                obj[code] = "+" + random(weapon.lv * 0.5, weapon.lv * 0.6).toFixed(0) + "%"
+                obj[code] = "+" + random(weapon.lv * 0.5, weapon.lv * 0.6).toFixed(0) 
                 weapon.dmglist.push(obj)
             } else {
                 obj[code] = "+" + random(weapon.lv * 1.7, weapon.lv * 1.8).toFixed(0)
@@ -185,10 +192,10 @@ var crateWeapon = function (level, jobtype, which) {
             let code = extra[random(0, extra.length - 1)]
             let obj = {}
             if (code == '暴击率') {
-                obj[code] = "+" + random(4, 10).toFixed(0) + "%"
+                obj[code] = "+" + random(4, 10).toFixed(0) 
                 weapon.extraList.push(obj)
             } else if (code == '暴击伤害') {
-                obj[code] = "+" + random(weapon.lv * 0.6, weapon.lv * 0.7).toFixed(0) + "%"
+                obj[code] = "+" + random(weapon.lv * 0.6, weapon.lv * 0.7).toFixed(0) 
                 weapon.extraList.push(obj)
             } else {
                 obj[code] = "+" + random(weapon.lv * 1.7, weapon.lv * 1.8).toFixed(0)
@@ -196,7 +203,7 @@ var crateWeapon = function (level, jobtype, which) {
             }
 
         }
-    } else if (weapon.quality >= 40 && weapon.quality < 55) {
+    } else if (weapon.quality >= 60 ) {
         weapon.qualityname = 'R'
         weapon.color = 'rgb(16, 158, 240) 0px 0px 7px 2px inset'
         weapon.fontcolor = 'rgb(16, 158, 240)'
@@ -206,10 +213,10 @@ var crateWeapon = function (level, jobtype, which) {
             let code = basicextra[random(0, basicextra.length - 1)]
             let obj = {}
             if (code == '暴击率') {
-                obj[code] = "+" + random(4, 10).toFixed(0) + "%"
+                obj[code] = "+" + random(4, 10).toFixed(0) 
                 weapon.dmglist.push(obj)
             } else if (code == '暴击伤害') {
-                obj[code] = "+" + random(weapon.lv * 0.6, weapon.lv * 0.7).toFixed(0) + "%"
+                obj[code] = "+" + random(weapon.lv * 0.6, weapon.lv * 0.7).toFixed(0) 
                 weapon.dmglist.push(obj)
             } else {
                 obj[code] = "+" + random(weapon.lv * 1.4, weapon.lv * 1.5).toFixed(0)
@@ -222,10 +229,10 @@ var crateWeapon = function (level, jobtype, which) {
             let code = extra[random(0, extra.length - 1)]
             let obj = {}
             if (code == '暴击率') {
-                obj[code] = "+" + random(4, 10).toFixed(0) + "%"
+                obj[code] = "+" + random(4, 10).toFixed(0) 
                 weapon.extraList.push(obj)
             } else if (code == '暴击伤害') {
-                obj[code] = "+" + random(weapon.lv * 0.5, weapon.lv * 0.6).toFixed(0) + "%"
+                obj[code] = "+" + random(weapon.lv * 0.5, weapon.lv * 0.6).toFixed(0) 
                 weapon.extraList.push(obj)
             } else {
                 obj[code] = "+" + random(weapon.lv * 1.4, weapon.lv * 1.5).toFixed(0)
@@ -242,13 +249,16 @@ var crateWeapon = function (level, jobtype, which) {
             let code = basicextra[random(0, basicextra.length - 1)]
             let obj = {}
             if (code == '暴击率') {
-                obj[code] = "+" + random(4, 10).toFixed(0) + "%"
+                obj[code] = "+" + random(4, 10).toFixed(0) 
                 weapon.dmglist.push(obj)
             } else if (code == '暴击伤害') {
-                obj[code] = "+" + random(weapon.lv * 0.5, weapon.lv * 0.6).toFixed(0) + "%"
+               
+                obj[code] = "+" + random(weapon.lv * 0.5, weapon.lv * 0.6).toFixed(0) 
+            
                 weapon.dmglist.push(obj)
             } else {
                 obj[code] = "+" + random(weapon.lv * 1.3, weapon.lv * 1.4).toFixed(0)
+          
                 weapon.dmglist.push(obj)
             }
         }
@@ -257,10 +267,10 @@ var crateWeapon = function (level, jobtype, which) {
             let code = extra[random(0, extra.length - 1)]
             let obj = {}
             if (code == '暴击率') {
-                obj[code] = "+" + random(4, 10).toFixed(0) + "%"
+                obj[code] = "+" + random(4, 10).toFixed(0) 
                 weapon.extraList.push(obj)
             } else if (code == '暴击伤害') {
-                obj[code] = "+" + random(weapon.lv * 0.4, weapon.lv * 0.5).toFixed(0) + "%"
+                obj[code] = "+" + random(weapon.lv * 0.4, weapon.lv * 0.5).toFixed(0) 
                 weapon.extraList.push(obj)
             } else {
                 obj[code] = "+" + random(weapon.lv * 1.3, weapon.lv * 1.4).toFixed(0)

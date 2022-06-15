@@ -23,6 +23,10 @@
 <script>
 import { reactive, toRefs, ref, computed, onMounted, onUnmounted, watch, getCurrentInstance } from 'vue'
 import { useStore } from 'vuex'
+import crateWeapon from '../../assets/config/weaponconfig'
+import crateArmo from '../../assets/config/armoconifg';
+import crateLeft from '../../assets/config/leftconfig';
+import crateRight from '../../assets/config/rightconfig';
 function add() {
     var args = arguments,//获取所有的参数
         lens = args.length,//获取参数的长度
@@ -146,15 +150,28 @@ export default {
                              let myDate = new Date();
                              let str = myDate.toTimeString(); //"10:55:24 GMT+0800 (中国标准时间)"
                              let timeStr = str.substring(0, 8);
+                             let x=crateWeapon(store.state.userinfo.Lv,store.state.nowjobinfo.type,1)
                              let sysinfo = {
                                 sys: '系统',
                                 time: timeStr,
-                                text: '挑战怪物1成功,掉落装备',
+                                text: `挑战怪物1成功`,
                                 color: '#67C23A',
                                 ifequipment: false,
                                 equipmentinfo: {}
                             }
-                            store.commit('addsysinfo', sysinfo)
+                             store.commit('addsysinfo', sysinfo)
+                             let money = store.state.nowjobinfo.jobquality+5
+                             let sysinfoequipment = {
+                                sys: '系统',
+                                time: timeStr,
+                                text: `掉落装备：${x.name}，金币：${money}`,
+                                color: `${x.fontcolor}`,
+                                ifequipment: false,
+                                equipmentinfo: {}
+                            }
+                            store.commit('pushbag', x)
+                            store.commit('updateusermoney',money)
+                            store.commit('addsysinfo', sysinfoequipment)
                         }
                     }, 1000);
                 } else if (left.value == 36) {
@@ -169,6 +186,7 @@ export default {
                     }
                     store.commit('addsysinfo', sysinfo)
                     setTimeout(() => {
+                      
                         let fightinfo = {
                             sys: '系统',
                             time: timeStr,
@@ -184,15 +202,29 @@ export default {
                              let myDate = new Date();
                              let str = myDate.toTimeString(); //"10:55:24 GMT+0800 (中国标准时间)"
                              let timeStr = str.substring(0, 8);
+                            let x=crateArmo(store.state.userinfo.Lv,store.state.nowjobinfo.type,2)
                              let sysinfo = {
                                 sys: '系统',
                                 time: timeStr,
-                                text: '挑战怪物2成功,掉落装备',
+                                text: '挑战怪物2成功',
                                 color: '#67C23A',
                                 ifequipment: false,
                                 equipmentinfo: {}
                             }
-                            store.commit('addsysinfo', sysinfo)}
+                            store.commit('addsysinfo', sysinfo)
+                              let money = store.state.nowjobinfo.jobquality+10
+                            let sysinfoequipment = {
+                                sys: '系统',
+                                time: timeStr,
+                                text: `掉落装备：${x.name}，金币：${money}`,
+                                color: `${x.fontcolor}`,
+                                ifequipment: false,
+                                equipmentinfo: {}
+                            }
+                            store.commit('pushbag', x)
+                            store.commit('updateusermoney',money)
+                            store.commit('addsysinfo', sysinfoequipment)
+                            }
                     }, 1000);
                   
                 } else if (left.value == 56) {
@@ -222,15 +254,29 @@ export default {
                              let myDate = new Date();
                              let str = myDate.toTimeString(); //"10:55:24 GMT+0800 (中国标准时间)"
                              let timeStr = str.substring(0, 8);
+                              let x=crateLeft(store.state.userinfo.Lv,store.state.nowjobinfo.type,3)
                              let sysinfo = {
                                 sys: '系统',
                                 time: timeStr,
-                                text: '挑战怪物3成功,掉落装备',
+                                text: '挑战怪物3成功',
                                 color: '#67C23A',
                                 ifequipment: false,
                                 equipmentinfo: {}
                             }
-                            store.commit('addsysinfo', sysinfo)}
+                            store.commit('addsysinfo', sysinfo)
+                            let money = store.state.nowjobinfo.jobquality+15
+                             let sysinfoequipment = {
+                                sys: '系统',
+                                time: timeStr,
+                                text: `掉落装备：${x.name}，金币：${money}`,
+                                color: `${x.fontcolor}`,
+                                ifequipment: false,
+                                equipmentinfo: {}
+                            }
+                            store.commit('pushbag', x)
+                            store.commit('updateusermoney',money)
+                            store.commit('addsysinfo', sysinfoequipment)
+                            }
                     }, 1000);
                 } else if (left.value == 76) {
                     clearInterval(timer)
@@ -259,15 +305,29 @@ export default {
                              let myDate = new Date();
                              let str = myDate.toTimeString(); //"10:55:24 GMT+0800 (中国标准时间)"
                              let timeStr = str.substring(0, 8);
+                            let x=crateArmo(store.state.userinfo.Lv,store.state.nowjobinfo.type,4)
                              let sysinfo = {
                                 sys: '系统',
                                 time: timeStr,
-                                text: '挑战怪物4成功,掉落装备',
+                                text: '挑战怪物4成功',
                                 color: '#67C23A',
                                 ifequipment: false,
                                 equipmentinfo: {}
                             }
-                            store.commit('addsysinfo', sysinfo)}
+                            store.commit('addsysinfo', sysinfo)
+                            let money = store.state.nowjobinfo.jobquality+20
+                             let sysinfoequipment = {
+                                sys: '系统',
+                                time: timeStr,
+                                text: `掉落装备：${x.name}，金币：${money}`,
+                                color: `${x.fontcolor}`,
+                                ifequipment: false,
+                                equipmentinfo: {}
+                            }
+                            store.commit('pushbag', x)
+                            store.commit('updateusermoney',money)
+                            store.commit('addsysinfo', sysinfoequipment)
+                            }
                     }, 1000);
 
                   
@@ -298,15 +358,30 @@ export default {
                              let myDate = new Date();
                              let str = myDate.toTimeString(); //"10:55:24 GMT+0800 (中国标准时间)"
                              let timeStr = str.substring(0, 8);
+                             let x=crateRight(store.state.userinfo.Lv,store.state.nowjobinfo.type,5)
                              let sysinfo = {
                                 sys: '系统',
                                 time: timeStr,
-                                text: '挑战Boss成功,掉落装备',
+                                text: '挑战Boss成功',
                                 color: '#67C23A',
                                 ifequipment: false,
                                 equipmentinfo: {}
                             }
-                            store.commit('addsysinfo', sysinfo)}
+                            store.commit('addsysinfo', sysinfo)
+                            let money = store.state.nowjobinfo.jobquality+25
+                             let sysinfoequipment = {
+                                sys: '系统',
+                                time: timeStr,
+                                text: `掉落装备：${x.name}，金币：${money}`,
+                                color: `${x.fontcolor}`,
+                                ifequipment: false,
+                                equipmentinfo: {}
+                            }
+                            store.commit('pushbag', x)
+                            store.commit('updateusermoney',money)
+                          
+                            store.commit('addsysinfo', sysinfoequipment)
+                            }
                     }, 1000);
                 }
             } else {

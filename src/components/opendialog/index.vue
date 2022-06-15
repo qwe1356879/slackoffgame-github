@@ -65,7 +65,7 @@ export default defineComponent({
                     type: 'warning',
                 })
             }else{
-                 store.commit('changeFightState')
+            store.commit('changeFightState')
             let sysinfo = {
                 sys: '系统',
                 time: timeStr,
@@ -75,6 +75,9 @@ export default defineComponent({
                 equipmentinfo: {}
             }
             store.commit('addsysinfo', sysinfo)
+            console.log('jobinfo',jobinfo.job)
+            store.commit('loadjobinfo', jobinfo.job)
+           
             if(jobinfo.job.type=='SSR'||jobinfo.job.type=='SP'){
                  store.commit('deleteupjob', jobinfo.job)
                  ElNotification({

@@ -94,7 +94,7 @@ export default {
             try {
                 //复制
                 await toClipboard(datacode.value)
-                console.log(datacode.value)
+              
                 ElMessage({
                     type: 'success',
                     duration: 3000,

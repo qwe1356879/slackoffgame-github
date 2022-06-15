@@ -10,8 +10,8 @@ const router = createRouter({
       component: () => import('../views/index.vue')
     },
     // {
-    //   path: '/test',
-    //   component: () => import('../testview/test/TestRadomWeapon.vue')
+    //   path: '/test2',
+    //   component: () => import('../testview/test2/index.vue')
     // },
     {
       path: '/shop',
