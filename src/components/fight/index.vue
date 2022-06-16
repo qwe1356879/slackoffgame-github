@@ -146,22 +146,22 @@ export default {
         if (left.value === 16) {
           clearInterval(timer);
 
-          fightdetail("1", 0.3);
+          fightdetail("1", 0.6);
         } else if (left.value == 36) {
           clearInterval(timer);
-          fightdetail("2", 0.5);
+          fightdetail("2", 0.8);
         } else if (left.value == 56) {
           clearInterval(timer);
 
-          fightdetail("1", 0.7);
+          fightdetail("1", 1);
         } else if (left.value == 76) {
           clearInterval(timer);
 
-          fightdetail("1", 0.9);
+          fightdetail("1", 1.2);
         } else if (left.value == 96) {
           clearInterval(timer);
 
-          fightdetail("1", 1.2);
+          fightdetail("1", 1.6);
         }
       } else {
         clearInterval(timer);
@@ -203,9 +203,9 @@ export default {
       setTimeout(() => {
         let dmg = 0;
         if (store.state.userinfo.DPS < store.state.nowjobinfo.dpsneed) {
-          dmg = Math.round(store.state.nowjobinfo.jobquality * (detail + 0.2));
+          dmg = Math.round(store.state.nowjobinfo.dpsneed * (detail + 0.2));
         } else {
-          dmg = Math.round(store.state.nowjobinfo.jobquality * detail);
+          dmg = Math.round(store.state.nowjobinfo.dpsneed * detail);
         }
         // console.log('dmg',dmg)
         let fightinfo = {
@@ -290,7 +290,7 @@ export default {
             equipmentinfo: {},
           };
           store.commit("addsysinfo", sysinfo);
-          store.commit("changeFightState");
+         stop()
         }
       }, 1000);
     }

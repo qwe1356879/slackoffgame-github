@@ -1,8 +1,4 @@
-import Base64 from '../tool/fakebase64'
-import crateWeapon from './weaponconfig'
-import crateArmo from './armoconifg';
-import crateLeft from './leftconfig';
-import crateRight from './rightconfig';
+
 
 function randomString(length, chars) {
     var result = '';
@@ -16,11 +12,12 @@ let userinfo = {
     Armo: 1,
     Gold: 0,
     Atk: 2,
-    NowHp: 999,
-    MaxHp: 999,
-    DPS: 1,
+    NowHp: 100,
+    MaxHp: 100,
+    DPS: 0,
     Cridt: 20,
     CridtDmg: 20,
+    SecondHp:Math.round(100*0.02),
     equipments: [
         {
             weapon:{
@@ -33,12 +30,12 @@ let userinfo = {
                 imgurl: '1_(1)',
                 extraList: [
                     {
-                        "暴击率": "+" + 5
+                        "暴击率": "+" + 1
                     }
                 ],//额外词条list
                 dmglist: [
                     {
-                        "攻击": "+" + 5
+                        "攻击": "+" + 1
                     }
                 ],//基础词条list
                 DPS: 0,
@@ -61,7 +58,7 @@ let userinfo = {
                 imgurl: '1_(2)',
                 extraList: [
                     {
-                        "生命值": "+" + 1
+                        "防御力": "+" + 1
                     }
                 ],//额外词条list
                 dmglist: [
@@ -122,7 +119,7 @@ let userinfo = {
                 ],//额外词条list
                 dmglist: [
                     {
-                        "护甲": "+" + 2
+                        "攻击力": "+" + 1
                     }
                 ],//基础词条list
                 DPS: 0,

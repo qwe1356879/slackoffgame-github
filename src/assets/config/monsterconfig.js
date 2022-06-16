@@ -60,7 +60,7 @@ export function createJob(number, lv, width, height) {
             lv: random(level, level + 6),
             dpsneed: 0,
             jobid: randomString(4, '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'),
-            jobquality: random(0,upper ),
+            jobquality: random(0,upper),
             imgurl: '',
             style: {
                 'color': '#111',
@@ -86,36 +86,37 @@ export function createJob(number, lv, width, height) {
             jobobj.style['box-shadow'] = 'rgb(255 0 0) 0px 0px 7px 2px inset'
             jobobj.imagestyle['background-color'] = 'rgb(255 0 0) 0px 0px 7px 2px inset'
             jobobj.imgurl = 'sp'
-            jobobj.dpsneed = Math.round(jobobj.jobquality/2)
-        } else if (upper-upper*0.05-upper*0.15<=jobobj.jobquality&&jobobj.jobquality > upper-upper*0.05) {
+            jobobj.dpsneed = Math.round(jobobj.jobquality/0.1)+jobobj.lv
+        } else if (upper-upper*0.05-upper*0.15<=jobobj.jobquality&&jobobj.jobquality < upper-upper*0.05) {
             jobobj.type = 'SSR'
             jobobj.style['box-shadow'] = 'rgb(247 137 24) 0px 0px 7px 2px inset'
             jobobj.imagestyle['background-color'] = 'rgb(247 137 24) 0px 0px 7px 2px inset'
             jobobj.imgurl = 'ssr'
-            jobobj.dpsneed =  Math.round(jobobj.jobquality/4)
-        } else if (upper-upper*0.2-upper*0.2<=jobobj.jobquality&&jobobj.jobquality > upper-upper*0.05-upper*0.15) {
+            jobobj.dpsneed =  Math.round(jobobj.jobquality/0.2)+jobobj.lv
+        } else if (upper-upper*0.2-upper*0.2<=jobobj.jobquality&&jobobj.jobquality < upper-upper*0.05-upper*0.15) {
             jobobj.type = 'SR'
             jobobj.style['box-shadow'] = 'rgb(255 0 255) 0px 0px 7px 2px inset'
             jobobj.imagestyle['background-color'] = 'rgb(255 0 255) 0px 0px 7px 2px inset'
             jobobj.imgurl = 'sr'
 
-            jobobj.dpsneed =  Math.round(jobobj.jobquality/6)
+            jobobj.dpsneed =  Math.round(jobobj.jobquality/0.3)+jobobj.lv
 
-        } else if (upper-upper*0.4-upper*0.2<=jobobj.jobquality&&jobobj.jobquality > upper-upper*0.4) {
+        } else if (upper-upper*0.4-upper*0.2<=jobobj.jobquality&&jobobj.jobquality < upper-upper*0.4) {
             jobobj.type = 'R'
             jobobj.style['box-shadow'] = 'rgb(16, 158, 240) 0px 0px 7px 2px inset'
             jobobj.imagestyle['background-color'] = 'rgb(16, 158, 240) 0px 0px 7px 2px inset)'
             jobobj.imgurl = 'r'
 
-            jobobj.dpsneed =  Math.round(jobobj.jobquality/10)
+            jobobj.dpsneed =  Math.round(jobobj.jobquality/0.4)+Math.round(jobobj.lv*1.8)
 
         } else {
             jobobj.type = 'N'
             jobobj.style['box-shadow'] = 'rgb(161 161 161) 0px 0px 7px 2px inset'
             jobobj.imagestyle['background-color'] = 'rgb(161 161 161) 0px 0px 7px 2px inset'
             jobobj.imgurl = 'n'
-
-            jobobj.dpsneed =  Math.round(jobobj.jobquality/2)
+            console.log('qu',jobobj.jobquality)
+            jobobj.dpsneed =  Math.round(jobobj.jobquality/0.5)+Math.round(jobobj.lv*1.6)
+            console.log('dps',jobobj.dpsneed)
             // jobobj.dpsneed=
         }
         joblist.push(jobobj)

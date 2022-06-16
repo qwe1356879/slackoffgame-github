@@ -121,7 +121,7 @@ export default {
       getShowHp,
       (newval, oldval) => {
         if (newval <= store.state.userinfo.MaxHp) {
-          store.commit("userrecoverhp", 0.02);
+          store.commit("userrecoverhp");
         }
       },
       { immediate: true, deep: true }

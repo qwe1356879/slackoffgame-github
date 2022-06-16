@@ -4,9 +4,9 @@
       <el-tooltip effect="dark" placement="bottom">
         <template #content>
           <div class="tip-img"><img src='/icons/tips.png' /></div>
-          <p> * 角色DPS</p>
+          <p> * 角色战斗力</p>
         </template>
-        <p class="info">DPS:{{ store.state.userinfo.DPS }}</p>
+        <p class="info">战斗力:{{ store.state.userinfo.DPS }}</p>
       </el-tooltip>
 
       <el-tooltip effect="dark" placement="bottom">
