@@ -58,6 +58,8 @@ SP  50-100     90<=SP<=100
 //which:number = 第几个怪物(难度越高,挑战越后面,范围越小也就是概率越大)
 //+1 +2 +3 +4 +5
 var crateArmo = function (level, jobtype, which) {
+  
+
     var lower = 0
     if(jobtype=='N'){
         lower = 5
@@ -75,7 +77,7 @@ var crateArmo = function (level, jobtype, which) {
         type: '护甲',
         intro: weaponintro[random(0, weaponintro.length - 1)],
         dmg: random(1, 3),
-        quality: random(lower + which, 100),
+        quality: random(lower +Number(which), 100),
         extraNum: 0,
         imgurl: armoimglist[random(0, armoimglist.length - 1)],
         extraList: [],
@@ -88,7 +90,7 @@ var crateArmo = function (level, jobtype, which) {
         price:0,
         id: randomString(6, '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'),
     }
-
+ 
     let x = {
         "防御力": "+" + random(weapon.lv * 0.7, weapon.lv * 0.8).toFixed(0)
     }

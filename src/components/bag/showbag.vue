@@ -1,6 +1,6 @@
 <template>
     <div class="border-euqip"
-        :style="{ 'top': bagdata.mouseposi.y - 680 + 'px', 'left': bagdata.mouseposi.x-1180+ 'px', 'box-shadow': bagdata.color }">
+        :style="{ 'top': bagdata.mouseposi.y - 680 + 'px', 'left': bagdata.mouseposi.x-1160+ 'px', 'box-shadow': bagdata.color }">
 
         <div class="first">
             <div class="img">

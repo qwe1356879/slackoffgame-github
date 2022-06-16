@@ -92,9 +92,9 @@ export default {
       } else {
         data.imgurladd ="/" + data.imgurl;
       }
-      console.log('data',data)
+     
       equipdata.obj = data;
-      console.log('data2',equipdata)
+    
     }
     return {
       state,

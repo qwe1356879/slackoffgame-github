@@ -33,7 +33,7 @@
           </div>
           <p class="job-p">lv{{ di.lv }}</p>
         </div>
-        <opendialog ref="mydialog"></opendialog>
+        <opendialog ref="mydialog" ></opendialog>
       </div>
 
       <div class="menu">
@@ -129,7 +129,7 @@ export default {
     watch(
       getShowTask,
       (newval, oldval) => {
-        console.log("new", newval);
+      
         state.show = newval;
       },
       { deep: true }

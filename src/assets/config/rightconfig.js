@@ -75,7 +75,7 @@ var crateRight = function (level, jobtype, which) {
         type: '耳环',
         intro: weaponintro[random(0, weaponintro.length - 1)],
         dmg: random(1, 3),
-        quality: random(lower + which, 100),
+        quality: random(lower + Number(which), 100),
         extraNum: 0,
         imgurl: rightimglist[random(0, rightimglist.length - 1)],
         extraList: [],

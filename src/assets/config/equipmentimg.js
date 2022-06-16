@@ -1,6 +1,6 @@
 function generate(numhigher) {
     let arr = []
-    for (let i = 1; i < numhigher; i++) {
+    for (let i = 1; i <= numhigher; i++) {
         arr.push('1_(' + i + ')')
     }
     return arr

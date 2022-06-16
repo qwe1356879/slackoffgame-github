@@ -27,7 +27,7 @@
 </template>
 
 <script>
-import { reactive, toRefs, defineComponent, ref } from 'vue'
+import { reactive, toRefs, defineComponent, ref,computed,watch} from 'vue'
 import { useStore } from 'vuex'
 let myDate = new Date();
 let str = myDate.toTimeString(); //"10:55:24 GMT+0800 (中国标准时间)"
@@ -45,9 +45,20 @@ export default defineComponent({
         let jobinfo = reactive({
             job: {}
         })
-
+        
         let visibility = ref(true)
         let isrepat = ref(false)
+          const getShowTask = computed(() => {
+      //返回的是ref对象
+      return store.state.repeatfight;
+    });
+    watch(
+      getShowTask,
+      (newval, oldval) => {
+        isrepat.value=newval
+      },
+      { immediate: true, deep: true }
+    );
         const dialog = ref(null)
         function closedialog() {
             dialog.value.style.display = 'none'
@@ -56,8 +67,13 @@ export default defineComponent({
             dialog.value.style.display = 'block'
             jobinfo.job = job
         }
+
         function beginfight() {
-           
+            if(isrepat.value){
+                store.commit('repeatFight',true)
+            }else{
+                 store.commit('repeatFight',false)
+            }
             if(store.state.userinfo.NowHp<=0){
                 ElNotification({
                     title: '系统',

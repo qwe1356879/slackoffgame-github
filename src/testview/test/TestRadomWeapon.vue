@@ -77,7 +77,7 @@ export default {
         })
          function create(){
              weaponitem.weapon = crateWeapon(60,'N',1)
-             console.log('x',weaponitem.weapon)
+            
             //  weaponitem.list=[]
             // var n=0,r=0,sr=0,ssr=0,sp=0
             //  for(let i=0;i<10;i++){

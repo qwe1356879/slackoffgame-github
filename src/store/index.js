@@ -38,18 +38,24 @@ const state = {
       equipmentinfo: {},
     },
   ],
+  //刷新的副本list
   joblist: [],
+  //当前挑战的副本详情
   nowjobinfo: {},
   refreshjobtime: 5,
   timerHp: null,
   showBag: false,
   showShop: false,
   updateDrawer: false,
+  repeatfight: false,
 };
 //创建actions
 const actions = {};
 //创建mutataions
 const mutations = {
+  repeatFight(state, data) {
+    state.repeatfight = data;
+  },
   saveuserdata(state) {
     let data = base.encode(JSON.stringify(state.userinfo));
     localStorage.setItem("userdata", data);
@@ -130,36 +136,78 @@ const mutations = {
     }
   },
   //一键出售
-  sealitemfrombagbantch(state, data) {},
+  sealitemfrombagbantch(state, data) {
+    // console.log('data',data.value.length)
+    if (data.value.length <= 0) {
+      let price = 0;
+      for (let i = 0; i < state.userinfo.bag.length; i++) {
+        price += state.userinfo.bag[i].price;
+      }
+      state.userinfo.Gold += price;
+      state.sysinfolist.push({
+        sys: "系统",
+        time: "",
+        time: timeStr,
+        text: `出售成功,一共获得${price}金币`,
+        color: "#F79308",
+        ifequipment: false,
+        equipmentinfo: {},
+      });
+      state.userinfo.bag = [];
+      this.commit("saveuserdata");
+    } else {
+      let price = 0;
+      let i=0;
+ 
+      for (let i = 0; i < data.value.length; i++) {
+        for (let j = 0; j < state.userinfo.bag.length; j++) {
+          if (state.userinfo.bag[j].qualityname == data.value[i]) {
+            price += state.userinfo.bag[j].price;
+            state.userinfo.bag.splice(j, 1);
+          }
+        }
+      }
+      state.sysinfolist.push({
+        sys: "系统",
+        time: "",
+        time: timeStr,
+        text: `出售成功,一共获得${price}金币`,
+        color: "#F79308",
+        ifequipment: false,
+        equipmentinfo: {},
+      });
+      this.commit("saveuserdata");
+    }
+  },
   replaceequipment(state, data) {
     if (data.type == "护甲") {
-      this.commit('dealArmo',state.userinfo.equipments[1].armo)
+      this.commit("dealArmo", state.userinfo.equipments[1].armo);
       this.commit("pushbag", state.userinfo.equipments[1].armo);
       state.userinfo.equipments[1].armo = data;
       this.commit("sealiitemfrombag", data.id);
-      this.commit("AddArmo",state.userinfo.equipments[1].armo);
+      this.commit("AddArmo", state.userinfo.equipments[1].armo);
       this.commit("saveuserdata");
     } else if (data.type == "武器") {
-      console.log('替换武器')
+    
       this.commit("dealWeapon", state.userinfo.equipments[0].weapon);
       this.commit("pushbag", state.userinfo.equipments[0].weapon);
       state.userinfo.equipments[0].weapon = data;
       this.commit("sealiitemfrombag", data.id);
-      this.commit("AddWeapon",state.userinfo.equipments[0].weapon);
+      this.commit("AddWeapon", state.userinfo.equipments[0].weapon);
       this.commit("saveuserdata");
     } else if (data.type == "首饰") {
-      this.commit('dealLeft',state.userinfo.equipments[2].left)
+      this.commit("dealLeft", state.userinfo.equipments[2].left);
       this.commit("pushbag", state.userinfo.equipments[2].left);
       state.userinfo.equipments[2].left = data;
       this.commit("sealiitemfrombag", data.id);
-      this.commit("AddLeft",state.userinfo.equipments[2].left);
+      this.commit("AddLeft", state.userinfo.equipments[2].left);
       this.commit("saveuserdata");
     } else {
-      this.commit('dealRight',state.userinfo.equipments[3].right)
-      this.commit("pushbag",state.userinfo.equipments[3].right);
+      this.commit("dealRight", state.userinfo.equipments[3].right);
+      this.commit("pushbag", state.userinfo.equipments[3].right);
       state.userinfo.equipments[3].right = data;
       this.commit("sealiitemfrombag", data.id);
-      this.commit("AddRight",state.userinfo.equipments[3].right);
+      this.commit("AddRight", state.userinfo.equipments[3].right);
       this.commit("saveuserdata");
     }
   },
@@ -182,6 +230,13 @@ const mutations = {
       data.height,
       data.width
     );
+    // for(let i=0;i<state.joblist.length;i++){
+    //   console.log('--------------------------')
+    //   console.log('job',state.joblist[i].type)
+    //   console.log('job',state.joblist[i].jobquality)
+    //   console.log('--------------------------')
+    // }
+    
   },
   deleteupjob(state, data) {
     for (let i = 0; i < state.joblist.length; i++) {
@@ -257,50 +312,30 @@ const mutations = {
     let MaxHp = 0;
     let Cridt = 0;
     let CridtDmg = 0;
-    for (
-      let q = 0;
-      q < data.dmglist.length;
-      q++
-    ) {
+    for (let q = 0; q < data.dmglist.length; q++) {
       //第一层判断基础属性:就武器而言
 
-      if (
-        Object.keys(data.dmglist[q])[0] ==
-        "防御力"
-      ) {
+      if (Object.keys(data.dmglist[q])[0] == "防御力") {
         let str = data.dmglist[q]["防御力"];
         let atk = Number(str.replace("+", ""));
         Armo += atk;
       }
-      if (
-        Object.keys(data.dmglist[q])[0] ==
-        "生命值"
-      ) {
+      if (Object.keys(data.dmglist[q])[0] == "生命值") {
         let str = data.dmglist[q]["生命值"];
         // let atk = Number(str.replace(/\D/g,""))
         let atk = Number(str.replace("+", ""));
         MaxHp += atk;
       }
     }
-    for (
-      let w = 0;
-      w < data.extraList.length;
-      w++
-    ) {
+    for (let w = 0; w < data.extraList.length; w++) {
       //第一层判断基础属性:就武器而言
-      if (
-        Object.keys(data.extraList[w])[0] ==
-        "生命值"
-      ) {
+      if (Object.keys(data.extraList[w])[0] == "生命值") {
         let str = data.extraList[w]["生命值"];
         // let atk = Number(str.replace(/\D/g,""))
         let atk = Number(str.replace("+", ""));
         MaxHp += atk;
       }
-      if (
-        Object.keys(data.extraList[w])[0] ==
-        "防御力"
-      ) {
+      if (Object.keys(data.extraList[w])[0] == "防御力") {
         let str = data.extraList[w]["防御力"];
         // let atk = Number(str.replace(/\D/g,""))
         let atk = Number(str.replace("+", ""));
@@ -315,11 +350,11 @@ const mutations = {
     // console.log('Cridt',Cridt)
     // console.log('CridtDmg',CridtDmg)
     // console.log('-----------------------')
-    state.userinfo.Atk -=  Atk;
-    state.userinfo.Armo -=  Armo;
-    state.userinfo.CridtDmg -=  CridtDmg;
-    state.userinfo.Cridt -=  Cridt;
-    state.userinfo.MaxHp -=  MaxHp;
+    state.userinfo.Atk -= Atk;
+    state.userinfo.Armo -= Armo;
+    state.userinfo.CridtDmg -= CridtDmg;
+    state.userinfo.Cridt -= Cridt;
+    state.userinfo.MaxHp -= MaxHp;
     // console.log('替换完成',data.name)
     // console.log('-----------------------')
     // console.log('Atk',state.userinfo.Atk)
@@ -335,50 +370,30 @@ const mutations = {
     let MaxHp = 0;
     let Cridt = 0;
     let CridtDmg = 0;
-    for (
-      let q = 0;
-      q < data.dmglist.length;
-      q++
-    ) {
+    for (let q = 0; q < data.dmglist.length; q++) {
       //第一层判断基础属性:就武器而言
 
-      if (
-        Object.keys(data.dmglist[q])[0] ==
-        "防御力"
-      ) {
+      if (Object.keys(data.dmglist[q])[0] == "防御力") {
         let str = data.dmglist[q]["防御力"];
         let atk = Number(str.replace("+", ""));
         Armo += atk;
       }
-      if (
-        Object.keys(data.dmglist[q])[0] ==
-        "生命值"
-      ) {
+      if (Object.keys(data.dmglist[q])[0] == "生命值") {
         let str = data.dmglist[q]["生命值"];
         // let atk = Number(str.replace(/\D/g,""))
         let atk = Number(str.replace("+", ""));
         MaxHp += atk;
       }
     }
-    for (
-      let w = 0;
-      w < data.extraList.length;
-      w++
-    ) {
+    for (let w = 0; w < data.extraList.length; w++) {
       //第一层判断基础属性:就武器而言
-      if (
-        Object.keys(data.extraList[w])[0] ==
-        "生命值"
-      ) {
+      if (Object.keys(data.extraList[w])[0] == "生命值") {
         let str = data.extraList[w]["生命值"];
         // let atk = Number(str.replace(/\D/g,""))
         let atk = Number(str.replace("+", ""));
         MaxHp += atk;
       }
-      if (
-        Object.keys(data.extraList[w])[0] ==
-        "防御力"
-      ) {
+      if (Object.keys(data.extraList[w])[0] == "防御力") {
         let str = data.extraList[w]["防御力"];
         // let atk = Number(str.replace(/\D/g,""))
         let atk = Number(str.replace("+", ""));
@@ -393,11 +408,11 @@ const mutations = {
     // console.log('Cridt',Cridt)
     // console.log('CridtDmg',CridtDmg)
     // console.log('-----------------------')
-    state.userinfo.Atk +=  Atk;
-    state.userinfo.Armo +=  Armo;
-    state.userinfo.CridtDmg +=  CridtDmg;
-    state.userinfo.Cridt +=  Cridt;
-    state.userinfo.MaxHp +=  MaxHp;
+    state.userinfo.Atk += Atk;
+    state.userinfo.Armo += Armo;
+    state.userinfo.CridtDmg += CridtDmg;
+    state.userinfo.Cridt += Cridt;
+    state.userinfo.MaxHp += MaxHp;
     //    console.log('替换完成-加',data.name)
     // console.log('-----------------------')
     // console.log('Atk',state.userinfo.Atk)
@@ -414,72 +429,48 @@ const mutations = {
     let MaxHp = 0;
     let Cridt = 0;
     let CridtDmg = 0;
-    for (
-      let q = 0;
-      q < data.dmglist.length;
-      q++
-    ) {
+    for (let q = 0; q < data.dmglist.length; q++) {
       //第一层判断基础属性:就武器而言
 
-      if (
-        Object.keys(data.dmglist[q])[0] ==
-        "生命值"
-      ) {
+      if (Object.keys(data.dmglist[q])[0] == "生命值") {
         let str = data.dmglist[q]["生命值"];
         let atk = Number(str.replace("+", ""));
         MaxHp += atk;
       }
-      if (
-        Object.keys(data.dmglist[q])[0] ==
-        "攻击"
-      ) {
+      if (Object.keys(data.dmglist[q])[0] == "攻击") {
         let str = data.dmglist[q]["攻击"];
         // let atk = Number(str.replace(/\D/g,""))
         let atk = Number(str.replace("+", ""));
         Atk += atk;
       }
     }
-    for (
-      let w = 0;
-      w < data.extraList.length;
-      w++
-    ) {
+    for (let w = 0; w < data.extraList.length; w++) {
       //第一层判断基础属性:就武器而言
-      if (
-        Object.keys(data.extraList[w])[0] ==
-        "防御力"
-      ) {
+      if (Object.keys(data.extraList[w])[0] == "防御力") {
         let str = data.extraList[w]["防御力"];
         // let atk = Number(str.replace(/\D/g,""))
         let atk = Number(str.replace("+", ""));
         Armo += atk;
       }
-      if (
-        Object.keys(data.extraList[w])[0] ==
-        "暴击"
-      ) {
+      if (Object.keys(data.extraList[w])[0] == "暴击") {
         let str = data.extraList[w]["暴击"];
         // let atk = Number(str.replace(/\D/g,""))
         let atk = Number(str.replace("+", ""));
         Cridt += atk;
       }
-      if (
-        Object.keys(data.extraList[w])[0] ==
-        "暴击伤害"
-      ) {
-        let str =
-        data.extraList[w]["暴击伤害"];
+      if (Object.keys(data.extraList[w])[0] == "暴击伤害") {
+        let str = data.extraList[w]["暴击伤害"];
         // let atk = Number(str.replace(/\D/g,""))
         let atk = Number(str.replace("+", ""));
         CridtDmg += atk;
       }
     }
 
-    state.userinfo.Atk -=  Atk;
-    state.userinfo.Armo -=  Armo;
-    state.userinfo.CridtDmg -=  CridtDmg;
-    state.userinfo.Cridt -=  Cridt;
-    state.userinfo.MaxHp -=  MaxHp;
+    state.userinfo.Atk -= Atk;
+    state.userinfo.Armo -= Armo;
+    state.userinfo.CridtDmg -= CridtDmg;
+    state.userinfo.Cridt -= Cridt;
+    state.userinfo.MaxHp -= MaxHp;
   },
   AddRight(state, data) {
     let Armo = 0;
@@ -487,72 +478,48 @@ const mutations = {
     let MaxHp = 0;
     let Cridt = 0;
     let CridtDmg = 0;
-    for (
-      let q = 0;
-      q < data.dmglist.length;
-      q++
-    ) {
+    for (let q = 0; q < data.dmglist.length; q++) {
       //第一层判断基础属性:就武器而言
 
-      if (
-        Object.keys(data.dmglist[q])[0] ==
-        "生命值"
-      ) {
+      if (Object.keys(data.dmglist[q])[0] == "生命值") {
         let str = data.dmglist[q]["生命值"];
         let atk = Number(str.replace("+", ""));
         MaxHp += atk;
       }
-      if (
-        Object.keys(data.dmglist[q])[0] ==
-        "攻击"
-      ) {
+      if (Object.keys(data.dmglist[q])[0] == "攻击") {
         let str = data.dmglist[q]["攻击"];
         // let atk = Number(str.replace(/\D/g,""))
         let atk = Number(str.replace("+", ""));
         Atk += atk;
       }
     }
-    for (
-      let w = 0;
-      w < data.extraList.length;
-      w++
-    ) {
+    for (let w = 0; w < data.extraList.length; w++) {
       //第一层判断基础属性:就武器而言
-      if (
-        Object.keys(data.extraList[w])[0] ==
-        "防御力"
-      ) {
+      if (Object.keys(data.extraList[w])[0] == "防御力") {
         let str = data.extraList[w]["防御力"];
         // let atk = Number(str.replace(/\D/g,""))
         let atk = Number(str.replace("+", ""));
         Armo += atk;
       }
-      if (
-        Object.keys(data.extraList[w])[0] ==
-        "暴击"
-      ) {
+      if (Object.keys(data.extraList[w])[0] == "暴击") {
         let str = data.extraList[w]["暴击"];
         // let atk = Number(str.replace(/\D/g,""))
         let atk = Number(str.replace("+", ""));
         Cridt += atk;
       }
-      if (
-        Object.keys(data.extraList[w])[0] ==
-        "暴击伤害"
-      ) {
-        let str =
-        data.extraList[w]["暴击伤害"];
+      if (Object.keys(data.extraList[w])[0] == "暴击伤害") {
+        let str = data.extraList[w]["暴击伤害"];
         // let atk = Number(str.replace(/\D/g,""))
         let atk = Number(str.replace("+", ""));
         CridtDmg += atk;
       }
     }
 
-    state.userinfo.Atk +=  Atk;
-    state.userinfo.Armo+=  Armo;
-    state.userinfo.CridtDmg +=  CridtDmg;
-    state.userinfo.Cridt +=  Cridt;
-    state.userinfo.MaxHp +=  MaxHp;
+    state.userinfo.Atk += Atk;
+    state.userinfo.Armo += Armo;
+    state.userinfo.CridtDmg += CridtDmg;
+    state.userinfo.Cridt += Cridt;
+    state.userinfo.MaxHp += MaxHp;
   },
   //首饰
   dealLeft(state, data) {
@@ -561,72 +528,48 @@ const mutations = {
     let MaxHp = 0;
     let Cridt = 0;
     let CridtDmg = 0;
-    for (
-      let q = 0;
-      q < data.dmglist.length;
-      q++
-    ) {
+    for (let q = 0; q < data.dmglist.length; q++) {
       //第一层判断基础属性:就武器而言
 
-      if (
-        Object.keys(data.dmglist[q])[0] ==
-        "防御力"
-      ) {
+      if (Object.keys(data.dmglist[q])[0] == "防御力") {
         let str = data.dmglist[q]["防御力"];
         let atk = Number(str.replace("+", ""));
         Armo += atk;
       }
-      if (
-        Object.keys(data.dmglist[q])[0] ==
-        "攻击"
-      ) {
+      if (Object.keys(data.dmglist[q])[0] == "攻击") {
         let str = data.dmglist[q]["攻击"];
         // let atk = Number(str.replace(/\D/g,""))
         let atk = Number(str.replace("+", ""));
         Atk += atk;
       }
     }
-    for (
-      let w = 0;
-      w < data.extraList.length;
-      w++
-    ) {
+    for (let w = 0; w < data.extraList.length; w++) {
       //第一层判断基础属性:就武器而言
-      if (
-        Object.keys(data.extraList[w])[0] ==
-        "生命值"
-      ) {
+      if (Object.keys(data.extraList[w])[0] == "生命值") {
         let str = data.extraList[w]["生命值"];
         // let atk = Number(str.replace(/\D/g,""))
         let atk = Number(str.replace("+", ""));
         MaxHp += atk;
       }
-      if (
-        Object.keys(data.extraList[w])[0] ==
-        "暴击"
-      ) {
+      if (Object.keys(data.extraList[w])[0] == "暴击") {
         let str = data.extraList[w]["暴击"];
         // let atk = Number(str.replace(/\D/g,""))
         let atk = Number(str.replace("+", ""));
         Cridt += atk;
       }
-      if (
-        Object.keys(data.extraList[w])[0] ==
-        "暴击伤害"
-      ) {
-        let str =
-        data.extraList[w]["暴击伤害"];
+      if (Object.keys(data.extraList[w])[0] == "暴击伤害") {
+        let str = data.extraList[w]["暴击伤害"];
         // let atk = Number(str.replace(/\D/g,""))
         let atk = Number(str.replace("+", ""));
         CridtDmg += atk;
       }
     }
 
-    state.userinfo.Atk -=  Atk;
-    state.userinfo.Armo -=  Armo;
-    state.userinfo.CridtDmg -=  CridtDmg;
-    state.userinfo.Cridt -=  Cridt;
-    state.userinfo.MaxHp -=  MaxHp;
+    state.userinfo.Atk -= Atk;
+    state.userinfo.Armo -= Armo;
+    state.userinfo.CridtDmg -= CridtDmg;
+    state.userinfo.Cridt -= Cridt;
+    state.userinfo.MaxHp -= MaxHp;
   },
   AddLeft(state, data) {
     let Armo = 0;
@@ -634,72 +577,48 @@ const mutations = {
     let MaxHp = 0;
     let Cridt = 0;
     let CridtDmg = 0;
-    for (
-      let q = 0;
-      q < data.dmglist.length;
-      q++
-    ) {
+    for (let q = 0; q < data.dmglist.length; q++) {
       //第一层判断基础属性:就武器而言
 
-      if (
-        Object.keys(data.dmglist[q])[0] ==
-        "防御力"
-      ) {
-        let str =data.dmglist[q]["防御力"];
+      if (Object.keys(data.dmglist[q])[0] == "防御力") {
+        let str = data.dmglist[q]["防御力"];
         let atk = Number(str.replace("+", ""));
         Armo += atk;
       }
-      if (
-        Object.keys(data.dmglist[q])[0] ==
-        "攻击"
-      ) {
+      if (Object.keys(data.dmglist[q])[0] == "攻击") {
         let str = data.dmglist[q]["攻击"];
         // let atk = Number(str.replace(/\D/g,""))
         let atk = Number(str.replace("+", ""));
         Atk += atk;
       }
     }
-    for (
-      let w = 0;
-      w < data.extraList.length;
-      w++
-    ) {
+    for (let w = 0; w < data.extraList.length; w++) {
       //第一层判断基础属性:就武器而言
-      if (
-        Object.keys(data.extraList[w])[0] ==
-        "生命值"
-      ) {
+      if (Object.keys(data.extraList[w])[0] == "生命值") {
         let str = data.extraList[w]["生命值"];
         // let atk = Number(str.replace(/\D/g,""))
         let atk = Number(str.replace("+", ""));
         MaxHp += atk;
       }
-      if (
-        Object.keys(data.extraList[w])[0] ==
-        "暴击"
-      ) {
+      if (Object.keys(data.extraList[w])[0] == "暴击") {
         let str = data.extraList[w]["暴击"];
         // let atk = Number(str.replace(/\D/g,""))
         let atk = Number(str.replace("+", ""));
         Cridt += atk;
       }
-      if (
-        Object.keys(data.extraList[w])[0] ==
-        "暴击伤害"
-      ) {
-        let str =
-        data.extraList[w]["暴击伤害"];
+      if (Object.keys(data.extraList[w])[0] == "暴击伤害") {
+        let str = data.extraList[w]["暴击伤害"];
         // let atk = Number(str.replace(/\D/g,""))
         let atk = Number(str.replace("+", ""));
         CridtDmg += atk;
       }
     }
 
-    state.userinfo.Atk +=  Atk;
-    state.userinfo.Armo +=  Armo;
-    state.userinfo.CridtDmg +=  CridtDmg;
-    state.userinfo.Cridt +=  Cridt;
-    state.userinfo.MaxHp +=  MaxHp;
+    state.userinfo.Atk += Atk;
+    state.userinfo.Armo += Armo;
+    state.userinfo.CridtDmg += CridtDmg;
+    state.userinfo.Cridt += Cridt;
+    state.userinfo.MaxHp += MaxHp;
   },
   //武器
   dealWeapon(state, data) {
@@ -716,83 +635,52 @@ const mutations = {
     let MaxHp = 0;
     let Cridt = 0;
     let CridtDmg = 0;
-    for (
-      let j = 0;
-      j < data.dmglist.length;
-      j++
-    ) {
+    for (let j = 0; j < data.dmglist.length; j++) {
       //第一层判断基础属性:就武器而言
-      if (
-        Object.keys(data.dmglist[j])[0] == "攻击"
-      ) {
+      if (Object.keys(data.dmglist[j])[0] == "攻击") {
         let str = data.dmglist[j]["攻击"];
         let atk = Number(str.replace("+", ""));
         Atk += atk;
       }
-      if (
-        Object.keys(data.dmglist[j])[0] ==
-        "暴击率"
-      ) {
+      if (Object.keys(data.dmglist[j])[0] == "暴击率") {
         let str = data.dmglist[j]["暴击率"];
         // let atk = Number(str.replace(/\D/g,""))
         let atk = Number(str.replace("+", ""));
         Cridt += atk;
       }
-      if (
-        Object.keys(data.dmglist[j])[0] ==
-        "暴击伤害"
-      ) {
+      if (Object.keys(data.dmglist[j])[0] == "暴击伤害") {
         let str = data.dmglist[j]["暴击伤害"];
         // let atk = Number(str.replace(/\D/g,""))
         let atk = Number(str.replace("+", ""));
         CridtDmg += atk;
       }
     }
-    for (
-      let j = 0;
-      j < data.extraList.length;
-      j++
-    ) {
+    for (let j = 0; j < data.extraList.length; j++) {
       //第一层判断基础属性:就武器而言
-      if (
-        Object.keys(data.extraList[j])[0] ==
-        "攻击"
-      ) {
+      if (Object.keys(data.extraList[j])[0] == "攻击") {
         let str = data.extraList[j]["攻击"];
         let atk = Number(str.replace("+", ""));
         Atk += atk;
       }
-      if (
-        Object.keys(data.extraList[j])[0] ==
-        "暴击率"
-      ) {
+      if (Object.keys(data.extraList[j])[0] == "暴击率") {
         let str = data.extraList[j]["暴击率"];
         // let atk = Number(str.replace(/\D/g,""))
         let atk = Number(str.replace("+", ""));
         Cridt += atk;
       }
-      if (
-        Object.keys(data.extraList[j])[0] ==
-        "暴击伤害"
-      ) {
+      if (Object.keys(data.extraList[j])[0] == "暴击伤害") {
         let str = data.extraList[j]["暴击伤害"];
         // let atk = Number(str.replace(/\D/g,""))
         let atk = Number(str.replace("+", ""));
         CridtDmg += atk;
       }
-      if (
-        Object.keys(data.extraList[j])[0] ==
-        "生命值"
-      ) {
+      if (Object.keys(data.extraList[j])[0] == "生命值") {
         let str = data.extraList[j]["生命值"];
         // let atk = Number(str.replace(/\D/g,""))
         let atk = Number(str.replace("+", ""));
         MaxHp += atk;
       }
-      if (
-        Object.keys(data.extraList[j])[0] ==
-        "防御力"
-      ) {
+      if (Object.keys(data.extraList[j])[0] == "防御力") {
         let str = data.extraList[j]["防御力"];
         // let atk = Number(str.replace(/\D/g,""))
         let atk = Number(str.replace("+", ""));
@@ -807,11 +695,11 @@ const mutations = {
     // console.log('Cridt',Cridt)
     // console.log('CridtDmg',CridtDmg)
     // console.log('-----------------------')
-    state.userinfo.Atk -=  Atk;
-    state.userinfo.Armo -=  Armo;
-    state.userinfo.CridtDmg -=  CridtDmg;
-    state.userinfo.Cridt -=  Cridt;
-    state.userinfo.MaxHp -=  MaxHp;
+    state.userinfo.Atk -= Atk;
+    state.userinfo.Armo -= Armo;
+    state.userinfo.CridtDmg -= CridtDmg;
+    state.userinfo.Cridt -= Cridt;
+    state.userinfo.MaxHp -= MaxHp;
     // console.log('替换完成',data.name)
     // console.log('-----------------------')
     // console.log('Atk',state.userinfo.Atk)
@@ -835,83 +723,52 @@ const mutations = {
     let MaxHp = 0;
     let Cridt = 0;
     let CridtDmg = 0;
-    for (
-      let j = 0;
-      j < data.dmglist.length;
-      j++
-    ) {
+    for (let j = 0; j < data.dmglist.length; j++) {
       //第一层判断基础属性:就武器而言
-      if (
-        Object.keys(data.dmglist[j])[0] == "攻击"
-      ) {
+      if (Object.keys(data.dmglist[j])[0] == "攻击") {
         let str = data.dmglist[j]["攻击"];
         let atk = Number(str.replace("+", ""));
         Atk += atk;
       }
-      if (
-        Object.keys(data.dmglist[j])[0] ==
-        "暴击率"
-      ) {
+      if (Object.keys(data.dmglist[j])[0] == "暴击率") {
         let str = data.dmglist[j]["暴击率"];
         // let atk = Number(str.replace(/\D/g,""))
         let atk = Number(str.replace("+", ""));
         Cridt += atk;
       }
-      if (
-        Object.keys(data.dmglist[j])[0] ==
-        "暴击伤害"
-      ) {
+      if (Object.keys(data.dmglist[j])[0] == "暴击伤害") {
         let str = data.dmglist[j]["暴击伤害"];
         // let atk = Number(str.replace(/\D/g,""))
         let atk = Number(str.replace("+", ""));
         CridtDmg += atk;
       }
     }
-    for (
-      let j = 0;
-      j < data.extraList.length;
-      j++
-    ) {
+    for (let j = 0; j < data.extraList.length; j++) {
       //第一层判断基础属性:就武器而言
-      if (
-        Object.keys(data.extraList[j])[0] ==
-        "攻击"
-      ) {
+      if (Object.keys(data.extraList[j])[0] == "攻击") {
         let str = data.extraList[j]["攻击"];
         let atk = Number(str.replace("+", ""));
         Atk += atk;
       }
-      if (
-        Object.keys(data.extraList[j])[0] ==
-        "暴击率"
-      ) {
+      if (Object.keys(data.extraList[j])[0] == "暴击率") {
         let str = data.extraList[j]["暴击率"];
         // let atk = Number(str.replace(/\D/g,""))
         let atk = Number(str.replace("+", ""));
         Cridt += atk;
       }
-      if (
-        Object.keys(data.extraList[j])[0] ==
-        "暴击伤害"
-      ) {
+      if (Object.keys(data.extraList[j])[0] == "暴击伤害") {
         let str = data.extraList[j]["暴击伤害"];
         // let atk = Number(str.replace(/\D/g,""))
         let atk = Number(str.replace("+", ""));
         CridtDmg += atk;
       }
-      if (
-        Object.keys(data.extraList[j])[0] ==
-        "生命值"
-      ) {
+      if (Object.keys(data.extraList[j])[0] == "生命值") {
         let str = data.extraList[j]["生命值"];
         // let atk = Number(str.replace(/\D/g,""))
         let atk = Number(str.replace("+", ""));
         MaxHp += atk;
       }
-      if (
-        Object.keys(data.extraList[j])[0] ==
-        "防御力"
-      ) {
+      if (Object.keys(data.extraList[j])[0] == "防御力") {
         let str = data.extraList[j]["防御力"];
         // let atk = Number(str.replace(/\D/g,""))
         let atk = Number(str.replace("+", ""));
@@ -926,11 +783,11 @@ const mutations = {
     // console.log('Cridt',Cridt)
     // console.log('CridtDmg',CridtDmg)
     // console.log('-----------------------')
-    state.userinfo.Atk +=  Atk;
-    state.userinfo.Armo +=  Armo;
-    state.userinfo.CridtDmg +=  CridtDmg;
-    state.userinfo.Cridt +=  Cridt;
-    state.userinfo.MaxHp +=  MaxHp;
+    state.userinfo.Atk += Atk;
+    state.userinfo.Armo += Armo;
+    state.userinfo.CridtDmg += CridtDmg;
+    state.userinfo.Cridt += Cridt;
+    state.userinfo.MaxHp += MaxHp;
     // console.log('替换完成',data.name)
     // console.log('-----------------------')
     // console.log('Atk',state.userinfo.Atk)
@@ -940,6 +797,7 @@ const mutations = {
     // console.log('CridtDmg',state.userinfo.CridtDmg)
     // console.log('-----------------------')
   },
+  //计算所有装备属性总和
   updateUserProperty(state) {
     let Armo = 0;
     let Atk = 0;
@@ -1223,6 +1081,20 @@ const mutations = {
     state.userinfo.Cridt = state.userinfo.Cridt + Cridt;
     state.userinfo.MaxHp = state.userinfo.MaxHp + MaxHp;
   },
+  //增加角色经验，升级
+  adduserexp(state,data){
+    if(state.userinfo.exp>=state.userinfo.needexp){
+      state.userinfo.Lv+=1;
+      state.userinfo.Atk+=5;
+      state.userinfo.MaxHp+=10
+      state.userinfo.exp=0;
+      state.userinfo.needexp+=state.userinfo.needexp/2
+      this.commit('saveuserdata')
+    }else{
+      state.userinfo.exp+=data
+      this.commit('saveuserdata')
+    }
+  }
 };
 
 //创建store

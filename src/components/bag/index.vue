@@ -20,6 +20,33 @@
         </div>
       </div>
     </div>
+
+    <div class="fun-area">
+       <el-popover
+      :width="419"
+      popper-style="box-shadow: rgb(14 18 22 / 35%) 0px 10px 38px -10px, rgb(14 18 22 / 20%) 0px 10px 20px -15px; padding: 15px; background-color:#000"
+    >
+      <template #reference>
+         <el-button>出售设置</el-button>
+      </template>
+      <template #default>
+        <p style="text-align: center;padding-bottom: 10px; color: #fff;">勾选选项只针对于装备，出售前请检查后在进行出售</p>
+        <div
+          class="group"
+        >
+        
+        <el-checkbox-group v-model="sealGroup" size="small">
+          <el-checkbox label="N" border />
+          <el-checkbox label="R" border />
+           <el-checkbox label="SR" border />
+            <el-checkbox label="SSR" border />
+             <el-checkbox label="SP" border />
+        </el-checkbox-group>
+        </div>
+      </template>
+    </el-popover>
+       <el-button @click="alldeal">一键售出</el-button>
+    </div>
     <rightselect
       :menulist="equipList.menulist"
       v-if="equipList.rightstate"
@@ -46,6 +73,7 @@ export default {
     const x = ref(0);
     const y = ref(0);
     const store = useStore();
+    const sealGroup =ref([])
     const equipList = reactive({
       list: [],
       rightstate: false,
@@ -126,6 +154,9 @@ export default {
     function mouseleave() {
       equipList.enterstate = false;
     }
+    function alldeal(){
+      store.commit('sealitemfrombagbantch',sealGroup)
+    }
     return {
       store,
       equipList,
@@ -134,7 +165,9 @@ export default {
       mousedown,
       mounseonter,
       mouseleave,
-      closerightselect
+      closerightselect,
+      sealGroup,
+      alldeal
     };
   },
 };
@@ -157,7 +190,7 @@ export default {
 .item-bg {
   margin: 70px auto;
   width: 85%;
-  height: 70%;
+  height: 60%;
   display: flex;
   background-color: rgba(0, 0, 0, 0.212);
   overflow-y: scroll;
@@ -194,5 +227,18 @@ export default {
 }
 .close-btn img:hover{
   cursor: pointer;
+}
+.fun-area{
+   position: absolute;
+   top: 81%;
+   right: 7.6%;
+}
+.fun-area:deep(.el-button){
+  background-color: #000;
+  color: #fff;
+}
+.group{
+  display: flex;
+  justify-content: space-between;
 }
 </style>

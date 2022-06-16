@@ -75,7 +75,7 @@ var crateLeft = function (level, jobtype, which) {
         type: '首饰',
         intro: weaponintro[random(0, weaponintro.length - 1)],
         dmg: random(1, 3),
-        quality: random(lower + which, 100),
+        quality: random(lower + Number(which), 100),
         extraNum: 0,
         imgurl: leftimglist[random(0, leftimglist.length - 1)],
         extraList: [],

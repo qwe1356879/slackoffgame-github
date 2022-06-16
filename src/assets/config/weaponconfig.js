@@ -75,7 +75,7 @@ var crateWeapon = function (level, jobtype, which) {
         type: '武器',
         intro: weaponintro[random(0, weaponintro.length - 1)],
         dmg: random(1, 3),//基础词条个数
-        quality: random(lower + which, 100),
+        quality: random(lower + Number(which), 100),
         extraNum: 0,
         imgurl: weaponimglist[random(0, weaponimglist.length - 1)],
         extraList: [],//额外词条list

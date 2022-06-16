@@ -6,6 +6,8 @@
         <template #content>
           <div class="tip-img"><img src='/icons/tips.png' /></div>
           <p> * 角色当前等级</p>
+          <p> * Exp:{{store.state.userinfo.exp}}/{{store.state.userinfo.needexp}}</p>
+        
         </template>
         <div class="level">
           lv {{ store.state.userinfo.Lv }}
