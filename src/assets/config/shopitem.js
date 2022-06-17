@@ -21,8 +21,6 @@ let createShopItem = function (number, level) {
       item = crateRight(level, "R", 1);
     }else if(x == "weapon"){
       item = crateWeapon(level, "R", 1);
-    }else{
-      item = crateHP(level, hplist[random(0, hplist.length - 1)],5);
     }
  
     items.push(item)
@@ -36,8 +34,6 @@ let createShopItem = function (number, level) {
       items[x].imgurl = 'right/'+items[x].imgurl
     }else if(items[x].type=='首饰'){
       items[x].imgurl = 'left/'+items[x].imgurl
-    }else{
-      items[x].imgurl = 'hp/'+items[x].imgurl
     }
   }
   return items;

@@ -4,7 +4,7 @@
       <div class="tip-img"><img src='/icons/tips.png' /></div>
       <p> * 角色血量</p>
       <p> * 当前生命值/角色最大生命值</p>
-      <p> * 每秒会回复角色2%的最大生命值</p>
+      <p> * 每秒恢复HP:{{store.state.userinfo.SecondHp}}</p>
     </template>
     <div class="hp-area">
       <div class="icon-area">

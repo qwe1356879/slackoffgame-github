@@ -205,7 +205,7 @@ export default {
         if (store.state.userinfo.DPS < store.state.nowjobinfo.dpsneed) {
           dmg = Math.round(store.state.nowjobinfo.dpsneed * (detail + 0.2));
         } else {
-          dmg = Math.round(store.state.nowjobinfo.dpsneed * detail);
+          dmg = Math.round(store.state.nowjobinfo.dpsneed * detail)-Math.round(store.state.userinfo.Armo*0.4)
         }
         // console.log('dmg',dmg)
         let fightinfo = {

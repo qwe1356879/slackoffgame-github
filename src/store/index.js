@@ -347,7 +347,6 @@ const mutations = {
   userrecoverhp(state) {
     clearInterval(state.timerHp);
     state.timerHp = setInterval(() => {
-      console.log('hp',state.userinfo.SecondHp)
       state.userinfo.NowHp += Math.round(state.userinfo.SecondHp);
       if (state.userinfo.NowHp >= state.userinfo.MaxHp) {
         state.userinfo.NowHp = state.userinfo.MaxHp;

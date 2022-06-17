@@ -1,5 +1,13 @@
 export let updatelist = [
     {
+        date: '2022-6-17',
+        detail: [
+            '删除血瓶设定',
+            '完善减伤机制',
+        ],
+        author: 'FanR'
+    },
+    {
         date: '2022-6-16',
         detail: [
             '完成角色经验机制',
