@@ -2,8 +2,8 @@
 一个WEB端刷词条的小游戏
 
 ### 访问地址
-https://fanrgames.vercel.app/
+https://slackoffgam.vercel.app/
 
-## V1.0
+## V1.0 测试版
 ![v1.0](images/v1.0.png)
 
