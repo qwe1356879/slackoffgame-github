@@ -52,7 +52,7 @@ export default {
 .sys {
     border: 2px solid #ccc;
     margin: 0.2rem;
-    height: 505px;
+    height: 100%;
     overflow-y: scroll;
 }
 

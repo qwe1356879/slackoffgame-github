@@ -1,12 +1,13 @@
 <template>
   <div class="bag-bg" v-if="store.state.showBag">
-    <div class="item-bg">
+    <div class="item-bg"  @click="closerightselect">
       <div
         class="grid-single"
         v-for="i in equipList.list"
         :style="{ 'box-shadow': i.color }"
         v-on:mouseenter="mounseonter(i)"
         v-on:mouseleave="mouseleave"
+       
       >
         <img
           :src="`/icons/myequip/${i.imgadd}/${i.imgurl}.png`"
@@ -27,15 +28,16 @@
       popper-style="box-shadow: rgb(14 18 22 / 35%) 0px 10px 38px -10px, rgb(14 18 22 / 20%) 0px 10px 20px -15px; padding: 15px; background-color:#000"
     >
       <template #reference>
-         <el-button>出售设置</el-button>
+         <el-button>自动出售设置</el-button>
+       
       </template>
       <template #default>
-        <p style="text-align: center;padding-bottom: 10px; color: #fff;">勾选选项只针对于装备，出售前请检查后在进行出售</p>
+        <p style="text-align: center;padding-bottom: 10px; color: #fff;">勾选后自动开启物品出售，若想关闭，全不勾选即可</p>
         <div
           class="group"
         >
         
-        <el-checkbox-group v-model="sealGroup" size="small">
+        <el-checkbox-group v-model="sealGroup" size="small" @change="setautoseal">
           <el-checkbox label="N" border />
           <el-checkbox label="R" border />
            <el-checkbox label="SR" border />
@@ -45,6 +47,7 @@
         </div>
       </template>
     </el-popover>
+   
        <el-button @click="alldeal">一键售出</el-button>
     </div>
     <rightselect
@@ -68,12 +71,15 @@ export default {
   components: {
     rightselect,
     showbag,
+
   },
   setup() {
     const x = ref(0);
     const y = ref(0);
     const store = useStore();
     const sealGroup =ref([])
+    const autoseal=ref(false)
+    const autosealtext=ref('开启自动出售')
     const equipList = reactive({
       list: [],
       rightstate: false,
@@ -154,8 +160,20 @@ export default {
     function mouseleave() {
       equipList.enterstate = false;
     }
+    // function isAutoSeal(){
+    //   autoseal.value=!autoseal.value
+    //   if(autoseal.value){
+    //     autosealtext.value='关闭自动出售'
+       
+    //   }else{
+    //     autosealtext.value='开启自动出售'
+    //   }
+    // }
+    function setautoseal(){
+      store.commit('setsealgroup',sealGroup)
+    }
     function alldeal(){
-      store.commit('sealitemfrombagbantch',sealGroup)
+      store.commit('sealitemfrombagbantch')
     }
     return {
       store,
@@ -167,7 +185,10 @@ export default {
       mouseleave,
       closerightselect,
       sealGroup,
-      alldeal
+      alldeal,
+      autoseal,
+      autosealtext,
+      setautoseal
     };
   },
 };

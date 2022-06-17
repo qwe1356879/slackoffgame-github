@@ -14,8 +14,8 @@ const router = createRouter({
     //   component: () => import('../testview/test2/index.vue')
     // },
     {
-      path: '/shop',
-      component: () => import('../testview/test/Shop.vue')
+      path: '/fight',
+      component: () => import('../testview/test/TestFight.vue')
     },
     
     

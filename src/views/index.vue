@@ -9,7 +9,7 @@
         <sysinfo></sysinfo>
       </div>
 
-      <div class="footer">
+      <div class="out-footer">
         <myfooter></myfooter>
       </div>
     </div>
@@ -41,6 +41,7 @@
       </div>
       
       <updateDrawer></updateDrawer>
+      <gudieDrawer></gudieDrawer>
     </div>
   </div>
 </template>
@@ -69,6 +70,7 @@ import { ElNotification } from "element-plus";
 import Bag from "../components/bag/index.vue";
 import Shop from "../components/shop/index.vue";
 import updateDrawer from "../components/updatedrawer/index.vue"
+import gudieDrawer from "../components/gudie/index.vue"
 export default {
   components: {
     userlevel,
@@ -80,7 +82,8 @@ export default {
     fight,
     Bag,
     Shop,
-    updateDrawer
+    updateDrawer,
+    gudieDrawer
   },
   setup() {
     const store = useStore();
@@ -218,20 +221,10 @@ export default {
 .job-div:hover {
   cursor: pointer;
 }
-.job-div{
-  position: absolute;
-}
 .bag {
   position: absolute;
   top: 35%;
   left: 22%;
 }
-.footer {
-  position: fixed;
-  bottom: 0;
-  width: 50%;
-}
-.sys-area {
-  /* height: 400px; */
-}
+
 </style>

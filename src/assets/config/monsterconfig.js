@@ -68,9 +68,9 @@ export function createJob(number, lv, width, height) {
                 'height': '70px',
                 'box-shadow': '',
                 'border': '1px solid #111',
-                'position': 'absolute',
-                'top': random(80, width - 250) + 'px',
-                'left': random(150, height - 200) + 'px',
+                'position': 'relative',
+                'top': random(10,35) + '%',
+                'left': random(10,90) + '%',
                 'border-radius': '4px',
                 'background-color': 'rgba(0,0,0,.5)'
             },

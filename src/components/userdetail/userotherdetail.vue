@@ -83,16 +83,17 @@ export default {
 
 .main {
   display: grid !important;
-  grid-template-columns: 33.3% 33.3% 33.3%;
-  grid-template-rows: 90px 90px;
+  grid-template-columns: 25% 25% 25% 25%;
+  align-items: center;
+  // grid-template-rows: 50% 50%;
 }
 
 .sx img {
-  margin-top: 1rem;
+  margin-top: .5rem;
 }
 
 .sx p {
-  font-size: 19px;
-  margin-top: 0.4rem
+  font-size:1.1rem;
+  margin-top: 0.1rem
 }
 </style>

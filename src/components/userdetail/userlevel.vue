@@ -28,8 +28,11 @@
     <div class="hp">
       <userHp></userHp>
     </div>
-    <div class="hp">
+    <div class="hp2">
       <userotherdetail></userotherdetail>
+    </div>
+     <div class="hp3">
+      <userexp></userexp>
     </div>
   </div>
 
@@ -39,10 +42,11 @@
 import { reactive, toRefs } from 'vue'
 import userHp from './userHp.vue'
 import userotherdetail from './userotherdetail.vue'
+import userexp from "./userexp.vue"
 import { useStore } from 'vuex'
 export default {
   components: {
-
+    userexp,
     userHp,
     userotherdetail
   },
@@ -71,24 +75,38 @@ export default {
 
 .level {
   width: 50%;
-  height: 65px;
+  height: 20%;
   font-size: 26px;
   line-height: 65px;
   font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 .zs {
   width: 50%;
-  height: 65px;
-  font-size: 16px;
+  height: 20%;
+  font-size: 1.5rem;
   line-height: 65px;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 .hp {
   border: 2px solid #ccc;
-  margin: 0.8rem;
+  margin: 0.5rem;
+  height: 20%;
 }
-
+.hp2 {
+  border: 2px solid #ccc;
+  margin: 0.5rem;
+  height: 30%;
+}
+.hp3 {
+  border: 2px solid #ccc;
+  margin: 0.5rem;
+  height: 20%;
+}
 .tip-img {
   text-align: center;
 

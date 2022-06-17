@@ -33,6 +33,7 @@ export default {
 <style lang="scss" scoped>
 .hp-area {
   display: flex;
+  align-items: center;
 }
 
 .icon-area {
@@ -41,9 +42,7 @@ export default {
 
 .hp-area p {
   width: 70%;
-  text-align: center;
-  font-size: 24px;
-  line-height: 65px;
+  font-size: 1.5rem;
 }
 
 .tip-img {
@@ -52,7 +51,7 @@ export default {
 }
 
 .tip-img img {
-  width: 38px;
-  height: 38px;
+  // width: 38px;
+  // height: 38px;
 }
 </style>

@@ -13,6 +13,11 @@ import store from '../../store'
 export default {
     setup() {
         const itemlist = ref([
+              {
+                icon: 'guide',
+                name: 'Q&A',
+                key: 'newuser',
+            },
             {
                 icon: 'gitee',
                 name: 'Gitee',
@@ -33,6 +38,7 @@ export default {
                 name: '更新日志',
                 key: 'update',
             },
+           
 
             {
                 icon: 'money',
@@ -54,6 +60,9 @@ export default {
                 case 'update':
                     store.commit('changeShowUpdate')
                     break;
+                 case 'newuser':
+                    store.commit('changeShowGuide')
+                    break;
             }
         }
 
@@ -73,7 +82,8 @@ export default {
     display: flex;
     border: 2px solid #ccc;
     margin: 0.2rem;
-    height: 60px;
+    margin-top: 0.4rem;
+    height:100%;
     color: #fff;
     text-align: center;
 }
@@ -81,7 +91,6 @@ export default {
 .footer-item {
     margin: 5px auto;
 }
-
 .footer-item img:hover {
     cursor: pointer;
 }
@@ -90,24 +99,5 @@ export default {
     cursor: pointer;
 }
 
-.drawer-div {
-    padding: 0px 15px;
-    padding-bottom: 15px;
 
-    // text-align: center;
-    .title {
-        font-size: 1.2rem;
-        font-weight: 700;
-        padding-bottom: 10px;
-    }
-
-    .text {
-        font-weight: 600;
-    }
-
-    .author {
-        padding-top: 15px;
-        // text-align: right;
-    }
-}
 </style>

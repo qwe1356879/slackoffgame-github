@@ -1,4 +1,5 @@
 <template>
+
     <div class="mainmenu">
         <div class="item" v-for="i in itemlist" @click="menuop(i.key)">
             <el-tooltip placement="top">

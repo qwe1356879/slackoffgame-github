@@ -93,29 +93,28 @@ export default ({
 <style lang="scss" scoped>
 .equipment {
     display: flex;
-    margin: 1rem;
 }
 
 .border {
-    width: 50px;
-    height: 50px;
+    width: 48px;
+    height: 48px;
     border-radius: 8px;
-
-    //  box-shadow: rgb(255 0 255) 0px 0px 7px 2px inset;
 }
 
 .border img {
-    margin: .4rem auto;
+    margin: .3rem auto;
     width: 40px;
 }
 
 .equipment p {
     width: 70%;
     text-align: left;
-    font-size: 18px;
+    font-size: 1.2rem;
     line-height: 53px;
     text-indent: 15px;
     cursor: pointer;
+     white-space: nowrap;
+  overflow: hidden;
 }
 
 .equip-area {}

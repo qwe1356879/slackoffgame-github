@@ -1,9 +1,10 @@
 import { createStore } from "vuex";
 import userinfo from "../assets/config/userinfo";
 import { createJob, getDIVsize } from "../assets/config/monsterconfig";
-
+import { ElNotification } from "element-plus";
 // import Base64 from './tool/fakebase64'
 import Base64 from "../assets/tool/fakebase64";
+import { slotFlagsText } from "@vue/shared";
 //创建状态
 let myDate = new Date();
 let str = myDate.toTimeString(); //"10:55:24 GMT+0800 (中国标准时间)"
@@ -32,7 +33,7 @@ const state = {
       sys: "系统",
       time: "",
       time: timeStr,
-      text: "在游戏中遇到的BUG可在底部意见反馈中进行反馈",
+      text: "新玩家可点击底部新手教程查看教程",
       color: "#f90202",
       ifequipment: false,
       equipmentinfo: {},
@@ -47,12 +48,17 @@ const state = {
   showBag: false,
   showShop: false,
   updateDrawer: false,
+  guideDrawer:false,
   repeatfight: false,
+  sealGroup:[]
 };
 //创建actions
 const actions = {};
 //创建mutataions
 const mutations = {
+  setsealgroup(state,data){
+    state.sealGroup=data
+  },
   repeatFight(state, data) {
     state.repeatfight = data;
   },
@@ -138,63 +144,69 @@ const mutations = {
       }
     }
   },
-  //一键出售
-  sealitemfrombagbantch(state, data) {
-    // console.log('data',data.value.length)
-    if (data.value.length <= 0) {
-      let price = 0;
-      for (let i = 0; i < state.userinfo.bag.length; i++) {
-        price += state.userinfo.bag[i].price;
-      }
-      state.userinfo.Gold += price;
-      state.sysinfolist.push({
-        sys: "系统",
-        time: "",
-        time: timeStr,
-        text: `出售成功,一共获得${price}金币`,
-        color: "#F79308",
-        ifequipment: false,
-        equipmentinfo: {},
-      });
-      state.userinfo.bag = [];
-      this.commit("saveuserdata");
-    } else {
-      let price = 0;
-      let i=0;
- 
-      for (let i = 0; i < data.value.length; i++) {
-        for (let j = 0; j < state.userinfo.bag.length; j++) {
-          if (state.userinfo.bag[j].qualityname == data.value[i]) {
-            price += state.userinfo.bag[j].price;
-            state.userinfo.bag.splice(j, 1);
-          }
+  //自动出售
+  sealauto(state,data){
+    if(state.sealGroup.length>0){
+      for(let j=0;j<state.sealGroup.length;j++){
+    
+        if(data.qualityname==state.sealGroup[j]){
+          this.commit('sealiitemfrombag',data.id)
+          state.userinfo.Gold += data.price;
+          state.sysinfolist.push({
+            sys: "系统",
+            time: "",
+            time: timeStr,
+            text: `自动出售成功,获得${data.price}金币`,
+            color: "#F79308",
+            ifequipment: false,
+            equipmentinfo: {},
+          });
         }
-      }
-      state.sysinfolist.push({
-        sys: "系统",
-        time: "",
-        time: timeStr,
-        text: `出售成功,一共获得${price}金币`,
-        color: "#F79308",
-        ifequipment: false,
-        equipmentinfo: {},
-      });
-      this.commit("saveuserdata");
+        
+       }
     }
+   
+  },
+  //一键出售
+  sealitemfrombagbantch(state) {
+    // console.log('data',data.value.length)
+    let price = 0;
+    for (let i = 0; i < state.userinfo.bag.length; i++) {
+      price += state.userinfo.bag[i].price;
+    }
+    state.userinfo.Gold += price;
+    state.sysinfolist.push({
+      sys: "系统",
+      time: "",
+      time: timeStr,
+      text: `出售成功,一共获得${price}金币`,
+      color: "#F79308",
+      ifequipment: false,
+      equipmentinfo: {},
+    });
+    state.userinfo.bag = [];
+    this.commit("saveuserdata");
   },
   replaceequipment(state, data) {
     if (data.type == "护甲") {
       if(data.lv>state.userinfo.Lv){
-        state.sysinfolist.push({
-          sys: "系统",
-          time: "",
-          time: timeStr,
-          text: "想啥呢少年，等级不够！更换装备失败",
-          color: "#24c4de",
-          ifequipment: false,
-          equipmentinfo: {},
+        ElNotification({
+          title: "系统提示",
+          type: "error",
+          duration: 3000,
+          message: "未达到装备要求穿戴等级!快去升级吧!",
         });
+        // state.sysinfolist.push({
+        //   sys: "系统",
+        //   time: "",
+        //   time: timeStr,
+        //   text: "想啥呢少年，等级不够！更换装备失败",
+        //   color: "#24c4de",
+        //   ifequipment: false,
+        //   equipmentinfo: {},
+        // });
       }else{
+        
         this.commit("dealArmo", state.userinfo.equipments[1].armo);
         this.commit("pushbag", state.userinfo.equipments[1].armo);
         state.userinfo.equipments[1].armo = data;
@@ -206,15 +218,21 @@ const mutations = {
     
     } else if (data.type == "武器") {
       if(data.lv>state.userinfo.Lv){
-        state.sysinfolist.push({
-          sys: "系统",
-          time: "",
-          time: timeStr,
-          text: "想啥呢少年，等级不够！更换装备失败",
-          color: "#24c4de",
-          ifequipment: false,
-          equipmentinfo: {},
+        ElNotification({
+          title: "系统提示",
+          type: "error",
+          duration: 3000,
+          message: "未达到装备要求穿戴等级!快去升级吧!",
         });
+        // state.sysinfolist.push({
+        //   sys: "系统",
+        //   time: "",
+        //   time: timeStr,
+        //   text: "想啥呢少年，等级不够！更换装备失败",
+        //   color: "#24c4de",
+        //   ifequipment: false,
+        //   equipmentinfo: {},
+        // });
       }else{
         this.commit("dealWeapon", state.userinfo.equipments[0].weapon);
         this.commit("pushbag", state.userinfo.equipments[0].weapon);
@@ -227,15 +245,21 @@ const mutations = {
      
     } else if (data.type == "首饰") {
       if(data.lv>state.userinfo.Lv){
-        state.sysinfolist.push({
-          sys: "系统",
-          time: "",
-          time: timeStr,
-          text: "想啥呢少年，等级不够！更换装备失败",
-          color: "#24c4de",
-          ifequipment: false,
-          equipmentinfo: {},
+        ElNotification({
+          title: "系统提示",
+          type: "error",
+          duration: 3000,
+          message: "未达到装备要求穿戴等级!快去升级吧!",
         });
+        // state.sysinfolist.push({
+        //   sys: "系统",
+        //   time: "",
+        //   time: timeStr,
+        //   text: "想啥呢少年，等级不够！更换装备失败",
+        //   color: "#24c4de",
+        //   ifequipment: false,
+        //   equipmentinfo: {},
+        // });
       }else{
         this.commit("dealLeft", state.userinfo.equipments[2].left);
         this.commit("pushbag", state.userinfo.equipments[2].left);
@@ -248,15 +272,21 @@ const mutations = {
      
     } else {
       if(data.lv>state.userinfo.Lv){
-        state.sysinfolist.push({
-          sys: "系统",
-          time: "",
-          time: timeStr,
-          text: "想啥呢少年，等级不够！更换装备失败",
-          color: "#24c4de",
-          ifequipment: false,
-          equipmentinfo: {},
+        ElNotification({
+          title: "系统提示",
+          type: "error",
+          duration: 3000,
+          message: "未达到装备要求穿戴等级!快去升级吧!",
         });
+        // state.sysinfolist.push({
+        //   sys: "系统",
+        //   time: "",
+        //   time: timeStr,
+        //   text: "想啥呢少年，等级不够！更换装备失败",
+        //   color: "#24c4de",
+        //   ifequipment: false,
+        //   equipmentinfo: {},
+        // });
       }else{
         this.commit("dealRight", state.userinfo.equipments[3].right);
         this.commit("pushbag", state.userinfo.equipments[3].right);
@@ -277,6 +307,9 @@ const mutations = {
   },
   changeShowUpdate(state) {
     state.updateDrawer = !state.updateDrawer;
+  },
+  changeShowGuide(state) {
+    state.guideDrawer = !state.guideDrawer;
   },
   addsysinfo(state, data) {
     state.sysinfolist.push(data);
@@ -1300,15 +1333,13 @@ const mutations = {
   },
   //增加角色经验，升级
   adduserexp(state,data){
+    state.userinfo.exp+=data
     if(state.userinfo.exp>=state.userinfo.needexp){
       state.userinfo.Lv+=1;
       state.userinfo.Atk+=5;
       state.userinfo.MaxHp+=10
       state.userinfo.exp=0;
-      state.userinfo.needexp+=state.userinfo.needexp/2
-      this.commit('saveuserdata')
-    }else{
-      state.userinfo.exp+=data
+      state.userinfo.needexp+=Math.round(state.userinfo.needexp/2)
       this.commit('saveuserdata')
     }
   },

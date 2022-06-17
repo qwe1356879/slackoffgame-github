@@ -1,4 +1,5 @@
 <template>
+ 
   <div ref="fightref">
     <div class="map-top">
       <div class="danger">
@@ -19,6 +20,10 @@
       </div>
     </div>
   </div>
+
+  <div>
+    <button>开始挑战</button>
+  </div>
 </template>
 
 <script>
@@ -37,7 +42,6 @@ import crateWeapon from "../../assets/config/weaponconfig";
 import crateArmo from "../../assets/config/armoconifg";
 import crateLeft from "../../assets/config/leftconfig";
 import crateRight from "../../assets/config/rightconfig";
-import {setTimer,clearTimer} from "../../assets/work/work" 
 function add() {
   var args = arguments, //获取所有的参数
     lens = args.length, //获取参数的长度
@@ -70,7 +74,6 @@ function random(lower, upper) {
 }
 export default {
   setup() {
-   
     const state = reactive({
       icons: {
         normal: "monster",
@@ -100,8 +103,7 @@ export default {
       (newval, oldval) => {
         if (newval) {
           state.show = true;
-           timer =setTimer(walk,10)
-          // walk();
+          walk();
         } else {
           state.show = false;
         }
@@ -131,10 +133,14 @@ export default {
       { immediate: true }
     );
     function walk() {
-       changeleft(0.5);
-      changewalk();
+      timer = setInterval(() => {
+        changeleft(0.5);
+        changewalk();
+        if (store.state.userinfo.NowHp <= 0) {
+          clearInterval(timer);
+        }
+      }, 45);
     }
-
     function changeleft(speed) {
       let myDate = new Date();
       let str = myDate.toTimeString(); //"10:55:24 GMT+0800 (中国标准时间)"
@@ -143,30 +149,32 @@ export default {
       if (left.value <= 100) {
         playleft.value = left.value + "%";
         if (left.value === 16) {
-          clearTimer(timer);
+          clearInterval(timer);
 
           fightdetail("1", 0.6);
         } else if (left.value == 36) {
-          clearTimer(timer);
+          clearInterval(timer);
           fightdetail("2", 0.8);
         } else if (left.value == 56) {
-          clearTimer(timer);
+          clearInterval(timer);
 
           fightdetail("1", 1);
         } else if (left.value == 76) {
-          clearTimer(timer);
+          clearInterval(timer);
 
           fightdetail("1", 1.2);
         } else if (left.value == 96) {
-          clearTimer(timer);
+          clearInterval(timer);
+
           fightdetail("1", 1.6);
         }
       } else {
-        clearTimer(timer);
+        clearInterval(timer);
         left.value = 0;
         playleft.value = "0%";
         if (store.state.userinfo.NowHp > 0 && store.state.repeatfight) {
-           timer =setTimer(walk,10)
+          //    clearInterval(timer)
+          walk();
         } else {
           stopfight();
         }
@@ -197,7 +205,7 @@ export default {
         equipmentinfo: {},
       };
       store.commit("addsysinfo", sysinfo);
-      let t=setTimeout(() => {
+      setTimeout(() => {
         let dmg = 0;
         if (store.state.userinfo.DPS < store.state.nowjobinfo.dpsneed) {
           dmg = Math.round(store.state.nowjobinfo.dpsneed * (detail + 0.2));
@@ -216,7 +224,7 @@ export default {
         store.state.userinfo.NowHp -= dmg;
         store.commit("addsysinfo", fightinfo);
         if (store.state.userinfo.NowHp > 0) {
-          timer =setTimer(walk,10)  
+          walk();
           let list = ["weapon", "armo", "left", "right"];
 
           if (monster == "Boss") {
@@ -261,25 +269,19 @@ export default {
             equipmentinfo: {},
           };
           store.commit("addsysinfo", sysinfo);
-          // let money = Math.round(store.state.nowjobinfo.jobquality + Number(monster)+5);
+          let money = store.state.nowjobinfo.jobquality + Number(monster)+5;
           let sysinfoequipment = {
             sys: "系统",
             time: timeStr,
-            text: `掉落装备：${item.name}`,
+            text: `掉落装备：${item.name}，金币：${money}`,
             color: `${item.fontcolor}`,
             ifequipment: false,
             equipmentinfo: {},
           };
-         
           store.commit("pushbag", item);
-          // store.commit("updateusermoney", money);
+          store.commit("updateusermoney", money);
           store.commit("addsysinfo", sysinfoequipment);
           store.commit("adduserexp", dmg);
-           if(store.state.sealGroup.length>0){
-             store.commit('sealauto',item)
-          }else{
-            console.log('不执行')
-          }
         } else {
           let myDate = new Date();
           let str = myDate.toTimeString(); //"10:55:24 GMT+0800 (中国标准时间)"
@@ -293,14 +295,12 @@ export default {
             equipmentinfo: {},
           };
           store.commit("addsysinfo", sysinfo);
-         stop();
-         clearTimeout(t)
+         stop()
         }
       }, 1000);
-      
     }
     onUnmounted(() => {
-      clearTimer(timer);
+      clearInterval(timer);
     });
     function stopfight() {
       store.commit("changeFightState");

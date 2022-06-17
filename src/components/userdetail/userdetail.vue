@@ -57,11 +57,15 @@ export default {
 
 .dps p {
   width: 50%;
+   white-space: nowrap;
+  overflow: hidden;
 }
 
 .info {
   font-size: 18px;
   line-height: 65px;
+   white-space: nowrap;
+  overflow: hidden;
 }
 
 .equip-area {
