@@ -1326,7 +1326,7 @@ const mutations = {
   },
   //计算人物战斗力
   computeduserdps(state){
-    state.userinfo.DPS=Math.round(state.userinfo.Atk*(state.userinfo.Cridt/100)*(state.userinfo.CridtDmg))
+    state.userinfo.DPS=Math.round(state.userinfo.Atk*(state.userinfo.Cridt/100)*(state.userinfo.CridtDmg)+state.userinfo.MaxHp*0.2)
   }
 };
 

@@ -87,6 +87,7 @@ export function createJob(number, lv, width, height) {
             jobobj.imagestyle['background-color'] = 'rgb(255 0 0) 0px 0px 7px 2px inset'
             jobobj.imgurl = 'sp'
             jobobj.dpsneed = Math.round(jobobj.jobquality/0.1)+jobobj.lv
+
         } else if (upper-upper*0.05-upper*0.15<=jobobj.jobquality&&jobobj.jobquality < upper-upper*0.05) {
             jobobj.type = 'SSR'
             jobobj.style['box-shadow'] = 'rgb(247 137 24) 0px 0px 7px 2px inset'
@@ -114,10 +115,7 @@ export function createJob(number, lv, width, height) {
             jobobj.style['box-shadow'] = 'rgb(161 161 161) 0px 0px 7px 2px inset'
             jobobj.imagestyle['background-color'] = 'rgb(161 161 161) 0px 0px 7px 2px inset'
             jobobj.imgurl = 'n'
-            console.log('qu',jobobj.jobquality)
             jobobj.dpsneed =  Math.round(jobobj.jobquality/0.5)+Math.round(jobobj.lv*1.6)
-            console.log('dps',jobobj.dpsneed)
-            // jobobj.dpsneed=
         }
         joblist.push(jobobj)
     }

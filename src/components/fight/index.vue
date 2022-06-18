@@ -131,7 +131,7 @@ export default {
       { immediate: true }
     );
     function walk() {
-       changeleft(0.3);
+       changeleft(0.5);
       changewalk();
     }
 
@@ -281,22 +281,22 @@ export default {
             console.log('不执行')
           }
         } 
-        // else {
-        //   let myDate = new Date();
-        //   let str = myDate.toTimeString(); //"10:55:24 GMT+0800 (中国标准时间)"
-        //   let timeStr = str.substring(0, 8);
-        //   let sysinfo = {
-        //     sys: "系统",
-        //     time: timeStr,
-        //     text: "挑战失败,退出副本",
-        //     color: "#67C23A",
-        //     ifequipment: false,
-        //     equipmentinfo: {},
-        //   };
-        //   store.commit("addsysinfo", sysinfo);
-        //  stop();
-        //  clearTimeout(t)
-        // }
+        else {
+          let myDate = new Date();
+          let str = myDate.toTimeString(); //"10:55:24 GMT+0800 (中国标准时间)"
+          let timeStr = str.substring(0, 8);
+          let sysinfo = {
+            sys: "系统",
+            time: timeStr,
+            text: "挑战失败,退出副本",
+            color: "#67C23A",
+            ifequipment: false,
+            equipmentinfo: {},
+          };
+          store.commit("addsysinfo", sysinfo);
+         stop();
+         clearTimeout(t)
+        }
       }, 1000);
       
     }
