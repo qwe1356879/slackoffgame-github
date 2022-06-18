@@ -2,7 +2,7 @@
   <div ref="fightref">
     <div class="map-top">
       <div class="danger">
-        <div class="monster" v-for="i in 4">
+        <div class="monster" v-for="i in 4" :key="i">
           <img :src="`/icons/map/${state.icons.normal}.png`" />
         </div>
         <div class="monster">
@@ -111,7 +111,7 @@ export default {
     watch(
       getShowHp,
       (newval, oldval) => {
-        if (newval < 0) {
+        if (newval <= 0 ) {
           stopfight();
           let myDate = new Date();
           let str = myDate.toTimeString(); //"10:55:24 GMT+0800 (中国标准时间)"
@@ -131,7 +131,7 @@ export default {
       { immediate: true }
     );
     function walk() {
-       changeleft(0.5);
+       changeleft(0.3);
       changewalk();
     }
 
@@ -152,14 +152,14 @@ export default {
         } else if (left.value == 56) {
           clearTimer(timer);
 
-          fightdetail("1", 1);
+          fightdetail("3", 1);
         } else if (left.value == 76) {
           clearTimer(timer);
 
-          fightdetail("1", 1.2);
+          fightdetail("4", 1.2);
         } else if (left.value == 96) {
           clearTimer(timer);
-          fightdetail("1", 1.6);
+          fightdetail("5", 1.6);
         }
       } else {
         clearTimer(timer);
@@ -280,22 +280,23 @@ export default {
           }else{
             console.log('不执行')
           }
-        } else {
-          let myDate = new Date();
-          let str = myDate.toTimeString(); //"10:55:24 GMT+0800 (中国标准时间)"
-          let timeStr = str.substring(0, 8);
-          let sysinfo = {
-            sys: "系统",
-            time: timeStr,
-            text: "挑战失败,退出副本",
-            color: "#67C23A",
-            ifequipment: false,
-            equipmentinfo: {},
-          };
-          store.commit("addsysinfo", sysinfo);
-         stop();
-         clearTimeout(t)
-        }
+        } 
+        // else {
+        //   let myDate = new Date();
+        //   let str = myDate.toTimeString(); //"10:55:24 GMT+0800 (中国标准时间)"
+        //   let timeStr = str.substring(0, 8);
+        //   let sysinfo = {
+        //     sys: "系统",
+        //     time: timeStr,
+        //     text: "挑战失败,退出副本",
+        //     color: "#67C23A",
+        //     ifequipment: false,
+        //     equipmentinfo: {},
+        //   };
+        //   store.commit("addsysinfo", sysinfo);
+        //  stop();
+        //  clearTimeout(t)
+        // }
       }, 1000);
       
     }

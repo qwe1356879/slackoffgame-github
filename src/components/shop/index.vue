@@ -5,7 +5,7 @@
             <p>物品商店</p>
         </div>
         <div class="item-area">
-            <div class="sp-item" v-for="i in state.items">
+            <div class="sp-item" v-for="i in state.items" :key="i.$index">
                 <div class="item" :style="{ 'box-shadow': i.color }" v-on:mouseenter="mounseonter(i)"
                     v-on:mouseleave="state.enterstate = false">
                     <img :src="`/icons/myequip/${i.imgurl}.png`" />
@@ -19,7 +19,7 @@
             <div class="sp-refresh">
             </div>
             <div class="sp-refresh">
-                <el-tooltip class="box-item" effect="dark" :content="`使用金币刷新商店，每次刷新费用增加500,当前费用:${state.count}`"
+                <el-tooltip class="box-item" effect="dark" :content="`使用金币刷新商店，每次刷新费用增加80%,当前费用:${state.count}`"
                     placement="bottom">
                     <img src="/icons/othericons/goldrefresh.svg" @click="addcount" />
                 </el-tooltip>
@@ -33,11 +33,12 @@
 
 <script>
 // v-if="state.enterstate"
-import { reactive, toRefs, onMounted, ref } from "vue";
+import { reactive, toRefs, onMounted, ref ,watch,computed} from "vue";
 import createShopItem from "../../assets/config/shopitem";
 import { useStore } from "vuex";
 import show from "./show.vue";
 import MonitorFocus from "../../assets/tool/mouseutil";
+import { ElNotification } from "element-plus";
 export default {
     components: {
         show,
@@ -56,28 +57,42 @@ export default {
                 obj: {}
             }
         );
-       
+        const getGoldTask = computed(() => {
+      //返回的是ref对象
+      return store.state.shopGold;
+    });
+      watch(
+      getGoldTask,
+      (newval, oldval) => {
+        state.count=newval
+      },
+      { immediate: true, deep: true }
+    );
         function addcount() {
-            if (state.count < 5000) {
-                state.count += 500;
+            if(state.count<=5000){
+                  if (store.state.userinfo.Gold >=state.count) {
+                store.commit('dealusergold',state.count)
+                state.count += 500+Math.round(state.count*0.8);
                 state.items=createShopItem(16,store.state.userinfo.Lv)
             } else {
-                let myDate = new Date();
-                let str = myDate.toTimeString();
-                let timeStr = str.substring(0, 8);
-                let sysinfo = {
-                        sys: '系统',
-                        time: timeStr,
-                        text: '刷新商店费用已经超过5000，15秒后可刷新商店',
-                        color: '#FF5511',
-                        ifequipment: false,
-                        equipmentinfo: {}
-                    }
-                store.commit('addsysinfo', sysinfo)
-                setTimeout(() => {
-                    state.count = 0;
-                }, 15000);
+                  ElNotification({
+                    title: "系统提示",
+                    type: "error",
+                    duration: 3000,
+                    message: "金币不足，无法刷新商店",
+                    });
+               
             }
+            }else{
+                store.commit('shopGoldRest',0)
+                 ElNotification({
+                    title: "系统提示",
+                    type: "error",
+                    duration: 3000,
+                    message: "刷新商店费用已经超过5000，15秒后可刷新商店",
+                });
+            }
+          
         }
         function mounseonter(data) {
             state.enterstate = true;
@@ -90,9 +105,7 @@ export default {
                 data.imgurladd = "/" + data.imgurl;
             } else if (data.type == "耳环") {
                 data.imgurladd = "/" + data.imgurl;
-            } else {
-                data.imgurladd = "/" + data.imgurl;
-            }
+            } 
             equipdata.obj = data;
         }
         return {

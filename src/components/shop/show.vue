@@ -12,9 +12,7 @@
                 <p :style="{ 'color': shopdata.fontcolor }">{{ shopdata.name }}</p>
             </div>
         </div>
-        <div class="c" v-if="shopdata.type!='药水'">
-            <el-divider />
-        </div>
+      
        
             <div class="second">
             <div class="type">
@@ -25,28 +23,26 @@
             <div class="dps">
                 <p :style="{ 'color': shopdata.fontcolor }">lv{{ shopdata.lv }}</p>
             </div>
-            <div class="jichu" v-if="shopdata.type!='药水'">
+            <div class="jichu" >
                 <p v-for="(itemdmg, index) in shopdata.dmglist" :key="index">
                     <span v-for="(key, val) in itemdmg" :key="key">{{ val }}：{{ key }}</span>
                 </p>
             </div>
-            <div class="divider" v-if="shopdata.type!='药水'">
+            <div class="divider" >
                 <el-divider />
             </div>
-            <div class="citiao" v-if="shopdata.type!='药水'">
+            <div class="citiao" >
                 <p v-for="(item, index) in shopdata.extraList" :key="index">
                     <span v-for="(key, val) in item" :key="key">{{ val }}：{{ key }}</span>
                 </p>
             </div>
 
-            <div class="hp" v-if="shopdata.type=='药水'">
-                <p>生命恢复:+{{shopdata.recoverhp}}</p>
-            </div>
+           
         </div>
-        <div class="divider" v-if="shopdata.type!='药水'">
+        <div class="divider" >
             <el-divider />
         </div>
-        <div class="intro" v-if="shopdata.type!='药水'">
+        <div class="intro" >
             <p style="color:#ccc">{{ shopdata.intro }}</p>
         </div>
          <div class="divider">
@@ -83,7 +79,7 @@ export default defineComponent(
 
 <style lang="scss" scoped>
 .border-euqip {
-    position: relative;
+    position:   absolute;
     width: 250px;
     background: rgba(0, 0, 0, 0.808);
     border-radius: 12px;

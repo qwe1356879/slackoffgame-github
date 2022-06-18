@@ -50,7 +50,8 @@ const state = {
   updateDrawer: false,
   guideDrawer:false,
   repeatfight: false,
-  sealGroup:[]
+  sealGroup:[],
+  shopGold:0
 };
 //创建actions
 const actions = {};
@@ -90,7 +91,7 @@ const mutations = {
       this.commit("updateUserProperty");
       this.commit('computeduserdps')
       // this.commit("updateUserProperty");
-      state.sysinfolist.push({
+      state.sysinfolist.unshift({
         sys: "系统",
         time: "",
         time: timeStr,
@@ -125,7 +126,7 @@ const mutations = {
       let myDate = new Date();
       let str = myDate.toTimeString(); //"10:55:24 GMT+0800 (中国标准时间)"
       let timeStr = str.substring(0, 8);
-      state.sysinfolist.push({
+      state.sysinfolist.unshift({
         sys: "系统",
         time: "",
         time: timeStr,
@@ -152,7 +153,7 @@ const mutations = {
         if(data.qualityname==state.sealGroup[j]){
           this.commit('sealiitemfrombag',data.id)
           state.userinfo.Gold += data.price;
-          state.sysinfolist.push({
+          state.sysinfolist.unshift({
             sys: "系统",
             time: "",
             time: timeStr,
@@ -175,7 +176,7 @@ const mutations = {
       price += state.userinfo.bag[i].price;
     }
     state.userinfo.Gold += price;
-    state.sysinfolist.push({
+    state.sysinfolist.unshift({
       sys: "系统",
       time: "",
       time: timeStr,
@@ -196,15 +197,6 @@ const mutations = {
           duration: 3000,
           message: "未达到装备要求穿戴等级!快去升级吧!",
         });
-        // state.sysinfolist.push({
-        //   sys: "系统",
-        //   time: "",
-        //   time: timeStr,
-        //   text: "想啥呢少年，等级不够！更换装备失败",
-        //   color: "#24c4de",
-        //   ifequipment: false,
-        //   equipmentinfo: {},
-        // });
       }else{
         
         this.commit("dealArmo", state.userinfo.equipments[1].armo);
@@ -224,15 +216,6 @@ const mutations = {
           duration: 3000,
           message: "未达到装备要求穿戴等级!快去升级吧!",
         });
-        // state.sysinfolist.push({
-        //   sys: "系统",
-        //   time: "",
-        //   time: timeStr,
-        //   text: "想啥呢少年，等级不够！更换装备失败",
-        //   color: "#24c4de",
-        //   ifequipment: false,
-        //   equipmentinfo: {},
-        // });
       }else{
         this.commit("dealWeapon", state.userinfo.equipments[0].weapon);
         this.commit("pushbag", state.userinfo.equipments[0].weapon);
@@ -251,15 +234,6 @@ const mutations = {
           duration: 3000,
           message: "未达到装备要求穿戴等级!快去升级吧!",
         });
-        // state.sysinfolist.push({
-        //   sys: "系统",
-        //   time: "",
-        //   time: timeStr,
-        //   text: "想啥呢少年，等级不够！更换装备失败",
-        //   color: "#24c4de",
-        //   ifequipment: false,
-        //   equipmentinfo: {},
-        // });
       }else{
         this.commit("dealLeft", state.userinfo.equipments[2].left);
         this.commit("pushbag", state.userinfo.equipments[2].left);
@@ -278,15 +252,6 @@ const mutations = {
           duration: 3000,
           message: "未达到装备要求穿戴等级!快去升级吧!",
         });
-        // state.sysinfolist.push({
-        //   sys: "系统",
-        //   time: "",
-        //   time: timeStr,
-        //   text: "想啥呢少年，等级不够！更换装备失败",
-        //   color: "#24c4de",
-        //   ifequipment: false,
-        //   equipmentinfo: {},
-        // });
       }else{
         this.commit("dealRight", state.userinfo.equipments[3].right);
         this.commit("pushbag", state.userinfo.equipments[3].right);
@@ -312,7 +277,7 @@ const mutations = {
     state.guideDrawer = !state.guideDrawer;
   },
   addsysinfo(state, data) {
-    state.sysinfolist.push(data);
+    state.sysinfolist.unshift(data);
   },
   createjoblist(state, data) {
     state.joblist = createJob(
@@ -353,7 +318,7 @@ const mutations = {
         ifequipment: false,
         equipmentinfo: {},
       };
-      state.sysinfolist.push(obj);
+      state.sysinfolist.unshift(obj);
       if (state.refreshjobtime <= 1) {
         state.refreshjobtime = 5;
         clearInterval(timer);
@@ -374,7 +339,7 @@ const mutations = {
       ifequipment: false,
       equipmentinfo: {},
     };
-    state.sysinfolist.push(obj);
+    state.sysinfolist.unshift(obj);
   },
   //人物回血机制
   userrecoverhp(state) {
@@ -661,7 +626,7 @@ const mutations = {
         SecondHp += atk;
       }
     }
-    state.SecondHp.SecondHp+=SecondHp
+    state.userinfo.SecondHp+=SecondHp
     state.userinfo.Atk += Atk;
     state.userinfo.Armo += Armo;
     state.userinfo.CridtDmg += CridtDmg;
@@ -1342,6 +1307,22 @@ const mutations = {
       state.userinfo.needexp+=Math.round(state.userinfo.needexp/2)
       this.commit('saveuserdata')
     }
+  },
+  //人物扣钱
+  dealusergold(state,data){
+    state.userinfo.Gold-=data
+    if(state.userinfo.Gold<=0){
+      state.userinfo.Gold=0
+    }
+    this.commit('saveuserdata')
+  },
+  //商店刷新钱的机制
+  shoprefresh(state,data){
+    state.shopGold+=data+Math.round(state.shopGold*0.8)
+  },
+  //重置商店刷新价格
+  shopGoldRest(state,data){
+    state.shopGold=data
   },
   //计算人物战斗力
   computeduserdps(state){

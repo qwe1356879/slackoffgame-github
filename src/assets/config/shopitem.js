@@ -1,4 +1,4 @@
-var itemlist = ["armo", "weapon", "left", "right", "hp"];
+var itemlist = ["armo", "weapon", "left", "right"];
 var hplist = ["小", "中", "大"];
 import crateWeapon from "./weaponconfig";
 import crateArmo from "./armoconifg";
@@ -14,13 +14,13 @@ let createShopItem = function (number, level) {
     let item = {};
     let x = itemlist[random(0, itemlist.length - 1)];
     if(x == "armo"){
-      item = crateArmo(level, "R", 1);
+      item = crateArmo(level, "R", random(1,5));
     }else if(x == "left"){
-      item = crateLeft(level, "R", 1);
+      item = crateLeft(level, "R", random(1,5));
     }else if(x == "right"){
-      item = crateRight(level, "R", 1);
+      item = crateRight(level, "R", random(1,5));
     }else if(x == "weapon"){
-      item = crateWeapon(level, "R", 1);
+      item = crateWeapon(level, "R", random(1,5));
     }
  
     items.push(item)
