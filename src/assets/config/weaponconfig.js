@@ -76,7 +76,7 @@ var crateWeapon = function (level, jobtype, which) {
         type: '武器',
         intro: weaponintro[random(0, weaponintro.length - 1)],
         dmg: random(1, 3),//基础词条个数
-        quality:random(lower + Number(which),upper),
+        quality:random(lower+Number(which),upper),
         extraNum: 0,
         imgurl: weaponimglist[random(0, weaponimglist.length - 1)],
         extraList: [],//额外词条list
@@ -89,12 +89,15 @@ var crateWeapon = function (level, jobtype, which) {
         lv: level,
         price:0
     }
+    console.log('upper',upper)
     let x = {
         "攻击": "+" + random(weapon.lv * 0.7, weapon.lv * 0.8).toFixed(0)
     }
     weapon.dmglist.push(x)
 
     if (upper-Math.round(upper*0.05)<=weapon.quality) {
+        console.log('quality',weapon.quality)
+        console.log('quweapon',upper-Math.round(upper*0.05))
         weapon.qualityname = 'SP'
         weapon.color = 'rgb(255 0 0) 0px 0px 7px 2px inset'
         weapon.fontcolor = 'rgb(255 0 0)'
@@ -106,8 +109,6 @@ var crateWeapon = function (level, jobtype, which) {
             let obj = {}
             if (code == '暴击率') {
                 obj[code] = "+" + random(4, 10).toFixed(0)  
-                
-                console.log(typeof(random(4, 10).toFixed(0)))
                 weapon.dmglist.push(obj)
             } else if (code == '暴击伤害') {
                 obj[code] = "+" + random(weapon.lv * 1.1, weapon.lv * 1.2).toFixed(0) 

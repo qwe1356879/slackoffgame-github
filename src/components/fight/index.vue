@@ -128,7 +128,7 @@ export default {
           store.commit("addsysinfo", sysinfo);
         }
       },
-      { immediate: true }
+      { immediate: true,deep:true }
     );
     function walk() {
        changeleft(0.5);
@@ -204,7 +204,6 @@ export default {
         } else {
           dmg = Math.round(store.state.nowjobinfo.dpsneed * detail)-Math.round(store.state.userinfo.Armo*0.4)
         }
-        // console.log('dmg',dmg)
         let fightinfo = {
           sys: "系统",
           time: timeStr,
@@ -250,8 +249,6 @@ export default {
               monster
             );
           }
-         
-          //   console.log('item',item)
           let sysinfo = {
             sys: "系统",
             time: timeStr,
@@ -272,13 +269,10 @@ export default {
           };
          
           store.commit("pushbag", item);
-          // store.commit("updateusermoney", money);
           store.commit("addsysinfo", sysinfoequipment);
           store.commit("adduserexp", dmg);
            if(store.state.sealGroup.length>0){
              store.commit('sealauto',item)
-          }else{
-            console.log('不执行')
           }
         } 
         else {
@@ -294,7 +288,7 @@ export default {
             equipmentinfo: {},
           };
           store.commit("addsysinfo", sysinfo);
-         stop();
+         stopfight();
          clearTimeout(t)
         }
       }, 1000);
@@ -304,6 +298,7 @@ export default {
       clearTimer(timer);
     });
     function stopfight() {
+       clearTimer(timer);
       store.commit("changeFightState");
       store.commit("repeatFight", false);
     }

@@ -7,13 +7,13 @@ function randomString(length, chars) {
 }
 
 let userinfo = {
-    Lv: 1,
+    Lv: 99,
     NextLife: 0,
     Armo: 1,
     Gold: 0,
     Atk: 2,
-    NowHp: 100,
-    MaxHp: 100,
+    NowHp: 50,
+    MaxHp: 50,
     DPS: 0,
     Cridt: 20,
     CridtDmg: 20,

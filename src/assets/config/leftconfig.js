@@ -95,7 +95,8 @@ var crateLeft = function (level, jobtype, which) {
     //    }
     //    weapon.dmglist.push(x)
 
-    if (upper-Math.round(upper*0.05)<=weapon.quality&&weapon.quality <=upper) {
+    if (upper-Math.round(upper*0.05)<=weapon.quality) {
+        console.log('qu left',weapon.quality)
         weapon.qualityname = 'SP'
         weapon.color = 'rgb(255 0 0) 0px 0px 7px 2px inset'
         weapon.fontcolor = 'rgb(255 0 0)'

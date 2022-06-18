@@ -9,10 +9,10 @@ const router = createRouter({
       path: '/',
       component: () => import('../views/index.vue')
     },
-    // {
-    //   path: '/test2',
-    //   component: () => import('../testview/test2/index.vue')
-    // },
+    {
+      path: '/weapon',
+      component: () => import('../testview/test/TestRadomWeapon.vue')
+    },
     {
       path: '/fight',
       component: () => import('../testview/test/TestFight.vue')
