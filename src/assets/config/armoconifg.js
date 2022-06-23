@@ -73,12 +73,14 @@ var crateArmo = function (level, jobtype, which) {
     }else{
         lower = 5
     }
+    console.log('sum',lower+Number(which))
+    console.log('upper',upper)
     let weapon = {
         name: weaponNameList[random(0, weaponNameList.length - 1)],
         type: '护甲',
         intro: weaponintro[random(0, weaponintro.length - 1)],
         dmg: random(1, 3),
-        quality: random(which,upper),
+        quality: random(lower+Number(which),upper),
         extraNum: 0,
         imgurl: armoimglist[random(0, armoimglist.length - 1)],
         extraList: [],
@@ -90,15 +92,15 @@ var crateArmo = function (level, jobtype, which) {
         lv: level,
         price:0,
         id: randomString(6, '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'),
+        strengthlv:0
     }
- 
+    console.log('qu',weapon.quality)
     let x = {
         "防御力": "+" + random(weapon.lv * 0.7, weapon.lv * 0.8).toFixed(0)
     }
     weapon.dmglist.push(x)
 
-    if (upper-Math.round(upper*0.05)<=weapon.quality) {
-        console.log('qu armo',weapon.quality)
+    if ((upper-Math.round(upper*0.05))<weapon.quality) {
         weapon.qualityname = 'SP'
         weapon.color = 'rgb(255 0 0) 0px 0px 7px 2px inset'
         weapon.fontcolor = 'rgb(255 0 0)'
@@ -129,7 +131,7 @@ var crateArmo = function (level, jobtype, which) {
                 weapon.extraList.push(obj)
             }
         }
-    } else if (upper-Math.round(upper*0.2)<=weapon.quality) {
+    } else if ((upper-Math.round(upper*0.2))<weapon.quality) {
         weapon.qualityname = 'SSR'
         weapon.color = 'rgb(247 137 24) 0px 0px 7px 2px inset'
         weapon.fontcolor = 'rgb(247 137 24)'
@@ -165,7 +167,7 @@ var crateArmo = function (level, jobtype, which) {
                 weapon.extraList.push(obj)
             }
         }
-    } else if (upper-Math.round(upper*0.4)<=weapon.quality) {
+    } else if ((upper-Math.round(upper*0.4))<weapon.quality) {
         weapon.qualityname = 'SR'
         weapon.color = 'rgb(255 0 255) 0px 0px 7px 2px inset'
         weapon.fontcolor = 'rgb(255 0 255)'
@@ -202,7 +204,7 @@ var crateArmo = function (level, jobtype, which) {
             }
 
         }
-    } else if (upper-Math.round(upper*0.6)<=weapon.quality) {
+    } else if ((upper-Math.round(upper*0.6))<weapon.quality) {
         weapon.qualityname = 'R'
         weapon.color = 'rgb(16, 158, 240) 0px 0px 7px 2px inset'
         weapon.fontcolor = 'rgb(16, 158, 240)'

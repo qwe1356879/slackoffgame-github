@@ -67,7 +67,15 @@ export default {
                 name: '商店',
                 key: "shop",
                 toollip: [
-                   '* 商店', '* 贩卖装备和治疗药水', '* 刷新商店需要一定量的金币'
+                   '* 商店',  '* 刷新商店需要一定量的金币'
+                ]
+            },
+             {
+                icon: 'icon_78',
+                name: '强化装备',
+                key: "strength",
+                toollip: [
+                   '* 强化装备', '* 通过消耗金币来强化装备'
                 ]
             }
         ])
@@ -87,6 +95,9 @@ export default {
                     break;
                  case 'shop':
                     store.commit('changeShowShop')
+                    break;
+                      case 'strength':
+                    store.commit('changeShowStrength')
                     break;
             }
         }

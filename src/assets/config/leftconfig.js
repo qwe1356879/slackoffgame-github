@@ -76,7 +76,7 @@ var crateLeft = function (level, jobtype, which) {
         type: '首饰',
         intro: weaponintro[random(0, weaponintro.length - 1)],
         dmg: random(1, 3),
-        quality: random(which,upper),
+        quality: random(random(lower+Number(which),upper),upper),
         extraNum: 0,
         imgurl: leftimglist[random(0, leftimglist.length - 1)],
         extraList: [],
@@ -88,14 +88,14 @@ var crateLeft = function (level, jobtype, which) {
         lv: level,
         price:0,
         id: randomString(6, '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'),
+        strengthlv:0
     }
+    let x = {
+        "攻击":"+"+random(weapon.lv*0.7,weapon.lv*0.8).toFixed(0)
+       }
+       weapon.dmglist.push(x)
 
-    //     let x = {
-    //     "防御力":"+"+random(weapon.lv*0.7,weapon.lv*0.8).toFixed(0)
-    //    }
-    //    weapon.dmglist.push(x)
-
-    if (upper-Math.round(upper*0.05)<=weapon.quality) {
+    if ((upper-Math.round(upper*0.05))<weapon.quality) {
         console.log('qu left',weapon.quality)
         weapon.qualityname = 'SP'
         weapon.color = 'rgb(255 0 0) 0px 0px 7px 2px inset'
@@ -127,7 +127,7 @@ var crateLeft = function (level, jobtype, which) {
                 weapon.extraList.push(obj)
             }
         }
-    } else if (upper-Math.round(upper*0.2)<=weapon.quality) {
+    } else if ((upper-Math.round(upper*0.2))<weapon.quality) {
         weapon.qualityname = 'SSR'
         weapon.color = 'rgb(247 137 24) 0px 0px 7px 2px inset'
         weapon.fontcolor = 'rgb(247 137 24)'
@@ -163,7 +163,7 @@ var crateLeft = function (level, jobtype, which) {
                 weapon.extraList.push(obj)
             }
         }
-    } else if (upper-Math.round(upper*0.4)<=weapon.quality) {
+    } else if ((upper-Math.round(upper*0.4))<weapon.quality) {
         weapon.qualityname = 'SR'
         weapon.color = 'rgb(255 0 255) 0px 0px 7px 2px inset'
         weapon.fontcolor = 'rgb(255 0 255)'

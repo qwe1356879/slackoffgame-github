@@ -87,17 +87,15 @@ var crateWeapon = function (level, jobtype, which) {
         color: '',
         fontcolor: '',
         lv: level,
-        price:0
+        price:0,
+        strengthlv:0
     }
-    console.log('upper',upper)
     let x = {
         "攻击": "+" + random(weapon.lv * 0.7, weapon.lv * 0.8).toFixed(0)
     }
     weapon.dmglist.push(x)
-
-    if (upper-Math.round(upper*0.05)<=weapon.quality) {
-        console.log('quality',weapon.quality)
-        console.log('quweapon',upper-Math.round(upper*0.05))
+  
+    if ((upper-Math.round(upper*0.05))<weapon.quality) {
         weapon.qualityname = 'SP'
         weapon.color = 'rgb(255 0 0) 0px 0px 7px 2px inset'
         weapon.fontcolor = 'rgb(255 0 0)'
@@ -132,7 +130,7 @@ var crateWeapon = function (level, jobtype, which) {
                 weapon.extraList.push(obj)
             }
         }
-    } else if (upper-Math.round(Math.round(upper*0.05)-Math.round(upper*0.15))<=weapon.quality) {
+    } else if ((upper-Math.round(upper*0.2))<weapon.quality) {
         weapon.qualityname = 'SSR'
         weapon.color = 'rgb(247 137 24) 0px 0px 7px 2px inset'
         weapon.fontcolor = 'rgb(247 137 24)'
@@ -168,7 +166,7 @@ var crateWeapon = function (level, jobtype, which) {
                 weapon.extraList.push(obj)
             }
         }
-    } else if (upper-Math.round(upper*0.4)<=weapon.quality ) {
+    } else if ((upper-Math.round(upper*0.4))<weapon.quality ) {
         weapon.qualityname = 'SR'
         weapon.color = 'rgb(255 0 255) 0px 0px 7px 2px inset'
         weapon.fontcolor = 'rgb(255 0 255)'
@@ -205,7 +203,7 @@ var crateWeapon = function (level, jobtype, which) {
             }
 
         }
-    } else if (upper-Math.round(upper*0.6)<=weapon.quality) {
+    } else if ((upper-Math.round(upper*0.6))<weapon.quality) {
         weapon.qualityname = 'R'
         weapon.color = 'rgb(16, 158, 240) 0px 0px 7px 2px inset'
         weapon.fontcolor = 'rgb(16, 158, 240)'

@@ -91,10 +91,6 @@ export default {
           value: "equip",
         },
         {
-          title: "强化",
-          value: "intensify",
-        },
-        {
           title: "出售",
           value: "sell",
         },
@@ -160,15 +156,6 @@ export default {
     function mouseleave() {
       equipList.enterstate = false;
     }
-    // function isAutoSeal(){
-    //   autoseal.value=!autoseal.value
-    //   if(autoseal.value){
-    //     autosealtext.value='关闭自动出售'
-       
-    //   }else{
-    //     autosealtext.value='开启自动出售'
-    //   }
-    // }
     function setautoseal(){
       store.commit('setsealgroup',sealGroup)
     }

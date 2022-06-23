@@ -8,7 +8,18 @@
             <div class="sp-item" v-for="i in state.items" :key="i.$index">
                 <div class="item" :style="{ 'box-shadow': i.color }" v-on:mouseenter="mounseonter(i)"
                     v-on:mouseleave="state.enterstate = false">
-                    <img :src="`/icons/myequip/${i.imgurl}.png`" />
+                    <el-popconfirm
+                            confirm-button-text="确定"
+                            cancel-button-text="等等再说"
+                            icon-color="#626AEF"
+                            title="是否立即购买?"
+                            @confirm="buyitem(i)"
+                        >
+                            <template #reference>
+                            <img :src="`/icons/myequip/${i.imgurla}.png`"/>
+                            </template>
+                        </el-popconfirm>
+                    
                 </div>
 
                 <!-- <p>{{ i + 200 }}</p> -->
@@ -25,6 +36,10 @@
                 </el-tooltip>
             </div>
             <div class="sp-refresh"></div>
+        </div>
+
+        <div class="close-btn">
+          <img src="/icons/close.png" @click="closebag" />
         </div>
     </div>
     <show :shopdata="equipdata.obj" v-if="state.enterstate"></show>
@@ -52,6 +67,7 @@ export default {
             mouseposi: MonitorFocus(),
             enterstate: false,
         });
+        console.log(state.items[0])
         let equipdata = reactive(
             {
                 obj: {}
@@ -68,6 +84,10 @@ export default {
       },
       { immediate: true, deep: true }
     );
+        function closebag(){
+            store.commit('changeShowShop')
+        }
+
         function addcount() {
             if(state.count<=5000){
                   if (store.state.userinfo.Gold >=state.count) {
@@ -98,22 +118,70 @@ export default {
             state.enterstate = true;
             data.mouseposi = state.mouseposi
             if (data.type == "武器") {
-                data.imgurladd = "/" + data.imgurl;
+                data.imgurladd = "/weapon" + "/"+data.imgurl;
             } else if (data.type == "护甲") {
-                data.imgurladd = "/" + data.imgurl;
+                data.imgurladd = "/armo" + "/"+data.imgurl;
             } else if (data.type == "首饰") {
-                data.imgurladd = "/" + data.imgurl;
+                data.imgurladd = "/left" + "/"+data.imgurl;
             } else if (data.type == "耳环") {
-                data.imgurladd = "/" + data.imgurl;
+                data.imgurladd = "/right" + "/"+data.imgurl;
             } 
             equipdata.obj = data;
+        }
+        function buyitem(item){
+             console.log('item',item.imgurl)
+           if (store.state.userinfo.Gold >=item.price*50) {
+            if(store.state.userinfo.bag.length<20){
+                 if (item.type == "武器") {
+                item.imgurladd = "/" + item.imgurl;
+            } else if (item.type == "护甲") {
+                item.imgurladd = "/" + item.imgurl;
+            } else if (item.type == "首饰") {
+                item.imgurladd = "/" + item.imgurl;
+            } else if (item.type == "耳环") {
+                item.imgurladd = "/" + item.imgurl;
+            } 
+            console.log('item',item.imgurladd)
+                 store.commit('pushbag',item)
+                 store.commit('dealusergold',item.price*50)
+                 for(let i=0;i<state.items.length;i++){
+                    if(state.items[i].id==item.id){
+                        state.items.splice(i,1)
+                    }
+                 }
+                  ElNotification({
+                    title: "系统提示",
+                    type: "success",
+                    duration: 1500,
+                    message: "购买成功",
+                    });
+            }else{
+                   ElNotification({
+                    title: "系统提示",
+                    type: "error",
+                    duration: 1500,
+                    message: "背包已满，请清理背包后再来购买",
+                    });
+               
+            }
+               
+           }else{
+             ElNotification({
+                    title: "系统提示",
+                    type: "error",
+                    duration: 1500,
+                    message: "金币不足，少年快去努力挂机吧",
+                    });
+           }
         }
         return {
             state,
             addcount,
             equipdata,
             mounseonter,
-            store
+            store,
+            buyitem,
+            closebag
         };
     },
 };
@@ -190,5 +258,17 @@ export default {
 .sp-refresh {
     width: 33.3%;
     text-align: center;
+}
+.close-btn {
+  position: absolute;
+  top: 12px;
+  right: 5px;
+}
+.close-btn img {
+  width: 24px;
+  height: 24px;
+}
+.close-btn img:hover{
+  cursor: pointer;
 }
 </style>

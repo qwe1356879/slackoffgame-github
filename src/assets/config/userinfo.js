@@ -7,17 +7,18 @@ function randomString(length, chars) {
 }
 
 let userinfo = {
-    Lv: 99,
+    Lv: 1,
     NextLife: 0,
     Armo: 1,
     Gold: 0,
     Atk: 2,
-    NowHp: 50,
-    MaxHp: 50,
+    NowHp: 120,
+    MaxHp: 120,
     DPS: 0,
     Cridt: 20,
     CridtDmg: 20,
-    SecondHp:Math.round(100*0.02),
+    SecondHp:Math.round(100*0.04),
+    // SecondHp:100,
     equipments: [
         {
             weapon:{

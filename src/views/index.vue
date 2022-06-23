@@ -17,7 +17,9 @@
       <div class="border">
         <Bag class="bag"></Bag>
         <Shop v-if="showShop"></Shop>
+        <Strength v-if="showStrength"></Strength>
         <fight ref="fight" v-if="show"></fight>
+
         <div
           class="job-div"
           v-for="di in joblist"
@@ -71,6 +73,7 @@ import Bag from "../components/bag/index.vue";
 import Shop from "../components/shop/index.vue";
 import updateDrawer from "../components/updatedrawer/index.vue"
 import gudieDrawer from "../components/gudie/index.vue"
+import Strength from "../components/strengthequipment/index.vue"
 export default {
   components: {
     userlevel,
@@ -83,7 +86,8 @@ export default {
     Bag,
     Shop,
     updateDrawer,
-    gudieDrawer
+    gudieDrawer,
+    Strength
   },
   setup() {
     const store = useStore();
@@ -92,6 +96,7 @@ export default {
       jobinfo: {},
       show: false,
       showShop:false,
+      showStrength:false,
     });
     
     const backmaap = ref(null);
@@ -112,7 +117,17 @@ export default {
       //返回的是ref对象
       return store.state.showShop;
     });
-   
+    const getShowStr= computed(() => {
+      //返回的是ref对象
+      return store.state.Strength;
+    });
+     watch(
+      getShowStr,
+      (newval, oldval) => {
+        state.showStrength=newval
+      },
+      { immediate: true, deep: true }
+    );
     watch(
       getShowShop,
       (newval, oldval) => {

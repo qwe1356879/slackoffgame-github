@@ -1,380 +1,235 @@
 <template>
- 
-  <div ref="fightref">
-    <div class="map-top">
-      <div class="danger">
-        <div class="monster" v-for="i in 4">
-          <img :src="`/icons/map/${state.icons.normal}.png`" />
+  <div class="box">
+    <div class="box-title">
+      <p>强化装备</p>
+        <div class="close-btn">
+          <img src="/icons/close.png"  />
         </div>
-        <div class="monster">
-          <img :src="`/icons/map/${state.icons.boss}.png`" />
-        </div>
+    </div>
+  
+    <div class="box-info">
+       <el-tooltip placement="bottom">
+        <template #content> multiple lines<br />second line </template>
+        <p>强化说明</p>
+      </el-tooltip>
+    </div>
+
+    <div class="box-img" v-if="itemstate">
+      <div class="img">
+        <img src="/icons/myequip/weapon/1_(1).png"/>
       </div>
-      <div
-        class="player"
-        :style="{ left: playleft, 'background-position': playerposition }"
-      ></div>
-      <div class="progress-bar"></div>
-      <div class="final-fight">
-        <el-button @click="stopfight">结束挑战</el-button>
+      <div class="name">
+        <span>{{name}}</span>
       </div>
     </div>
-  </div>
 
-  <div>
-    <button>开始挑战</button>
+    <div v-else class="box-choose">
+    <el-popover
+      :width="300"
+      popper-style="box-shadow: rgb(14 18 22 / 35%) 0px 10px 38px -10px, rgb(14 18 22 / 20%) 0px 10px 20px -15px; padding: 20px;"
+      trigger="click"
+    >
+      <template #reference>
+        <img src="/icons/othericons/add.svg"/>
+      </template>
+      <template #default>
+        <div
+          class="demo-rich-conent"
+          style="display: flex; gap: 16px; flex-direction: column"
+        >
+        <div v-if="store.state.userinfo.bag.length<0">
+          <span>暂无装备可选</span>
+        </div>
+         <div class="item-area" v-for="i in store.state.userinfo.bag" v-else>
+          <div class="img-list">
+            <img :src="`/icons/myequip/weapon/1_(${i.imgurl}).png`"/>
+          </div>
+          <div class="name-list">
+            <span>{{i.name}}</span>
+          </div>
+
+         </div>
+        </div>
+      </template>
+    </el-popover>
+
+     
+    </div>
+
+    <div class="box-entry" v-if="itemstate">
+      <div class="old">
+        <p v-for="i in 3">攻击力：+{{i}}</p>
+      </div>
+      <div class="arror">
+        ➡
+      </div>
+       <div class="new">
+         <p v-for="i in 3">{{i+3}}<span> ⬆({{i}})</span></p>
+      </div>
+    </div>
+
+    <div class="box-money" v-if="itemstate">
+        <p class="success">成功率:<span>20%</span></p>
+      <p>需要金币:999</p>
+      <div class="box-btn">
+         <el-button>开始强化</el-button>
+      </div>
+    </div>
+
+    <div class="box-auto" v-if="itemstate">
+      <el-tooltip placement="bottom">
+        <template #content> 
+          * 自动强化消耗的金币是普通强化的2倍
+          <br/>
+          * 当金币不足时自动停止强化
+           <br/>
+           * 自动强化会自动强化到下一级
+        
+        </template>
+         <el-button>自动强化</el-button>
+      </el-tooltip>
+     
+    </div>
   </div>
 </template>
 
 <script>
-import {
-  reactive,
-  toRefs,
-  ref,
-  computed,
-  onMounted,
-  onUnmounted,
-  watch,
-  getCurrentInstance,
-} from "vue";
+import { reactive, toRefs } from 'vue'
 import { useStore } from "vuex";
-import crateWeapon from "../../assets/config/weaponconfig";
-import crateArmo from "../../assets/config/armoconifg";
-import crateLeft from "../../assets/config/leftconfig";
-import crateRight from "../../assets/config/rightconfig";
-function add() {
-  var args = arguments, //获取所有的参数
-    lens = args.length, //获取参数的长度
-    d = 0, //定义小数位的初始长度，默认为整数，即小数位为0
-    sum = 0; //定义sum来接收所有数据的和
-  //循环所有的参数
-  for (var key in args) {
-    //遍历所有的参数
-    //把数字转为字符串
-    var str = "" + args[key];
-    if (str.indexOf(".") != -1) {
-      //判断数字是否为小数
-      //获取小数位的长度
-      var temp = str.split(".")[1].length;
-      //比较此数的小数位与原小数位的长度，取小数位较长的存储到d中
-      d = d < temp ? temp : d;
-    }
-  }
-  //计算需要乘的数值
-  var m = Math.pow(10, d);
-  //遍历所有参数并相加
-  for (var key in args) {
-    sum += args[key] * m;
-  }
-  //返回结果
-  return sum / m;
-}
-function random(lower, upper) {
-  return Math.floor(Math.random() * (upper - lower + 1)) + lower;
-}
 export default {
-  setup() {
+  setup () {
     const state = reactive({
-      icons: {
-        normal: "monster",
-        boss: "boss",
-        player: "player-s",
-      },
-      show: false,
-    });
-    const player = ref(null);
-    let playleft = ref("0%");
-    let left = ref(0);
-    let playerposition = ref("0px 96px");
-    let one = ref(0);
-    let timer = ref(null);
-    const fightref = ref(null);
-    const store = useStore();
-    const getShowTask = computed(() => {
-      //返回的是ref对象
-      return store.state.showfight;
-    });
-    const getShowHp = computed(() => {
-      //返回的是ref对象
-      return store.state.userinfo.NowHp;
-    });
-    watch(
-      getShowTask,
-      (newval, oldval) => {
-        if (newval) {
-          state.show = true;
-          walk();
-        } else {
-          state.show = false;
-        }
-      },
-      { immediate: true, deep: true }
-    );
-    watch(
-      getShowHp,
-      (newval, oldval) => {
-        if (newval < 0) {
-          stopfight();
-          let myDate = new Date();
-          let str = myDate.toTimeString(); //"10:55:24 GMT+0800 (中国标准时间)"
-          let timeStr = str.substring(0, 8);
-          store.state.userinfo.NowHp = 0;
-          let sysinfo = {
-            sys: "系统",
-            time: timeStr,
-            text: "挑战失败,退出副本",
-            color: "#FF5511",
-            ifequipment: false,
-            equipmentinfo: {},
-          };
-          store.commit("addsysinfo", sysinfo);
-        }
-      },
-      { immediate: true }
-    );
-    function walk() {
-      timer = setInterval(() => {
-        changeleft(0.5);
-        changewalk();
-        if (store.state.userinfo.NowHp <= 0) {
-          clearInterval(timer);
-        }
-      }, 45);
-    }
-    function changeleft(speed) {
-      let myDate = new Date();
-      let str = myDate.toTimeString(); //"10:55:24 GMT+0800 (中国标准时间)"
-      let timeStr = str.substring(0, 8);
-      left.value = add(left.value, speed);
-      if (left.value <= 100) {
-        playleft.value = left.value + "%";
-        if (left.value === 16) {
-          clearInterval(timer);
-
-          fightdetail("1", 0.6);
-        } else if (left.value == 36) {
-          clearInterval(timer);
-          fightdetail("2", 0.8);
-        } else if (left.value == 56) {
-          clearInterval(timer);
-
-          fightdetail("1", 1);
-        } else if (left.value == 76) {
-          clearInterval(timer);
-
-          fightdetail("1", 1.2);
-        } else if (left.value == 96) {
-          clearInterval(timer);
-
-          fightdetail("1", 1.6);
-        }
-      } else {
-        clearInterval(timer);
-        left.value = 0;
-        playleft.value = "0%";
-        if (store.state.userinfo.NowHp > 0 && store.state.repeatfight) {
-          //    clearInterval(timer)
-          walk();
-        } else {
-          stopfight();
-        }
-      }
-    }
-    function changewalk() {
-      one.value += 32;
-      if (one.value > 100) {
-        one.value = 0;
-        playerposition.value = "0px 96px";
-      } else {
-        playerposition.value = one.value + "px" + " " + "96px";
-      }
-    }
-    //monster = 第几个怪物  string
-    //detail  受到伤害系数
-    function fightdetail(monster, detail) {
-      let myDate = new Date();
-      let str = myDate.toTimeString(); //"10:55:24 GMT+0800 (中国标准时间)"
-      let timeStr = str.substring(0, 8);
-
-      let sysinfo = {
-        sys: "系统",
-        time: timeStr,
-        text: `遭遇怪物${monster},开始战斗!`,
-        color: "#67C23A",
-        ifequipment: false,
-        equipmentinfo: {},
-      };
-      store.commit("addsysinfo", sysinfo);
-      setTimeout(() => {
-        let dmg = 0;
-        if (store.state.userinfo.DPS < store.state.nowjobinfo.dpsneed) {
-          dmg = Math.round(store.state.nowjobinfo.dpsneed * (detail + 0.2));
-        } else {
-          dmg = Math.round(store.state.nowjobinfo.dpsneed * detail)-Math.round(store.state.userinfo.Armo*0.4)
-        }
-        // console.log('dmg',dmg)
-        let fightinfo = {
-          sys: "系统",
-          time: timeStr,
-          text: `遭遇怪物${monster}袭击,受到${dmg}点伤害`,
-          color: "#FF5511",
-          ifequipment: false,
-          equipmentinfo: {},
-        };
-        store.state.userinfo.NowHp -= dmg;
-        store.commit("addsysinfo", fightinfo);
-        if (store.state.userinfo.NowHp > 0) {
-          walk();
-          let list = ["weapon", "armo", "left", "right"];
-
-          if (monster == "Boss") {
-            monster = 5;
-          }
-          let item = {};
-          let ra = random(0, list.length - 1);
-
-          if (list[ra] == "weapon") {
-            item = crateWeapon(
-              store.state.nowjobinfo.lv,
-              store.state.nowjobinfo.type,
-              monster
-            );
-          } else if (list[ra] == "armo") {
-            item = crateArmo(
-              store.state.nowjobinfo.lv,
-              store.state.nowjobinfo.type,
-              monster
-            );
-          } else if (list[ra] == "left") {
-            item = crateLeft(
-              store.state.nowjobinfo.lv,
-              store.state.nowjobinfo.type,
-              monster
-            );
-          } else if (list[ra] == "right") {
-            item = crateRight(
-              store.state.nowjobinfo.lv,
-              store.state.nowjobinfo.type,
-              monster
-            );
-          }
-         
-          //   console.log('item',item)
-          let sysinfo = {
-            sys: "系统",
-            time: timeStr,
-            text: `挑战怪物${monster}成功`,
-            color: "#67C23A",
-            ifequipment: false,
-            equipmentinfo: {},
-          };
-          store.commit("addsysinfo", sysinfo);
-          let money = store.state.nowjobinfo.jobquality + Number(monster)+5;
-          let sysinfoequipment = {
-            sys: "系统",
-            time: timeStr,
-            text: `掉落装备：${item.name}，金币：${money}`,
-            color: `${item.fontcolor}`,
-            ifequipment: false,
-            equipmentinfo: {},
-          };
-          store.commit("pushbag", item);
-          store.commit("updateusermoney", money);
-          store.commit("addsysinfo", sysinfoequipment);
-          store.commit("adduserexp", dmg);
-        } else {
-          let myDate = new Date();
-          let str = myDate.toTimeString(); //"10:55:24 GMT+0800 (中国标准时间)"
-          let timeStr = str.substring(0, 8);
-          let sysinfo = {
-            sys: "系统",
-            time: timeStr,
-            text: "挑战失败,退出副本",
-            color: "#67C23A",
-            ifequipment: false,
-            equipmentinfo: {},
-          };
-          store.commit("addsysinfo", sysinfo);
-         stop()
-        }
-      }, 1000);
-    }
-    onUnmounted(() => {
-      clearInterval(timer);
-    });
-    function stopfight() {
-      store.commit("changeFightState");
-      store.commit("repeatFight", false);
-    }
+      name:'新手剑',
+      itemstate:false,
+    })
+     const store = useStore();
+     console.log(store.state)
     return {
-      state,
-      player,
-      stopfight,
-      playleft,
-      playerposition,
-      fightref,
-      fightdetail,
-    };
-  },
-};
+      store,
+      ...toRefs(state),
+    }
+  }
+}
 </script>
 
 <style lang="scss" scoped>
-.map-top {
-  position: absolute;
-  top: 0.8rem;
-  width: calc(100% - 0.3rem);
-  left: 0.15rem;
-  height: 1rem;
-  background: rgba(54, 121, 176, 0.68);
-  text-align: center;
-  font-size: 0.4rem;
-  line-height: 1rem;
-}
+  .box{
+    width: 374px;
+    box-shadow: 0 0 5px 5px rgb(0 0 0 / 70%);
+    background: rgba(0,0,0,.7);
+    border: 2px solid #fff;
+    border-radius: 6px;
+        color: #fff;
+  }
+  .box-title{
+    text-align: center;
 
-.progress-bar {
+    font-size: 18px;
+    padding: 0.2rem;
+    border-bottom: 1px solid #ccc;
+  }
+  .box-info{
+    text-align: center;
+      padding: 0.4rem;
+      font-size: 15px;
+  }
+  .box-img{
+   margin: 0 auto;
+    display: flex;
+    width: 60%;
+    justify-content: space-between;
+    align-items: center;
+   padding-bottom: 0.4rem;
+  }
+  .box-choose{
+     margin: 0 auto;
+     box-shadow: rgb(255, 255, 255) 0px 0px 7px 2px inset;
+     width: 48px;
+     height: 48px;
+     border-radius: 6px;
+   margin-bottom: 0.8rem;
+  }
+  .box-choose img{
+    margin: 6px 6px; 
+  }
+  .box-choose img:hover{
+    cursor: pointer;
+  }
+  .img {
+    // width: 30%;
+    width: 52px;
+    height: 52px;
+  box-shadow: rgb(255, 255, 255) 0px 0px 7px 2px inset;
+  border-radius: 6px;
+margin: 0 auto;
+  }
+  .img img{
+    width: 46px;
+    height: 46px;
+    margin: 3px 3px;
+  }
+  .name{
+    width: 70%;
+    text-indent: 12px;
+  }
+  .box-entry{
+    width: 80%;
+    margin: 0 auto;
+    display: flex;
+    padding:1.3rem;
+    justify-content:space-around;
+    align-items:center;
+  }
+  .old{
+    width: 45%;
+  }
+  .arror{
+    width: 20%;
+  }
+  
+  .new{
+    width: 35%;
+  }
+  .new span{
+    color: #2fe20f;
+  }
+  .box-money{
+    padding-bottom: 0.4rem;
+    text-align:center;
+  }
+  .box-money p{
+    padding-bottom: 0.4rem;
+  }
+  .box-money:deep(.el-button){
+    background-color: #000;
+    color: #fff;
+  }
+  .success span{
+     color: #2fe20f;
+  }
+  .box-auto{
+    text-align: center;
+    padding-bottom: 0.6rem;
+    padding-top: 0.6rem;
+     border-top: 1px solid #ccc;
+  }
+   .box-auto:deep(.el-button){
+    background-color: #000;
+    color: #fff;
+  }
+  .close-btn {
   position: absolute;
-  top: 40px;
-  left: 10px;
-  right: 10px;
-  border: 1px solid #fff;
+  top: 3px;
+ left: 345px;
 }
-
-.danger {
-  // text-align: center;
+.close-btn img {
+  width: 24px;
+  height: 24px;
+}
+.close-btn img:hover{
+  cursor: pointer;
+}
+.item-area{
   display: flex;
-  // justify-content:flex-end
-}
-
-.monster {
-  width: 20%;
-  text-align: right;
-}
-
-.monster img {
-  margin-right: 10px;
-  // margin: 0 10px;
-}
-
-.player {
-  z-index: 2;
-  height: 48px;
-  width: 32px;
-  background-repeat: no-repeat;
-  background: url(../../assets/icons/map/player-s.png);
-  position: absolute;
-  top: -6px;
-}
-
-.final-fight {
-  margin-top: 1rem;
-}
-
-.final-fight:deep(.el-button) {
-  color: #fff !important;
-  --el-button-hover-text-color: none;
-  --el-button-hover-bg-color: none;
-  --el-button-hover-border-color: none;
-  background-color: #000;
 }
 </style>

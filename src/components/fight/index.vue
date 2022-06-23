@@ -37,7 +37,7 @@ import crateWeapon from "../../assets/config/weaponconfig";
 import crateArmo from "../../assets/config/armoconifg";
 import crateLeft from "../../assets/config/leftconfig";
 import crateRight from "../../assets/config/rightconfig";
-import {setTimer,clearTimer} from "../../assets/work/work" 
+import { setTimer, clearTimer } from "../../assets/work/work";
 function add() {
   var args = arguments, //获取所有的参数
     lens = args.length, //获取参数的长度
@@ -70,7 +70,6 @@ function random(lower, upper) {
 }
 export default {
   setup() {
-   
     const state = reactive({
       icons: {
         normal: "monster",
@@ -100,8 +99,7 @@ export default {
       (newval, oldval) => {
         if (newval) {
           state.show = true;
-           timer =setTimer(walk,10)
-          // walk();
+          timer = setTimer(walk, 10);
         } else {
           state.show = false;
         }
@@ -111,7 +109,7 @@ export default {
     watch(
       getShowHp,
       (newval, oldval) => {
-        if (newval <= 0 ) {
+        if (newval <= 0) {
           stopfight();
           let myDate = new Date();
           let str = myDate.toTimeString(); //"10:55:24 GMT+0800 (中国标准时间)"
@@ -128,10 +126,10 @@ export default {
           store.commit("addsysinfo", sysinfo);
         }
       },
-      { immediate: true,deep:true }
+      { immediate: true, deep: true }
     );
     function walk() {
-       changeleft(0.5);
+      changeleft(0.5);
       changewalk();
     }
 
@@ -143,30 +141,41 @@ export default {
       if (left.value <= 100) {
         playleft.value = left.value + "%";
         if (left.value === 16) {
-          clearTimer(timer);
-
-          fightdetail("1", 0.6);
+          if (state.show) {
+            clearTimer(timer);
+            fightdetail("1", 0.6);
+          }
         } else if (left.value == 36) {
-          clearTimer(timer);
-          fightdetail("2", 0.8);
+          if (state.show) {
+            clearTimer(timer);
+            fightdetail("2", 0.8);
+          }
+          // clearTimer(timer);
         } else if (left.value == 56) {
-          clearTimer(timer);
-
-          fightdetail("3", 1);
+          if (state.show) {
+            clearTimer(timer);
+            fightdetail("3", 1);
+          }
+          // clearTimer(timer);
         } else if (left.value == 76) {
-          clearTimer(timer);
-
-          fightdetail("4", 1.2);
+          if (state.show) {
+            clearTimer(timer);
+            fightdetail("4", 1.2);
+          }
+          // clearTimer(timer);
         } else if (left.value == 96) {
-          clearTimer(timer);
-          fightdetail("5", 1.6);
+          if (state.show) {
+            clearTimer(timer);
+            fightdetail("5", 1.6);
+          }
+          // clearTimer(timer);
         }
       } else {
         clearTimer(timer);
         left.value = 0;
         playleft.value = "0%";
         if (store.state.userinfo.NowHp > 0 && store.state.repeatfight) {
-           timer =setTimer(walk,10)
+          timer = setTimer(walk, 10);
         } else {
           stopfight();
         }
@@ -192,22 +201,24 @@ export default {
         sys: "系统",
         time: timeStr,
         text: `遭遇怪物${monster},开始战斗!`,
-        color: "#67C23A",
+        color: "#ffffff",
         ifequipment: false,
         equipmentinfo: {},
       };
       store.commit("addsysinfo", sysinfo);
-      let t=setTimeout(() => {
+      let t = setTimeout(() => {
         let dmg = 0;
         if (store.state.userinfo.DPS < store.state.nowjobinfo.dpsneed) {
           dmg = Math.round(store.state.nowjobinfo.dpsneed * (detail + 0.2));
         } else {
-          dmg = Math.round(store.state.nowjobinfo.dpsneed * detail)-Math.round(store.state.userinfo.Armo*0.4)
+          dmg =
+            Math.round(store.state.nowjobinfo.dpsneed * detail) -
+            Math.round(store.state.userinfo.Armo * 0.4);
         }
         let fightinfo = {
           sys: "系统",
           time: timeStr,
-          text: `遭遇怪物${monster}袭击,受到${dmg}点伤害`,
+          text: `遭受怪物${monster}攻击,受到${dmg}点伤害`,
           color: "#FF5511",
           ifequipment: false,
           equipmentinfo: {},
@@ -215,7 +226,7 @@ export default {
         store.state.userinfo.NowHp -= dmg;
         store.commit("addsysinfo", fightinfo);
         if (store.state.userinfo.NowHp > 0) {
-          timer =setTimer(walk,10)  
+          timer = setTimer(walk, 10);
           let list = ["weapon", "armo", "left", "right"];
 
           if (monster == "Boss") {
@@ -267,15 +278,14 @@ export default {
             ifequipment: false,
             equipmentinfo: {},
           };
-         
+
           store.commit("pushbag", item);
           store.commit("addsysinfo", sysinfoequipment);
           store.commit("adduserexp", dmg);
-           if(store.state.sealGroup.length>0){
-             store.commit('sealauto',item)
+          if (store.state.sealGroup.length > 0) {
+            store.commit("sealauto", item);
           }
-        } 
-        else {
+        } else {
           let myDate = new Date();
           let str = myDate.toTimeString(); //"10:55:24 GMT+0800 (中国标准时间)"
           let timeStr = str.substring(0, 8);
@@ -288,17 +298,16 @@ export default {
             equipmentinfo: {},
           };
           store.commit("addsysinfo", sysinfo);
-         stopfight();
-         clearTimeout(t)
+          stopfight();
+          clearTimeout(t);
         }
-      }, 1000);
-      
+      }, 2000);
     }
     onUnmounted(() => {
       clearTimer(timer);
     });
     function stopfight() {
-       clearTimer(timer);
+      clearTimer(timer);
       store.commit("changeFightState");
       store.commit("repeatFight", false);
     }

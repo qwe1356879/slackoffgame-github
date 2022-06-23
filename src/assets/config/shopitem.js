@@ -27,13 +27,13 @@ let createShopItem = function (number, level) {
   }
   for(let x=0;x<items.length;x++){
     if(items[x].type=='武器'){
-      items[x].imgurl = 'weapon/'+items[x].imgurl
+      items[x].imgurla = 'weapon/'+items[x].imgurl
     }else if(items[x].type=='护甲'){
-      items[x].imgurl = 'armo/'+items[x].imgurl
+      items[x].imgurla = 'armo/'+items[x].imgurl
     }else if(items[x].type=='耳环'){
-      items[x].imgurl = 'right/'+items[x].imgurl
+      items[x].imgurla= 'right/'+items[x].imgurl
     }else if(items[x].type=='首饰'){
-      items[x].imgurl = 'left/'+items[x].imgurl
+      items[x].imgurla = 'left/'+items[x].imgurl
     }
   }
   return items;

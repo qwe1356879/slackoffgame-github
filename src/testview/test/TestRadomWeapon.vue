@@ -62,7 +62,9 @@
 <script>
 import { reactive, toRefs,onMounted } from 'vue'
 import crateWeapon from '../../assets/config/weaponconfig'
-
+import crateLeft from '../../assets/config/leftconfig'
+import crateRight from '../../assets/config/rightconfig'
+import crateArmo from '../../assets/config/armoconifg'
 export default {
    
     setup () {
@@ -76,35 +78,38 @@ export default {
             list:[]
         })
          function create(){
-             weaponitem.weapon = crateWeapon(60,'N',1)
+            //  weaponitem.weapon = crateLeft(1,'SP',1)
             
-            //  weaponitem.list=[]
-            // var n=0,r=0,sr=0,ssr=0,sp=0
-            //  for(let i=0;i<10;i++){
-            // weaponitem.weapon = crateWeapon(1,'N',5)
-                   
-            //  weaponitem.list.push(crateWeapon(1,'N',5))
-         
-            //  }
-            //  for(let j=0;j<weaponitem.list.length;j++){
-            //      if(weaponitem.list[j].qualityname=='N'){
-            //            n+=1
-            //      }else if(weaponitem.list[j].qualityname=='R'){
-            //             r+=1
-            //      }else if(weaponitem.list[j].qualityname=='SR'){
-            //             sr+=1
-            //      }else if(weaponitem.list[j].qualityname=='SSR'){
-            //             ssr+=1
-            //      }else if(weaponitem.list[j].qualityname=='SP'){
-            //          sp+=1
-            //      }
-            //  }
-            //  console.log('10次难度1级副本最终BOSS掉落武器样本')
-            //  console.log('N:',n)
-            //  console.log('R:',r)
-            //  console.log('SR:',sr)
-            //  console.log('SSR:',ssr)
-            //  console.log('SP:',sp)
+             weaponitem.list=[]
+            var n=0,r=0,sr=0,ssr=0,sp=0
+             for(let i=0;i<10;i++){
+            //  weaponitem.weapon = crateWeapon(1,'N',5)
+             weaponitem.list.push(crateWeapon(3,'N',1))
+             }
+             for(let j=0;j<weaponitem.list.length;j++){
+                 if(weaponitem.list[j].qualityname=='N'){
+                       n+=1
+                 }else if(weaponitem.list[j].qualityname=='R'){
+                        r+=1
+                 }else if(weaponitem.list[j].qualityname=='SR'){
+                        sr+=1
+                 }else if(weaponitem.list[j].qualityname=='SSR'){
+                        ssr+=1
+                 }else if(weaponitem.list[j].qualityname=='SP'){
+                     sp+=1
+                 }
+             }
+             console.log('-----------------------------')
+             console.log('N:',(n/10)*100+"%")
+              console.log('-----------------------------')
+             console.log('R:',(r/10)*100+"%")
+              console.log('-----------------------------')
+             console.log('SR:',(sr/10)*100+"%")
+              console.log('-----------------------------')
+             console.log('SSR:',(ssr/10)*100+"%")
+              console.log('-----------------------------')
+             console.log('SP:',(sp/10)*100+"%")
+              console.log('-----------------------------')
         }
 
         return {

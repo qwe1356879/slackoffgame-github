@@ -51,7 +51,8 @@ const state = {
   guideDrawer:false,
   repeatfight: false,
   sealGroup:[],
-  shopGold:0
+  shopGold:0,
+  Strength:false,
 };
 //创建actions
 const actions = {};
@@ -267,6 +268,7 @@ const mutations = {
   changeFightState(state) {
     state.showfight = !state.showfight;
   },
+  //商店显示逻辑
   changeShowShop(state) {
     state.showShop = !state.showShop;
   },
@@ -352,6 +354,7 @@ const mutations = {
       }
     }, 1000);
   },
+  //背包显示状态
   changeShowBag(state) {
     state.showBag = !state.showBag;
   },
@@ -1301,8 +1304,9 @@ const mutations = {
     state.userinfo.exp+=data
     if(state.userinfo.exp>=state.userinfo.needexp){
       state.userinfo.Lv+=1;
-      state.userinfo.Atk+=5;
-      state.userinfo.MaxHp+=10
+      state.userinfo.Atk+=2;
+      state.userinfo.MaxHp+=5
+      state.userinfo.Armo+=1
       state.userinfo.exp=0;
       state.userinfo.needexp+=Math.round(state.userinfo.needexp/2)
       this.commit('saveuserdata')
@@ -1327,6 +1331,10 @@ const mutations = {
   //计算人物战斗力
   computeduserdps(state){
     state.userinfo.DPS=Math.round(state.userinfo.Atk*(state.userinfo.Cridt/100)*(state.userinfo.CridtDmg)+state.userinfo.MaxHp*0.2)
+  },
+  //强化装备
+  changeShowStrength(state){
+    state.Strength=!state.Strength
   }
 };
 

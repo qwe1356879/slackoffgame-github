@@ -49,7 +49,7 @@
             <el-divider />
         </div>
          <div class="price">
-            <p>售价:{{shopdata.price*10}}金</p>
+            <p>售价:{{shopdata.price*50}}金</p>
         </div>
         </div>
         <div>
