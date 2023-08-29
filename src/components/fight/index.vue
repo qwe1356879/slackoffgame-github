@@ -109,12 +109,14 @@ export default {
     watch(
       getShowHp,
       (newval, oldval) => {
+        debugger
         if (newval <= 0) {
           stopfight();
           let myDate = new Date();
-          let str = myDate.toTimeString(); //"10:55:24 GMT+0800 (中国标准时间)"
+          let str = myDate.toTimeString(); //
           let timeStr = str.substring(0, 8);
           store.state.userinfo.NowHp = 0;
+         
           let sysinfo = {
             sys: "系统",
             time: timeStr,

@@ -1,5 +1,5 @@
 
-
+import { generateRandomString } from "tool-assistant";
 function randomString(length, chars) {
     var result = '';
     for (var i = length; i > 0; --i) result += chars[Math.floor(Math.random() * chars.length)];
@@ -22,7 +22,7 @@ let userinfo = {
     equipments: [
         {
             weapon:{
-                name: 'SP-新手剑',
+                name: '新手剑',
                 type: '武器',
                 intro: '这是一把新手武器，好像有点用，拿着吧!',
                 dmg: 1,//基础词条个数
@@ -50,7 +50,7 @@ let userinfo = {
         },
         {
             armo: {
-                name: 'SP-新手护甲',
+                name: '新手护甲',
                 type: '护甲',
                 intro: '传说穿着它就能抵御怪物袭击',
                 dmg: 1,//基础词条个数
@@ -78,7 +78,7 @@ let userinfo = {
         },
         {
             left:{
-                name: 'SP-新手首饰',
+                name: '新手首饰',
                 type: '首饰',
                 intro: '新手套装之一',
                 dmg: 1,//基础词条个数
@@ -106,7 +106,7 @@ let userinfo = {
         },
         {
             right: {
-                name: 'SP-新手耳环',
+                name: '新手耳环',
                 type: '耳环',
                 intro: '新手套装之一',
                 dmg: 1,//基础词条个数
@@ -135,7 +135,8 @@ let userinfo = {
     ],
     bag:[],
     baglength:20,
-    key: randomString(8, '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'),
+    // key: randomString(8, '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'),
+    key:generateRandomString(8),
     exp:0,
     needexp:100,
 }

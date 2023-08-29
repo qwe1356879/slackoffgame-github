@@ -16,10 +16,10 @@
       <el-tooltip effect="dark" placement="bottom">
         <template #content>
           <div class="tip-img"><img src='/icons/tips.png' /></div>
-          <p> * 角色转身次数</p>
+          <p> * 角色转生次数</p>
         </template>
         <div class="zs">
-          转身次数:{{ store.state.userinfo.NextLife }}
+          转生次数:{{ store.state.userinfo.NextLife }}
         </div>
       </el-tooltip>
 

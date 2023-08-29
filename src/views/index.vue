@@ -166,6 +166,7 @@ export default {
       store.commit("createjoblist", data);
       state.joblist = store.state.joblist;
     });
+    //刷新任务
     function refreshjob() {
       let time = store.state.refreshjobtime;
       if (time >= 1 && time < 5) {
