@@ -8,7 +8,7 @@
         <p class="detail">
             当前副本难度等级:{{ jobinfo.job.type }}
         </p>
-        <p v-for="info in infolist" class="info-list">
+        <p v-for="info,index in infolist" :key="index" class="info-list">
             {{ info }}
         </p>
         <img src='/icons/close.png' @click="closedialog" />

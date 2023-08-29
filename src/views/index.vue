@@ -22,7 +22,8 @@
 
         <div
           class="job-div"
-          v-for="di in joblist"
+          v-for="(di, index) in joblist"
+          :key="index"
           :style="di.style"
           v-else
           @click="showdialog(di)"
@@ -35,13 +36,13 @@
           </div>
           <p class="job-p">lv{{ di.lv }}</p>
         </div>
-        <opendialog ref="mydialog" ></opendialog>
+        <opendialog ref="mydialog"></opendialog>
       </div>
 
       <div class="menu">
         <mymenu @refreshjob="refreshjob"></mymenu>
       </div>
-      
+
       <updateDrawer></updateDrawer>
       <gudieDrawer></gudieDrawer>
     </div>
@@ -58,22 +59,22 @@ import {
   watch,
   onBeforeMount,
 } from "vue";
-import userlevel from "../components/userdetail/userlevel.vue";
-import userdetail from "../components/userdetail/userdetail.vue";
-import sysinfo from "../components/sys/sysinfo.vue";
-import mymenu from "../components/menu/index.vue";
-import { createJob, getDIVsize } from "../assets/config/monsterconfig";
-import opendialog from "../components/opendialog/index.vue";
-import myfooter from "../components/footer/index.vue";
-import userinfo from "../assets/config/userinfo";
+import userlevel from "@/components/userdetail/userlevel.vue";
+import userdetail from "@/components/userdetail/userdetail.vue";
+import sysinfo from "@/components/sys/sysinfo.vue";
+import mymenu from "@/components/menu/index.vue";
+import { createJob, getDIVsize } from "@/assets/config/monsterconfig";
+import opendialog from "@/components/opendialog/index.vue";
+import myfooter from "@/components/footer/index.vue";
+import userinfo from "@/assets/config/userinfo";
 import { useStore } from "vuex";
-import fight from "../components/fight/index.vue";
+import fight from "@/components/fight/index.vue";
 import { ElNotification } from "element-plus";
-import Bag from "../components/bag/index.vue";
-import Shop from "../components/shop/index.vue";
-import updateDrawer from "../components/updatedrawer/index.vue"
-import gudieDrawer from "../components/gudie/index.vue"
-import Strength from "../components/strengthequipment/index.vue"
+import Bag from "@/components/bag/index.vue";
+import Shop from "@/components/shop/index.vue";
+import updateDrawer from "@/components/updatedrawer/index.vue";
+import gudieDrawer from "@/components/gudie/index.vue";
+import Strength from "@/components/strengthequipment/index.vue";
 export default {
   components: {
     userlevel,
@@ -87,7 +88,7 @@ export default {
     Shop,
     updateDrawer,
     gudieDrawer,
-    Strength
+    Strength,
   },
   setup() {
     const store = useStore();
@@ -95,10 +96,10 @@ export default {
       joblist: [],
       jobinfo: {},
       show: false,
-      showShop:false,
-      showStrength:false,
+      showShop: false,
+      showStrength: false,
     });
-    
+
     const backmaap = ref(null);
     const mydialog = ref(null);
     const getShowHp = computed(() => {
@@ -113,25 +114,25 @@ export default {
       //返回的是ref对象
       return store.state.joblist;
     });
-    const getShowShop= computed(() => {
+    const getShowShop = computed(() => {
       //返回的是ref对象
       return store.state.showShop;
     });
-    const getShowStr= computed(() => {
+    const getShowStr = computed(() => {
       //返回的是ref对象
       return store.state.Strength;
     });
-     watch(
+    watch(
       getShowStr,
       (newval, oldval) => {
-        state.showStrength=newval
+        state.showStrength = newval;
       },
       { immediate: true, deep: true }
     );
     watch(
       getShowShop,
       (newval, oldval) => {
-        state.showShop=newval
+        state.showShop = newval;
       },
       { immediate: true, deep: true }
     );
@@ -147,7 +148,6 @@ export default {
     watch(
       getShowTask,
       (newval, oldval) => {
-      
         state.show = newval;
       },
       { deep: true }
@@ -241,5 +241,4 @@ export default {
   top: 35%;
   left: 22%;
 }
-
 </style>

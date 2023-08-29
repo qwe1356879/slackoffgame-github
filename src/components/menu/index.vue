@@ -1,7 +1,7 @@
 <template>
 
     <div class="mainmenu">
-        <div class="item" v-for="i in itemlist" @click="menuop(i.key)">
+        <div class="item" v-for="i,index in itemlist" :key="index" @click="menuop(i.key)">
             <el-tooltip placement="top">
                 <template #content>
                     <p v-for="t in i.toollip" :key="t">{{ t }}</p>
@@ -14,7 +14,9 @@
     </div>
 
     <el-dialog v-model="datadialog" title="导出存档数据" width="30%" center draggable>
-        <span>{{ datacode }}</span>
+        <div style="height: 300px;overflow-y: scroll;">
+            <p class="datacode">{{ datacode }}</p>
+        </div>
         <template #footer>
             <span class="dialog-footer">
                 <el-button @click="copy" type="primary">一键复制</el-button>
@@ -151,5 +153,9 @@ export default {
 
 ::v-deep(.el-message) {
     min-width: none !important;
+}
+
+.datacode{
+    word-break: break-all;
 }
 </style>
